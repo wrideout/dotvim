@@ -8,6 +8,7 @@ so ~/.vim/plugin/NERD_commenter.vim
 so ~/.vim/plugin/taglist.vim
 so ~/.vim/plugin/TagmaTasks.vim
 so ~/.vim/plugin/unimpaired.vim
+so ~/.vim/plugin/matchit.vim
 
 " Set the working directory, for when VIM is opned, and change the working
 " directory when the file that is being edited changes
@@ -101,7 +102,7 @@ set hidden
 "  :20  :  up to 20 lines of command-line history will be remembered
 "  %    :  saves and restores the buffer list
 "  n... :  where to save the viminfo files
-set viminfo='10,\"100,:20,%,n~/.viminfo
+set viminfo='100,f1,<100,:50,/50,h,%,n~/.viminfo
 
 " Show the current line as highlighted
 set cursorline
@@ -147,6 +148,8 @@ nmap <silent> <leader>lm :TagmaTaskMarks<CR>
 " of the '[e' and ']e' shortcuts of the unimpaired.vim plugin.
 nmap J ]e
 nmap K [e
+nmap <C-j> ]egv
+nmap <C-k> [egv
 
 " Close vim if NERDTree is the only open buffer
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
