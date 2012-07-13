@@ -9,6 +9,7 @@ so ~/.vim/plugin/taglist.vim
 so ~/.vim/plugin/TagmaTasks.vim
 so ~/.vim/plugin/unimpaired.vim
 so ~/.vim/plugin/matchit.vim
+so ~/.vim/plugin/snipMate.vim
 
 " Set the working directory, for when VIM is opned, and change the working
 " directory when the file that is being edited changes
