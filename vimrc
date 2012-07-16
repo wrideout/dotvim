@@ -1,3 +1,16 @@
+" vimrc
+"
+" In order to work, be sure to make a hard link from this file to ~/.vimrc.
+" This link allows for the .vim directory to be used as a git repository, for
+" easy changes and updates.  Alternatively, if you don't care to use git, you
+" could just make this file your ~/.vimrc.  
+"
+" Be sure to look up all the plugins that are listed, they are what make this
+" powerful in some cases.  Besides, the tools they define are well worth looking
+" into.
+"
+" William Rideout
+
 " Let vim know about the plugins we want to use
 so ~/.vim/plugin/autoclose.vim
 so ~/.vim/plugin/a.vim
