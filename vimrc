@@ -60,7 +60,6 @@ filetype plugin on
 " Custom tabs for Makefiles
 autocmd FileType Makefile setlocal noexpandtab
 
-" The following lines are for syntax highlighting
 " Specific Arduino highlighting
 "autocmd! BufNewFile,BufRead *.pde setlocal ft=arduino
 "autocmd! BufNewFile,BufRead *.ino setlocal ft=arduino
@@ -149,8 +148,6 @@ nmap <silent> <leader>lm :TagmaTaskMarks<CR>
 " of the '[e' and ']e' shortcuts of the unimpaired.vim plugin.
 nmap J ]e
 nmap K [e
-nmap <C-j> ]egv
-nmap <C-k> [egv
 
 " Close vim if NERDTree is the only open buffer
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
