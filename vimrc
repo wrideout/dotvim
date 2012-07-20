@@ -23,6 +23,7 @@ so ~/.vim/plugin/TagmaTasks.vim
 so ~/.vim/plugin/unimpaired.vim
 so ~/.vim/plugin/matchit.vim
 so ~/.vim/plugin/snipMate.vim
+so ~/.vim/plugin/indent_guides.vim
 
 " Set the working directory, for when VIM is opned, and change the working
 " directory when the file that is being edited changes
@@ -138,8 +139,15 @@ set backup
 set comments=s0:*\ -,m0:*\ \ ,ex0:*/,s1:/*,mb:*,ex:*/,://
 set formatoptions+=croql
 
+" Mark invisible characters in the same manner as TextMate
+"set listchars=tab:\|\ 
+
 " Change the leader key for user-defined commands to ','
 let mapleader = ","
+
+" Change the start level and size of indentation guides
+let g:indent_guides_start_level=2
+let g:indent_guides_guide_size=1
 
 " Define some shortcuts for plugins
 "
@@ -149,6 +157,7 @@ nmap <silent> <leader>c :call NERDComment(0, "invert")<CR>
 nmap <silent> <leader>f :NERDTreeToggle<CR>
 nmap <silent> <leader>t :TlistToggle<CR>
 nmap <silent> <leader>l :TagmaTaskToggle<CR>
+nmap <silent> <leader>i :IndentGuidesToggle<CR>
 
 " These commands are remapped versions of the TagmaTasks commands.  The
 " remapping if to match the command to toggle the tasks window, as defined
