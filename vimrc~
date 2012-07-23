@@ -35,24 +35,11 @@ set t_Co=256
 " Turn on syntax highlighting, and use the specified colorscheme
 syntax on
 colorscheme jellybeans
-set background=dark
 
 " Set line numbers and show the position of the cursor at the bottom of the
 " window
 set ruler
 set number
-
-
-if condition
-    " cod
-    if condition
-        " code
-       for needle in haystack
-            " code
-        endfor
-    endif
-endif
-
 
 " Set the number of spaces that a tab represents
 set tabstop=4
@@ -161,10 +148,6 @@ let mapleader = ","
 " Change the start level and size of indentation guides
 let g:indent_guides_start_level=2
 let g:indent_guides_guide_size=1
-
-" Change the color of the indentation guides
-hi IndentGuidesEven ctermbg=darkgrey
-hi IndentGuidesOdd ctermbg=darkgrey
 
 " Define some shortcuts for plugins
 "

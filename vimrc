@@ -153,18 +153,18 @@ let g:indent_guides_guide_size=1
 "
 " The following commands are for opening side windows for tags lists, file
 " lists, tasks lists.
-nmap <silent> <leader>c :call NERDComment(0, "invert")<CR>
-nmap <silent> <leader>f :NERDTreeToggle<CR>
-nmap <silent> <leader>t :TlistToggle<CR>
-nmap <silent> <leader>l :TagmaTaskToggle<CR>
-nmap <silent> <leader>i :IndentGuidesToggle<CR>
+nmap <leader>c :call NERDComment(0, "invert")<CR>
+nmap <leader>f :NERDTreeToggle<CR>
+nmap <leader>t :TlistToggle<CR>
+nmap <leader>l :TagmaTaskToggle<CR>
+nmap <leader>i :IndentGuidesToggle<CR>
 
 " These commands are remapped versions of the TagmaTasks commands.  The
 " remapping if to match the command to toggle the tasks window, as defined
 " above.
-nmap <silent> <leader>lt :TagmaTasks<CR>
-nmap <silent> <leader>lc :TagmaTaskClear<CR>
-nmap <silent> <leader>lm :TagmaTaskMarks<CR>
+nmap <leader>lt :TagmaTasks<CR>
+nmap <leader>lc :TagmaTaskClear<CR>
+nmap <leader>lm :TagmaTaskMarks<CR>
 
 " Shortcuts to move an entire line up or down.  This is  basically a remapping
 " of the '[e' and ']e' shortcuts of the unimpaired.vim plugin.
