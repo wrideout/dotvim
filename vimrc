@@ -63,9 +63,9 @@ nmap K [e
 if has ('cscope')
     set cscopetag cscopeverbose
 
-    if has ('quickfix')
-        set cscopequickfix=s-,c-,d-,i-,t-,e-
-    endif
+    "if has ('quickfix')
+        "set cscopequickfix=s-,c-,d-,i-,t-,e-
+    "endif
    
     " Abbreviations to make using cscope in vim easier
     cnoreabbrev <expr> csa
