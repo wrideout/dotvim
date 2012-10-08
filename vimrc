@@ -26,6 +26,7 @@ so ~/.vim/plugin/TagmaTasks.vim
 so ~/.vim/plugin/unimpaired.vim
 so ~/.vim/plugin/matchit.vim
 so ~/.vim/plugin/snipMate.vim
+so ~/.vim/plugin/cscope_maps.vim
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Define some shortcuts for plugins
