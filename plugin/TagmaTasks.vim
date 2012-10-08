@@ -51,7 +51,7 @@ call s:SetDefault('g:TagmaTasksOpen',       1)
 call s:SetDefault('g:TagmaTasksPrefix',     '<Leader>t')
 
 " Task Tokens to search for.
-call s:SetDefault('g:TagmaTasksTokens',     ['FIXME', 'TODO', 'NOTE', 'XXX', 'COMBAK'])
+call s:SetDefault('g:TagmaTasksTokens',     ['FIXME', 'TODO', 'NOTE', 'XXX', 'COMBAK', 'WHR'])
 
 " No need for the function any longer.
 delfunction s:SetDefault
@@ -100,4 +100,5 @@ sign define TagmaTaskFIXME  text=TF     texthl=Error
 sign define TagmaTaskTODO   text=TT     texthl=Search
 sign define TagmaTaskNOTE   text=TN     texthl=Search
 sign define TagmaTaskXXX    text=TX     texthl=Normal
+sign define TagmaTaskWHR    text=TW     texthl=Normal
 sign define TagmaTaskOTHER  text=T=     texthl=Normal

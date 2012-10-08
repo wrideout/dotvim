@@ -11,6 +11,9 @@
 "
 " William Rideout
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugins
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Let vim know about the plugins we want to use
 so ~/.vim/plugin/autoclose.vim
 so ~/.vim/plugin/a.vim
@@ -23,8 +26,78 @@ so ~/.vim/plugin/TagmaTasks.vim
 so ~/.vim/plugin/unimpaired.vim
 so ~/.vim/plugin/matchit.vim
 so ~/.vim/plugin/snipMate.vim
-so ~/.vim/plugin/indent_guides.vim
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Define some shortcuts for plugins
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Change the leader key for user-defined commands to ','
+let mapleader = ","
+
+" The following commands are for opening side windows for tags lists, file
+" lists, tasks lists.
+nmap <leader>c :call NERDComment(0, "invert")<CR>
+nmap <leader>f :NERDTreeToggle<CR>
+nmap <leader>t :TlistToggle<CR>
+nmap <leader>l :TagmaTaskToggle<CR>
+
+" These commands are remapped versions of the TagmaTasks commands.  The
+" remapping if to match the command to toggle the tasks window, as defined
+" above.
+nmap <leader>lt :TagmaTasks<CR>
+nmap <leader>lc :TagmaTaskClear<CR>
+nmap <leader>lm :TagmaTaskMarks<CR>
+
+" Shortcuts to move an entire line up or down.  This is  basically a remapping
+" of the '[e' and ']e' shortcuts of the unimpaired.vim plugin.
+nmap J ]e
+nmap K [e
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" CScope and CTags
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Tell Vim where to look for tags files
+":set tags=./tags,./../tags,./../../tags,./../../../tags,tags
+"set tags=./tagsco/
+
+" Set up vim to use cscope more efficiently
+if has ('cscope')
+    set cscopetag cscopeverbose
+
+    if has ('quickfix')
+        set cscopequickfix=s-,c-,d-,i-,t-,e-
+    endif
+   
+    " Abbreviations to make using cscope in vim easier
+    cnoreabbrev <expr> csa
+        \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs add'  : 'csa')
+    cnoreabbrev <expr> csf
+        \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs find' : 'csf')
+    cnoreabbrev <expr> csk
+        \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs kill' : 'csk')
+    cnoreabbrev <expr> csr
+        \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs reset' : 'csr')
+    cnoreabbrev <expr> css
+        \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs show' : 'css')
+    cnoreabbrev <expr> csh
+        \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs help' : 'csh')
+
+    " Automatically load the cscope database
+    function! LoadCscope()
+        let db = findfile("cscope.out", ".;")
+        if (!empty(db))
+            let path = strpart(db, 0, match(db, "/cscope.out$"))
+            set nocscopeverbose " suppress 'duplicate connection' error
+            exe "cs add " . db . " " . path
+            set cscopeverbose
+        endif
+    endfunction
+    au BufEnter /* call LoadCscope()
+                          
+endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Environment Settings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set the working directory, for when VIM is opned, and change the working
 " directory when the file that is being edited changes
 set autochdir
@@ -127,9 +200,6 @@ set cursorline
 ":au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
 set colorcolumn=81
 
-" Tell Vim where to look for tags files
-":set tags=./tags,./../tags,./../../tags,./../../../tags,tags
-set tags=./tags;/
 
 " Backup the file being worked on... the format is '~filename'
 set backup
@@ -138,38 +208,6 @@ set backup
 " style
 set comments=s0:*\ -,m0:*\ \ ,ex0:*/,s1:/*,mb:*,ex:*/,://
 set formatoptions+=croql
-
-" Mark invisible characters in the same manner as TextMate
-"set listchars=tab:\|\ 
-
-" Change the leader key for user-defined commands to ','
-let mapleader = ","
-
-" Change the start level and size of indentation guides
-let g:indent_guides_start_level=2
-let g:indent_guides_guide_size=1
-
-" Define some shortcuts for plugins
-"
-" The following commands are for opening side windows for tags lists, file
-" lists, tasks lists.
-nmap <leader>c :call NERDComment(0, "invert")<CR>
-nmap <leader>f :NERDTreeToggle<CR>
-nmap <leader>t :TlistToggle<CR>
-nmap <leader>l :TagmaTaskToggle<CR>
-nmap <leader>i :IndentGuidesToggle<CR>
-
-" These commands are remapped versions of the TagmaTasks commands.  The
-" remapping if to match the command to toggle the tasks window, as defined
-" above.
-nmap <leader>lt :TagmaTasks<CR>
-nmap <leader>lc :TagmaTaskClear<CR>
-nmap <leader>lm :TagmaTaskMarks<CR>
-
-" Shortcuts to move an entire line up or down.  This is  basically a remapping
-" of the '[e' and ']e' shortcuts of the unimpaired.vim plugin.
-nmap J ]e
-nmap K [e
 
 " Close vim if NERDTree is the only open buffer
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif

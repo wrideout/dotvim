@@ -96,8 +96,8 @@ endif
 
 " Section: Task Marks {{{1
 " Create the Marks (signs) used to mark tasks.
-sign define TagmaTaskFIXME  text=[F]     texthl=Error
-sign define TagmaTaskTODO   text=[T]    texthl=Search
-sign define TagmaTaskNOTE   text=[N]     texthl=Search
-sign define TagmaTaskXXX    text=[x]     texthl=Normal
-sign define TagmaTaskOTHER  text=[=]     texthl=Normal
+sign define TagmaTaskFIXME  text=TF     texthl=Error
+sign define TagmaTaskTODO   text=TT     texthl=Search
+sign define TagmaTaskNOTE   text=TN     texthl=Search
+sign define TagmaTaskXXX    text=TX     texthl=Normal
+sign define TagmaTaskOTHER  text=T=     texthl=Normal
