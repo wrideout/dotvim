@@ -37,6 +37,7 @@ let mapleader = ","
 " The following commands are for opening side windows for tags lists, file
 " lists, tasks lists.
 nmap <leader>c :call NERDComment(0, "invert")<CR>
+vmap <leader>c :call NERDComment(0, "invert")<CR>
 nmap <leader>f :NERDTreeToggle<CR>
 nmap <leader>t :TlistToggle<CR>
 nmap <leader>l :TagmaTaskToggle<CR>
@@ -50,7 +51,7 @@ nmap <leader>lm :TagmaTaskMarks<CR>
 
 " Shortcuts to move an entire line up or down.  This is  basically a remapping
 " of the '[e' and ']e' shortcuts of the unimpaired.vim plugin.
-nmap J ]e
+nmap J ]e 
 nmap K [e
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -145,8 +146,9 @@ set bs=2
 " This option turns on filetyping
 filetype plugin on
 
-" Custom tabs for Makefiles
+" Custom tabs for Makefiles and .snippet files
 autocmd FileType Makefile setlocal noexpandtab
+autocmd FileType snippet setlocal noexpandtab
 
 " Specific Arduino highlighting
 "autocmd! BufNewFile,BufRead *.pde setlocal ft=arduino
@@ -168,7 +170,7 @@ set scrolloff=2
 set textwidth=80
 "set formatoptions+=ta
 
-" Set the number of tenths of a second to blink the cursor
+" Set the number of tenths of a second to blink the cursor, just because we can
 set mat=8
 
 " Show (partial) command in the last line of the screen
@@ -183,6 +185,9 @@ set history=10000
 
 " Allow vim to manage multiple buffers effectively
 set hidden
+
+" Always open new windows on the right side of the main buffer
+set splitright
 
 " Tell vim to remember certain things when we exit
 "  '10  :  marks will be remembered for up to 10 previously edited files
