@@ -16,6 +16,8 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Let vim know about the plugins we want to use
 so ~/.vim/plugin/autoclose.vim
+"so ~/.vim/plugin/delimitMate.vim
+so ~/.vim/plugin/supertab.vim
 so ~/.vim/plugin/a.vim
 so ~/.vim/plugin/repeat.vim
 so ~/.vim/plugin/surround.vim
