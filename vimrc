@@ -15,8 +15,8 @@
 " Plugins
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Let vim know about the plugins we want to use
-so ~/.vim/plugin/autoclose.vim
-"so ~/.vim/plugin/delimitMate.vim
+"so ~/.vim/plugin/autoclose.vim
+so ~/.vim/plugin/delimitMate.vim
 so ~/.vim/plugin/supertab.vim
 so ~/.vim/plugin/a.vim
 so ~/.vim/plugin/repeat.vim
@@ -36,10 +36,15 @@ so ~/.vim/plugin/cscope_maps.vim
 " Change the leader key for user-defined commands to ','
 let mapleader = ","
 
-" The following commands are for opening side windows for tags lists, file
-" lists, tasks lists.
+" FIXME: For some reason or another, NERDComment insists on using the default 
+" mapleader, "\".  Therefore, if you wish to use any of the featres of this
+" plugin with the mapleader defined above, you will need to map them here and 
+" not rely on the NERDCommenter.
 nmap <leader>c :call NERDComment(0, "invert")<CR>
 vmap <leader>c :call NERDComment(0, "invert")<CR>
+
+" The following commands are for opening side windows for tags lists, file
+" lists, tasks lists.
 nmap <leader>f :NERDTreeToggle<CR>
 nmap <leader>t :TlistToggle<CR>
 nmap <leader>l :TagmaTaskToggle<CR>
@@ -222,4 +227,8 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 
 " Use alternate comment style // for C programming
 let NERD_c_alt_style=1
+
+" Use smartquotes, provided by delimitMate.vim
+let delimitMate_smart_quotes = 1
+let delimitMateBackspace = 1
 
