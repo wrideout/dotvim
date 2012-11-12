@@ -209,9 +209,13 @@ set cursorline
 
 " Highlight characters that are over the 80 character limit in lines...
 " alternatively, use the 'colorcolumn' field to delimit 80 characters. 
+"
+" If using the colorcolumn option, make sure that this is turned OFF for vimdiff
 ":au BufWinEnter * let w:m1=matchadd('Search', '\%<81v.\%>77v', -1)
 ":au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
-set colorcolumn=81
+if !&diff
+    set colorcolumn=81
+endif
 
 
 " Backup the file being worked on... the format is '~filename'
