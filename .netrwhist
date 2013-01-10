@@ -1,4 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =2
+let g:netrw_dirhist_cnt =5
 let g:netrw_dirhist_1='/e/m/will_rideout/scsi_test.svn/NetBSD/src/sbin/EQL/scsi_test'
 let g:netrw_dirhist_2='/a/simlin/users/6/will_rideout/.vim/.git/info'
+let g:netrw_dirhist_3='/buildarea/will/scsi_base_cmd.svn/NetBSD/src/EQL/netstore/scsi'
+let g:netrw_dirhist_4='/buildarea/will/map.svn'
+let g:netrw_dirhist_5='/a/simlin/users/6/will_rideout/backup'
