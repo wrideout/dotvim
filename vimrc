@@ -31,7 +31,7 @@ so ~/.vim/plugin/snipMate.vim
 so ~/.vim/plugin/cscope_maps.vim
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Define some shortcuts for plugins
+" Shortcuts and Commands
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Change the leader key for user-defined commands to ','
 let mapleader = ","
@@ -60,6 +60,10 @@ nmap <leader>lm :TagmaTaskMarks<CR>
 " of the '[e' and ']e' shortcuts of the unimpaired.vim plugin.
 nmap J ]e 
 nmap K [e
+
+" Assign the spacebar the task of toggling folds.
+nnoremap <Space> za
+vnoremap <Space> za
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CScope and CTags

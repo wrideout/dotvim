@@ -107,7 +107,7 @@ call <SID>AddAlternateExtensionMapping('aspx', 'aspx.cs,aspx.vb')
 " Setup default search path, unless the user has specified
 " a path in their [._]vimrc. 
 if (!exists('g:alternateSearchPath'))
-  let g:alternateSearchPath = 'sfr:../source,sfr:../src,sfr:../include,sfr:../inc,sfr:./include'
+  let g:alternateSearchPath = 'sfr:../source,sfr:../src,sfr:../include,sfr:../inc,sfr:./include, sfr:../'
 endif
 
 " If this variable is true then a.vim will not alternate to a file/buffer which
