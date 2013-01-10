@@ -1,3 +1,4 @@
+" 
 " vimrc
 "
 " In order to work, be sure to make a hard link from this file to ~/.vimrc.
@@ -10,11 +11,14 @@
 " into.
 "
 " William Rideout
+"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
 " Let vim know about the plugins we want to use
+"
 "so ~/.vim/plugin/autoclose.vim
 so ~/.vim/plugin/delimitMate.vim
 so ~/.vim/plugin/supertab.vim
@@ -33,9 +37,12 @@ so ~/.vim/plugin/cscope_maps.vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Shortcuts and Commands
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
 " Change the leader key for user-defined commands to ','
+"
 let mapleader = ","
 
+"
 " Switch quickly between header and code files.  Executing `,sh` queries cscope
 " for the header file with a name matching the current file, and displays it.
 " Executing `,sc` accomplishes the same thing, but finds the implementation (or
@@ -43,6 +50,11 @@ let mapleader = ","
 " works with C++ files that use <name>.cc to indicated implementation files and
 " <name>.h to indicate header files.  Also, the names of the implementation and
 " header files must be the same, excepting the file extensions.  
+"
+" Since cscope automatically exands search parameters, the regex for matching
+" all permutations of C and C++ file extensions is simply [hH] and [cC].  This
+" covers all extensions beginning with either a captial or lowercase 'h' and
+" 'c'.  Brilliant.
 "
 " Use of these two commands has the advantage of leveraging cscope.  This means
 " that the implementation and header files need not be located in the same
@@ -52,49 +64,92 @@ let mapleader = ","
 " Use of these two commands however relies on cscope indices, which must be
 " generated prior to the use of the commands.
 "
-" TODO: 
-"   * List of mappings used to identify implementation files and header files in
-"     all forms of C and C++ (i.e. .c->.h, cpp->.hh, etc.);
-"   * function to detect the filetype of the current file, so that the
-"     appropriate file extension may be searched for in cscope;
-"   * consolidation into one command.
+" Arguments to the GetAlternate function indicate orientation.  The mappings are
+" as follows:
+"   * 'n': NORMAL; open alternate file in existing buffer;
 "
-nmap <leader>sh :cscope find f %<.h<CR>
-nmap <leader>sc :cscope find f %<.cc<CR>
+"   * 'h': HORIZONTAL; split the existing buffer in half holizontally, and
+"     display the alternate file in the new buffer;
+"   
+"   * 'n': VERTICAL: split the existing buffer in half vertically and display
+"     the alternate file in the new buffer.
+"
+if has ('cscope')
+    function GetAlternate(orientation)
+        if a:orientation == "h"
+            :split
 
+        elseif a:orientation == "v"
+            :vsplit
+        
+        else "a:orientation == "n"
+            " Nothing needs to be done here
+        endif
+
+        if tolower(strpart(expand("%:e"), 0, 1)) == "h"
+            :cs find f %<.[cC]
+
+        elseif tolower(strpart(expand("%:e"), 0, 1)) == "c"
+            :cs find f %<.[hH]
+
+        else
+            echom "Error... only C and C++ currently supported!"
+        endif
+    endfunction
+
+    "nmap <leader>h :cscope find f %<.[hH]<CR>
+    "nmap <leader>i :cscope find f %<.[cC]<CR>
+    nmap <leader>A :call GetAlternate("n")<CR>
+    nmap <leader>AS :call GetAlternate("h")<CR>
+    nmap <leader>AV :call GetAlternate("v")<CR>
+
+endif
+
+"
 " FIXME: For some reason or another, NERDComment insists on using the default 
 " mapleader, "\".  Therefore, if you wish to use any of the featres of this
 " plugin with the mapleader defined above, you will need to map them here and 
 " not rely on the NERDCommenter.
+" 
 nmap <leader>c :call NERDComment(0, "invert")<CR>
 vmap <leader>c :call NERDComment(0, "invert")<CR>
 
+"
 " The following commands are for opening side windows for tags lists, file
 " lists, tasks lists.
+"
 nmap <leader>f :NERDTreeToggle<CR>
 nmap <leader>t :TlistToggle<CR>
 nmap <leader>l :TagmaTaskToggle<CR>
 
+" 
 " These commands are remapped versions of the TagmaTasks commands.  The
 " remapping if to match the command to toggle the tasks window, as defined
 " above.
+"
 nmap <leader>lt :TagmaTasks<CR>
 nmap <leader>lc :TagmaTaskClear<CR>
 nmap <leader>lm :TagmaTaskMarks<CR>
 
+"
 " Shortcuts to move an entire line up or down.  This is  basically a remapping
 " of the '[e' and ']e' shortcuts of the unimpaired.vim plugin.
+"
 nmap J ]e 
 nmap K [e
 
+" 
 " Assign the spacebar the task of toggling folds.
+" 
 nnoremap <Space> za
 vnoremap <Space> za
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CScope and CTags
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
 " Tell Vim where to look for tags files
+"
 ":set tags=./tags,./../tags,./../../tags,./../../../tags,tags
 "set tags=./tagsco/
 
@@ -137,96 +192,148 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Environment Settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 
 " Set the working directory, for when VIM is opned, and change the working
 " directory when the file that is being edited changes
+"
 set autochdir
 
+"
 " Terminal colors
+" 
 set t_Co=256
 
+"
 " Turn on syntax highlighting, and use the specified colorscheme
+"
 syntax on
 colorscheme jellybeans
 
+" 
 " Set line numbers and show the position of the cursor at the bottom of the
 " window
+"
 set ruler
 set number
 
+"
 " Set the number of spaces that a tab represents
+"
 set tabstop=4
 
+"
 " Make sure that tabs are inserted according to the rules of tabstop
+"
 set smarttab
 
+"
 " Expand tabs to spaces
+" 
 set expandtab
 
+"
 " Set the number of spaces that autoindent indents
+"
 set shiftwidth=4
 
+"
 " Automatically indent
+"
 set autoindent
 
+"
 " Apply indentations that following the paradigms of the filetype being esited
+"
 set smartindent
 
+"
 " Used for tab-completion (TAB == wildchar).  This means that completion will
 " complete to the longest common string, and if more than one match is found,
 " they will all be listed.
+"
 set wildmode=longest,list
 
+"
 " This effectively sets backspace to 'indent,eol,start'.  This in turn means
 " that backspacing works over indentations, line breaks, and the start of lines.
+"
 set bs=2
 
+"
 " This option turns on filetyping
+"
 filetype plugin on
 
+"
 " Custom tabs for Makefiles and .snippet files
+"
 autocmd FileType Makefile setlocal noexpandtab
 autocmd FileType snippet setlocal noexpandtab
 
+"
 " Specific Arduino highlighting
+"
 "autocmd! BufNewFile,BufRead *.pde setlocal ft=arduino
 "autocmd! BufNewFile,BufRead *.ino setlocal ft=arduino
 
+"
 " Write the contents of the file, if it has been modified, on each
+"
 " :next, :rewind, :last, :first, :previous, :stop, :suspend, :tag, :!,
 " :make, CTRL-] and CTRL-^ command; and when a :buffer, CTRL-O, CTRL-I,
 " '{A-Z0-9}, or `{A-Z0-9} command takes one to another file.
 set autowrite
 
+"
 " No automatic ignore case switch
+"
 set smartcase
 
+"
 " Minimal number of screen lines to keep above and below the cursor.
+"
 set scrolloff=2
 
+"
 " Set textwidth to 80, and autowrap and autoformat line automatically
+"
 set textwidth=80
 "set formatoptions+=ta
 
+"
 " Set the number of tenths of a second to blink the cursor, just because we can
+"
 set mat=8
 
+"
 " Show (partial) command in the last line of the screen
+"
 set showcmd
 
+"
 " Use case-smart searching
+"
 set incsearch
 set ignorecase
 
+"
 " Keep a longer history
+"
 set history=10000
 
+"
 " Allow vim to manage multiple buffers effectively
+"
 set hidden
 
+"
 " Always open new windows on the right side of the main buffer
+"
 set splitright
 
+"
 " Tell vim to remember certain things when we exit
+"
 "  '10  :  marks will be remembered for up to 10 previously edited files
 "  "100 :  will save up to 100 lines for each register
 "  :20  :  up to 20 lines of command-line history will be remembered
@@ -234,35 +341,49 @@ set splitright
 "  n... :  where to save the viminfo files
 set viminfo='100,f1,<100,:50,/50,h,%,n~/.viminfo
 
+"
 " Show the current line as highlighted
+"
 set cursorline
 
+" 
 " Highlight characters that are over the 80 character limit in lines...
 " alternatively, use the 'colorcolumn' field to delimit 80 characters. 
 "
 " If using the colorcolumn option, make sure that this is turned OFF for vimdiff
 ":au BufWinEnter * let w:m1=matchadd('Search', '\%<81v.\%>77v', -1)
 ":au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
+"
 if !&diff
     set colorcolumn=81
 endif
 
 
+"
 " Backup the file being worked on... the format is '~filename'
+"
 set backup
 
+"
 " The following two lines are for completing comment characters, in the C/C++ 
 " style
+"
 set comments=s0:*\ -,m0:*\ \ ,ex0:*/,s1:/*,mb:*,ex:*/,://
 set formatoptions+=croql
 
+"
 " Close vim if NERDTree is the only open buffer
+" 
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
+"
 " Use alternate comment style // for C programming
+" 
 let NERD_c_alt_style=1
 
+"
 " Use smartquotes, provided by delimitMate.vim
+"
 let delimitMate_smart_quotes = 1
 let delimitMateBackspace = 1
 
