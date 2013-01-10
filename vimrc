@@ -18,7 +18,7 @@
 "so ~/.vim/plugin/autoclose.vim
 so ~/.vim/plugin/delimitMate.vim
 so ~/.vim/plugin/supertab.vim
-so ~/.vim/plugin/a.vim
+"so ~/.vim/plugin/a.vim
 so ~/.vim/plugin/repeat.vim
 so ~/.vim/plugin/surround.vim
 so ~/.vim/plugin/NERD_tree.vim
@@ -35,6 +35,32 @@ so ~/.vim/plugin/cscope_maps.vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Change the leader key for user-defined commands to ','
 let mapleader = ","
+
+" Switch quickly between header and code files.  Executing `,sh` queries cscope
+" for the header file with a name matching the current file, and displays it.
+" Executing `,sc` accomplishes the same thing, but finds the implementation (or
+" 'code' file ) matching the name of the current file.  This currently only
+" works with C++ files that use <name>.cc to indicated implementation files and
+" <name>.h to indicate header files.  Also, the names of the implementation and
+" header files must be the same, excepting the file extensions.  
+"
+" Use of these two commands has the advantage of leveraging cscope.  This means
+" that the implementation and header files need not be located in the same
+" directory, and if multiple matches exist for a query, they are listed for
+" selection.
+"
+" Use of these two commands however relies on cscope indices, which must be
+" generated prior to the use of the commands.
+"
+" TODO: 
+"   * List of mappings used to identify implementation files and header files in
+"     all forms of C and C++ (i.e. .c->.h, cpp->.hh, etc.);
+"   * function to detect the filetype of the current file, so that the
+"     appropriate file extension may be searched for in cscope;
+"   * consolidation into one command.
+"
+nmap <leader>sh :cscope find f %<.h<CR>
+nmap <leader>sc :cscope find f %<.cc<CR>
 
 " FIXME: For some reason or another, NERDComment insists on using the default 
 " mapleader, "\".  Therefore, if you wish to use any of the featres of this
