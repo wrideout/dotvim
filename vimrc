@@ -13,16 +13,20 @@
 " William Rideout
 "
 
+"
+" Change the leader key for user-defined commands to ','
+"
+let mapleader = ","
+
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Let vim know about the plugins we want to use
 "
-"so ~/.vim/plugin/autoclose.vim
 so ~/.vim/plugin/delimitMate.vim
 so ~/.vim/plugin/supertab.vim
-"so ~/.vim/plugin/a.vim
 so ~/.vim/plugin/repeat.vim
 so ~/.vim/plugin/surround.vim
 so ~/.vim/plugin/NERD_tree.vim
@@ -33,14 +37,11 @@ so ~/.vim/plugin/unimpaired.vim
 so ~/.vim/plugin/matchit.vim
 so ~/.vim/plugin/snipMate.vim
 so ~/.vim/plugin/cscope_maps.vim
+so ~/.vim/plugin/bufexplorer.vim
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Shortcuts and Commands
+" Shortcuts, Functions, and Commands
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
-" Change the leader key for user-defined commands to ','
-"
-let mapleader = ","
 
 "
 " Switch quickly between header and code files.  Executing `,sh` queries cscope
@@ -99,9 +100,9 @@ if has ('cscope')
 
     "nmap <leader>h :cscope find f %<.[hH]<CR>
     "nmap <leader>i :cscope find f %<.[cC]<CR>
-    nmap <leader>A :call GetAlternate("n")<CR>
-    nmap <leader>AS :call GetAlternate("h")<CR>
-    nmap <leader>AV :call GetAlternate("v")<CR>
+    nmap <leader>a :call GetAlternate("n")<CR>
+    nmap <leader>as :call GetAlternate("h")<CR>
+    nmap <leader>av :call GetAlternate("v")<CR>
 
 endif
 
@@ -379,7 +380,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 "
 " Use alternate comment style // for C programming
 " 
-let NERD_c_alt_style=1
+let NERD_c_alt_style = 1
 
 "
 " Use smartquotes, provided by delimitMate.vim
@@ -387,3 +388,12 @@ let NERD_c_alt_style=1
 let delimitMate_smart_quotes = 1
 let delimitMateBackspace = 1
 
+"
+" Turn off delimitmate for the following regions:
+"
+let delimitMate_excluded_regions = "Comments,String"
+
+"
+" Expand <CR> when using parentheses and braces
+"
+let delimitMate_expand_cr = 1
