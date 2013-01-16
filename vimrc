@@ -18,14 +18,13 @@
 "
 let mapleader = ","
 
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Let vim know about the plugins we want to use
 "
-so ~/.vim/plugin/delimitMate.vim
+so ~/.vim/plugin/autoclose.vim
 so ~/.vim/plugin/supertab.vim
 so ~/.vim/plugin/repeat.vim
 so ~/.vim/plugin/surround.vim
@@ -38,6 +37,7 @@ so ~/.vim/plugin/matchit.vim
 so ~/.vim/plugin/snipMate.vim
 so ~/.vim/plugin/cscope_maps.vim
 so ~/.vim/plugin/bufexplorer.vim
+so ~/.vim/plugin/cscope_maps.vim
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Shortcuts, Functions, and Commands
@@ -382,18 +382,3 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 " 
 let NERD_c_alt_style = 1
 
-"
-" Use smartquotes, provided by delimitMate.vim
-"
-let delimitMate_smart_quotes = 1
-let delimitMateBackspace = 1
-
-"
-" Turn off delimitmate for the following regions:
-"
-let delimitMate_excluded_regions = "Comments,String"
-
-"
-" Expand <CR> when using parentheses and braces
-"
-let delimitMate_expand_cr = 1
