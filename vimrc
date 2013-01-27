@@ -16,7 +16,7 @@
 "
 " Change the leader key for user-defined commands to ','
 "
-let mapleader = ","
+let mapleader=","
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins
@@ -83,7 +83,7 @@ if has ('cscope')
         elseif a:orientation == "v"
             :vsplit
         
-        else "a:orientation == "n"
+        else " a:orientation == "n"
             " Nothing needs to be done here
         endif
 
@@ -178,9 +178,9 @@ if has ('cscope')
 
     " Automatically load the cscope database
     function! LoadCscope()
-        let db = findfile("cscope.out", ".;")
+        let db=findfile("cscope.out", ".;")
         if (!empty(db))
-            let path = strpart(db, 0, match(db, "/cscope.out$"))
+            let path=strpart(db, 0, match(db, "/cscope.out$"))
             set nocscopeverbose " suppress 'duplicate connection' error
             exe "cs add " . db . " " . path
             set cscopeverbose
@@ -299,7 +299,31 @@ set scrolloff=2
 " Set textwidth to 80, and autowrap and autoformat line automatically
 "
 set textwidth=80
-"set formatoptions+=ta
+"set formatoptions+=tac
+
+" 
+" Highlight characters that are over the 80 character limit in lines...
+" alternatively, use the 'colorcolumn' field to delimit 80 characters. 
+"
+" If using the colorcolumn option, make sure that this is turned OFF for vimdiff
+":au BufWinEnter * let w:m1=matchadd('Search', '\%<81v.\%>77v', -1)
+":au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
+"
+if !&diff
+    set colorcolumn=81
+endif
+
+"
+" Show the current line as highlighted
+"
+set cursorline
+
+"
+" Manually configure the CursorLine and ColorColumn highlighting to match...
+" this reflects the colors used in the JellyBeans colorscheme
+"
+hi CursorLine term=underline ctermbg=234 guibg=#1c1c1c
+hi ColorColumn term=underline ctermbg=234 guibg=#1c1c1c
 
 "
 " Set the number of tenths of a second to blink the cursor, just because we can
@@ -343,24 +367,6 @@ set splitright
 set viminfo='100,f1,<100,:50,/50,h,%,n~/.viminfo
 
 "
-" Show the current line as highlighted
-"
-set cursorline
-
-" 
-" Highlight characters that are over the 80 character limit in lines...
-" alternatively, use the 'colorcolumn' field to delimit 80 characters. 
-"
-" If using the colorcolumn option, make sure that this is turned OFF for vimdiff
-":au BufWinEnter * let w:m1=matchadd('Search', '\%<81v.\%>77v', -1)
-":au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
-"
-if !&diff
-    set colorcolumn=81
-endif
-
-
-"
 " Backup the file being worked on... the format is '~filename'
 "
 set backup
@@ -380,5 +386,5 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 "
 " Use alternate comment style // for C programming
 " 
-let NERD_c_alt_style = 1
+let NERD_c_alt_style=1
 
