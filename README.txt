@@ -30,5 +30,4 @@ The plugins used by this setup are as follows:
     - TagmaTasks.vim
     - unimpaired.vim
     - matchit.vim
-    - snipMate.vim
 
