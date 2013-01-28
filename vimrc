@@ -19,6 +19,11 @@
 let mapleader=","
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Load plugins with pathogen
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+execute pathogen#infect() 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Shortcuts, Functions, and Commands
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -242,7 +247,7 @@ set bs=2
 "
 " This option turns on filetyping
 "
-filetype plugin on
+filetype plugin indent on
 
 "
 " Custom tabs for Makefiles and .snippet files
