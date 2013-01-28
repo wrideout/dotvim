@@ -79,9 +79,9 @@ if has ('cscope')
 
     "nmap <leader>h :cscope find f %<.[hH]<CR>
     "nmap <leader>i :cscope find f %<.[cC]<CR>
-    nmap <leader>A :call GetAlternate("n")<CR>
-    nmap <leader>AS :call GetAlternate("h")<CR>
-    nmap <leader>AV :call GetAlternate("v")<CR>
+    nmap <leader>a :call GetAlternate("n")<CR>
+    nmap <leader>as :call GetAlternate("h")<CR>
+    nmap <leader>av :call GetAlternate("v")<CR>
 
 endif
 

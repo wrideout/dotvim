@@ -16,19 +16,3 @@ existing Vim configuration files:
 Once installation is complete, ~/.vim may be treated as a regulat git
 repository, and therefore updated as such.
 
-The plugins used by this setup are as follows:
-    
-    - autoclose.vim
-    - bufexplorer.vim
-    - cscope_maps.vim
-    - supertab.vim
-    - repeat.vim
-    - surround.vim
-    - NERD_tree.vim
-    - NERD_commenter.vim
-    - taglist.vim
-    - TagmaTasks.vim
-    - unimpaired.vim
-    - matchit.vim
-    - snipMate.vim
-
