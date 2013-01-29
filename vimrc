@@ -90,14 +90,30 @@ if has ('cscope')
 
 endif
 
-"
-" FIXME: For some reason or another, NERDComment insists on using the default 
-" mapleader, "\".  Therefore, if you wish to use any of the featres of this
-" plugin with the mapleader defined above, you will need to map them here and 
-" not rely on the NERDCommenter.
 " 
-nmap <leader>c :call NERDComment(0, "invert")<CR>
-vmap <leader>c :call NERDComment(0, "invert")<CR>
+" Maximize the current window in the buffer, without losing the underlying
+" layout of all the open buffers.
+"
+function! MaximizeToggle()
+    if exists("s:maximize_session")
+        exec "source " . s:maximize_session
+        call delete(s:maximize_session)
+        unlet s:maximize_session
+        let &hidden=s:maximize_hidden_save
+        unlet s:maximize_hidden_save
+    else
+        let s:maximize_hidden_save = &hidden
+        let s:maximize_session = tempname()
+        set hidden
+        exec "mksession! " . s:maximize_session
+        only
+    endif
+endfunction
+
+"
+" Shortcut that goes with the above function
+"
+nnoremap <leader>m :call MaximizeToggle()<CR>
 
 "
 " The following commands are for opening side windows for tags lists, file
