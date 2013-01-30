@@ -116,6 +116,12 @@ endfunction
 nnoremap <leader>m :call MaximizeToggle()<CR>
 
 "
+" Map NERD_comment toggle
+"
+nmap <leader>c :call NERDComment(0, "invert")<CR>
+vmap <leader>c :call NERDComment(0, "invert")<CR>
+
+"
 " The following commands are for opening side windows for tags lists, file
 " lists, tasks lists.
 "
@@ -131,6 +137,11 @@ nmap <leader>l :TagmaTaskToggle<CR>
 nmap <leader>lt :TagmaTasks<CR>
 nmap <leader>lc :TagmaTaskClear<CR>
 nmap <leader>lm :TagmaTaskMarks<CR>
+
+"
+" Open the buffer explorer
+"
+nmap <silent> <unique> <leader>b <Plug>SelectBuf
 
 "
 " Shortcuts to move an entire line up or down.  This is  basically a remapping
@@ -373,18 +384,31 @@ set backup
 
 "
 " The following two lines are for completing comment characters, in the C/C++ 
-" style
+" style.  No longer necessary?
 "
-set comments=s0:*\ -,m0:*\ \ ,ex0:*/,s1:/*,mb:*,ex:*/,://
-set formatoptions+=croql
+" set comments=s0:*\ -,m0:*\ \ ,ex0:*/,s1:/*,mb:*,ex:*/,://
+" set formatoptions+=croql
 
+"
+" Insert a space after the left comment delimiter and before the right comment
+" delimiter.  Remove these extra spaces when removing comments as well
+"
+let g:NERDSpaceDelims=1
+let g:NERDRemoveExtraSpaces=1
+
+"
+" taglist options
+"
+let Tlist_GainFocus_On_ToggleOpen=1
+let Tlist_Use_Right_Window=1
+let Tlist_Exit_OnlyWindow=1
+
+"
+" NERD_tree options
 "
 " Close vim if NERDTree is the only open buffer
 " 
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+let NERDTreeIgnore=['\~$']
 
-"
-" Use alternate comment style // for C programming
-" 
-let NERD_c_alt_style=1
 

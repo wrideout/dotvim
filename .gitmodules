@@ -28,9 +28,9 @@
 [submodule "bundle/unimpaired"]
 	path = bundle/unimpaired
 	url = git://github.com/tpope/vim-unimpaired.git
+[submodule "bundle/genutils"]
+	path = bundle/genutils
+	url = git://github.com/vim-scripts/genutils.git
 [submodule "bundle/SelectBuf"]
 	path = bundle/SelectBuf
 	url = git://github.com/vim-scripts/SelectBuf.git
-[submodule "bundles/genutils"]
-	path = bundles/genutils
-	url = git://github.com/vim-scripts/genutils.git

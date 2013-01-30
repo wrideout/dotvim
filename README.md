@@ -19,13 +19,14 @@ repository, and therefore updated as such.
 The plugins used by this setup are as follows:
     
     - autoclose.vim
-    - bufexplorer.vim
     - cscope_maps.vim
+    - genutils.vim
     - matchit.vim
     - NERD_commenter.vim
     - NERD_tree.vim
     - pathogen.vim
     - repeat.vim
+    - SelectBuf.vim
     - supertab.vim
     - surround.vim
     - taglist.vim
