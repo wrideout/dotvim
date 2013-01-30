@@ -17,11 +17,12 @@ existing Vim configuration files:
 Once installation is complete, ~/.vim may be treated as a regulat git
 repository, and therefore updated as such.
 
+# Plugins and Dependencies
 The plugins used by this setup are as follows:
     
 * autoclose.vim
 * cscope_maps.vim
-* genutils.vim
+* genutils.vim (dependency for SelectBuf.vim)
 * matchit.vim
 * NERD_commenter.vim
 * NERD_tree.vim
