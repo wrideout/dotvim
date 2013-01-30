@@ -1,9 +1,6 @@
 [submodule "bundle/autoclose"]
 	path = bundle/autoclose
 	url = git://github.com/Townk/vim-autoclose.git
-[submodule "bundle/bufexplorer"]
-	path = bundle/bufexplorer
-	url = git://github.com/slack/vim-bufexplorer.git
 [submodule "bundle/matchit"]
 	path = bundle/matchit
 	url = git://github.com/tsaleh/vim-matchit.git
@@ -31,3 +28,6 @@
 [submodule "bundle/unimpaired"]
 	path = bundle/unimpaired
 	url = git://github.com/tpope/vim-unimpaired.git
+[submodule "bundle/buflist"]
+	path = bundle/buflist
+	url = git://github.com/vim-scripts/buflist.git
