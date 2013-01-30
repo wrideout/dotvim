@@ -1,3 +1,4 @@
+# Installation Guide
 Execute the following commands in order to install to your ~/.vim file:
 
     # Install the git repository
@@ -18,20 +19,20 @@ repository, and therefore updated as such.
 
 The plugins used by this setup are as follows:
     
-    - autoclose.vim
-    - cscope_maps.vim
-    - genutils.vim
-    - matchit.vim
-    - NERD_commenter.vim
-    - NERD_tree.vim
-    - pathogen.vim
-    - repeat.vim
-    - SelectBuf.vim
-    - supertab.vim
-    - surround.vim
-    - taglist.vim
-    - TagmaTasks.vim
-    - unimpaired.vim
+* autoclose.vim
+* cscope_maps.vim
+* genutils.vim
+* matchit.vim
+* NERD_commenter.vim
+* NERD_tree.vim
+* pathogen.vim
+* repeat.vim
+* SelectBuf.vim
+* supertab.vim
+* surround.vim
+* taglist.vim
+* TagmaTasks.vim
+* unimpaired.vim
 
 The pathogen system is used to manage the above plugins.  To add a new plugin to
 this setup, execute the following command, substituting information where
