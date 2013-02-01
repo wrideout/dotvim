@@ -1,6 +1,3 @@
-[submodule "bundle/autoclose"]
-	path = bundle/autoclose
-	url = git://github.com/Townk/vim-autoclose.git
 [submodule "bundle/matchit"]
 	path = bundle/matchit
 	url = git://github.com/tsaleh/vim-matchit.git
@@ -37,3 +34,6 @@
 [submodule "bundle/jellybeans"]
 	path = bundle/jellybeans
 	url = git://github.com/nanotech/jellybeans.vim.git
+[submodule "bundle/autoclose"]
+	path = bundle/autoclose
+	url = git://github.com/andrewle/vim-autoclose.git
