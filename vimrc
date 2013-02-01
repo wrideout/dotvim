@@ -82,11 +82,9 @@ if has ('cscope')
         endif
     endfunction
 
-    "nmap <leader>h :cscope find f %<.[hH]<CR>
-    "nmap <leader>i :cscope find f %<.[cC]<CR>
-    nmap <leader>A :call GetAlternate("n")<CR>
-    nmap <leader>AS :call GetAlternate("h")<CR>
-    nmap <leader>AV :call GetAlternate("v")<CR>
+    nmap <leader>s :call GetAlternate("n")<CR>
+    nmap <leader>ss :call GetAlternate("h")<CR>
+    nmap <leader>sv :call GetAlternate("v")<CR>
 
 endif
 
@@ -410,5 +408,4 @@ let Tlist_Exit_OnlyWindow=1
 " 
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 let NERDTreeIgnore=['\~$']
-
 
