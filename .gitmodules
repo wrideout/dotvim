@@ -34,6 +34,3 @@
 [submodule "bundle/Tagbar"]
 	path = bundle/Tagbar
 	url = git://github.com/vim-scripts/Tagbar.git
-[submodule "bundle/CCTree"]
-	path = bundle/CCTree
-	url = git://github.com/vim-scripts/CCTree.git
