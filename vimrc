@@ -126,7 +126,7 @@ vmap <leader>c :call NERDComment(0, "invert")<CR>
 " lists, tasks lists.
 "
 nmap <leader>f :NERDTreeToggle<CR>
-nmap <leader>t :TlistToggle<CR>
+nmap <leader>t :TagbarOpenAutoClose<CR>
 nmap <leader>l :TagmaTaskToggle<CR>
 
 " 
