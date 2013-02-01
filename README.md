@@ -23,11 +23,11 @@ repository, and therefore updated as such.
 The plugins used by this setup are as follows:
     
 * autoclose.vim
-* cscope_maps.vim
+* cscope\_maps.vim
 * genutils.vim (dependency for SelectBuf.vim)
 * matchit.vim
-* NERD_commenter.vim
-* NERD_tree.vim
+* NERD\_commenter.vim
+* NERD\_tree.vim
 * pathogen.vim
 * repeat.vim
 * SelectBuf.vim
@@ -40,6 +40,13 @@ The plugins used by this setup are as follows:
 In order for the taglist plugin to work, the exuberant-ctags application must be
 installed on the host system.
 
+# Colorschemes
+The following colorschemes are provided:
+
+* jellybeans.vim
+* solarized.vim
+
+# Further Customization and Additions
 The pathogen system is used to manage the above plugins.  To add a new plugin to
 this setup, execute the following command, substituting information where
 needed:
@@ -53,4 +60,8 @@ refreshed to reflect any new plugins by running the following command:
     :Helptags
 
 Note that this is a wrapper, supplied by the pathogen plugin.
+
+#Issues and Bugs
+Any issues or bugs that are found may be addressed via the Issues page of this
+repository, located [here](https://github.com/wrideout/dotvim/issues).
 

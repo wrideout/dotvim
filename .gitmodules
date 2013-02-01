@@ -34,3 +34,6 @@
 [submodule "bundle/Tagbar"]
 	path = bundle/Tagbar
 	url = git://github.com/vim-scripts/Tagbar.git
+[submodule "bundle/jellybeans"]
+	path = bundle/jellybeans
+	url = git://github.com/nanotech/jellybeans.vim.git
