@@ -34,6 +34,6 @@
 [submodule "bundle/jellybeans"]
 	path = bundle/jellybeans
 	url = git://github.com/nanotech/jellybeans.vim.git
-[submodule "bundle/autoclose"]
-	path = bundle/autoclose
+[submodule "bundle/AutoClose"]
+	path = bundle/AutoClose
 	url = git://github.com/andrewle/vim-autoclose.git
