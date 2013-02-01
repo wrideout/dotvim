@@ -19,9 +19,6 @@
 [submodule "bundle/surround"]
 	path = bundle/surround
 	url = git://github.com/tpope/vim-surround.git
-[submodule "bundle/taglist"]
-	path = bundle/taglist
-	url = git://github.com/vim-scripts/taglist.vim.git
 [submodule "bundle/TagmaTasks"]
 	path = bundle/TagmaTasks
 	url = git://github.com/LStinson/TagmaTasks.git
@@ -34,3 +31,6 @@
 [submodule "bundle/SelectBuf"]
 	path = bundle/SelectBuf
 	url = git://github.com/vim-scripts/SelectBuf.git
+[submodule "bundle/Tagbar"]
+	path = bundle/Tagbar
+	url = git://github.com/vim-scripts/Tagbar.git

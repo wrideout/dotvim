@@ -33,7 +33,7 @@ The plugins used by this setup are as follows:
 * SelectBuf.vim
 * supertab.vim
 * surround.vim
-* taglist.vim
+* Tagbar.vim
 * TagmaTasks.vim
 * unimpaired.vim
 
