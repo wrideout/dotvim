@@ -27,7 +27,7 @@ repository, and therefore updated as such.
 # Plugins and Dependencies
 The plugins used by this setup are as follows:
     
-* autoclose.vim
+* AutoClose.vim
 * cscope\_maps.vim
 * genutils.vim (dependency for SelectBuf.vim)
 * matchit.vim

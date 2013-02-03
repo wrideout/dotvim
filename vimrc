@@ -310,7 +310,7 @@ set scrolloff=2
 " Set textwidth to 80, and autowrap and autoformat line automatically
 "
 set textwidth=80
-"set formatoptions+=tac
+"set formatoptions+=rtacoqn
 
 " 
 " Highlight characters that are over the 80 character limit in lines...
@@ -381,13 +381,6 @@ set viminfo='100,f1,<100,:50,/50,h,%,n~/.viminfo
 " Backup the file being worked on... the format is '~filename'
 "
 set backup
-
-"
-" The following two lines are for completing comment characters, in the C/C++ 
-" style.  No longer necessary?
-"
-" set comments=s0:*\ -,m0:*\ \ ,ex0:*/,s1:/*,mb:*,ex:*/,://
-" set formatoptions+=croql
 
 "
 " Insert a space after the left comment delimiter and before the right comment
