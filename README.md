@@ -3,6 +3,11 @@ Execute the following commands in order to install to your ~/.vim file:
 
     # Install the git repository
     $ git clone --recursive git://github.com/wrideout/dotvim.git ~/.vim
+    
+    # Initialize and pull down the requisite submodules
+    $ cd ~/.vim
+    $ git submodule init
+    $ git submodule update
 
     # Create symlinks
     $ ln -s ~/.vim/vimrc ~/.vimrc
