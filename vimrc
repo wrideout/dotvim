@@ -158,7 +158,7 @@ vnoremap <Space> za
 " Simple code snippet for inserting braces with the proper indentation.  Be
 " warned: this breaks the Undo/Redo behavior of vim
 "
-inoremap {{  {<CR>}<Esc>O<tab>
+inoremap {{  {<CR>}<Esc>O
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
