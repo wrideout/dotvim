@@ -44,7 +44,8 @@ The plugins used by this setup are as follows:
 * VCSCommand.vim
 
 In order for the taglist plugin to work, the exuberant-ctags application must be
-installed on the host system.
+installed on the host system.  The cscope application must also be installed, as
+the cscope-maps plugin and several mappings rely on it.
 
 # Colorschemes
 The following colorschemes are provided:
