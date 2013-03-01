@@ -40,3 +40,6 @@
 [submodule "bundle/AutoClose"]
 	path = bundle/AutoClose
 	url = git://github.com/Townk/vim-autoclose.git
+[submodule "bundle/VCSCommand"]
+	path = bundle/VCSCommand
+	url = git://github.com/vim-scripts/vcscommand.vim.git

@@ -116,37 +116,37 @@ nnoremap <leader>m :call MaximizeToggle()<CR>
 "
 " Map NERD_comment toggle
 "
-nmap <leader>c :call NERDComment(0, "invert")<CR>
-vmap <leader>c :call NERDComment(0, "invert")<CR>
+nnoremap <leader>c :call NERDComment(0, "invert")<CR>
+vnoremap <leader>c :call NERDComment(0, "invert")<CR>
 
 "
 " The following commands are for opening side windows for tags lists, file
 " lists, tasks lists.
 "
-nmap <leader>f :NERDTreeToggle<CR>
-nmap <leader>t :TagbarToggle<CR>
-nmap <leader>l :TagmaTaskToggle<CR>
+noremap <leader>f :NERDTreeToggle<CR>
+noremap <leader>t :TagbarToggle<CR>
+noremap <leader>l :TagmaTaskToggle<CR>
 
 " 
 " These commands are remapped versions of the TagmaTasks commands.  The
 " remapping if to match the command to toggle the tasks window, as defined
 " above.
 "
-nmap <leader>lt :TagmaTasks<CR>
-nmap <leader>lc :TagmaTaskClear<CR>
-nmap <leader>lm :TagmaTaskMarks<CR>
+nnoremap <leader>lt :TagmaTasks<CR>
+nnoremap <leader>lc :TagmaTaskClear<CR>
+nnoremap <leader>lm :TagmaTaskMarks<CR>
 
 "
 " Open the buffer explorer
 "
-nmap <silent> <unique> <leader>b <Plug>SelectBuf
+noremap <silent> <unique> <leader>b <Plug>SelectBuf
 
 "
 " Shortcuts to move an entire line up or down.  This is  basically a remapping
 " of the '[e' and ']e' shortcuts of the unimpaired.vim plugin.
 "
-nmap J ]e 
-nmap K [e
+noremap J ]e 
+noremap K [e
 
 " 
 " Assign the spacebar the task of toggling folds.
@@ -160,6 +160,16 @@ vnoremap <Space> za
 "
 inoremap {{  {<CR>}<Esc>O
 
+"
+" Mappings for making the VCSCommand plugin easier to use
+"
+nnoremap <leader>va :VCSAdd<CR>
+nnoremap <leader>vb :VCSBlame<CR>
+nnoremap <leader>vd :VCSVimDiff<CR>
+nnoremap <leader>vl :VCSLog<CR>
+" nnoremap <leader>vr :VCSRevert<CR>
+nnoremap <leader>vs :VCSStatus<CR>
+nnoremap <leader>vu :VCSUpdate<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CScope and CTags
@@ -224,9 +234,9 @@ set t_Co=256
 " Turn on syntax highlighting, and use the specified colorscheme
 "
 syntax on
-" colorscheme jellybeans
-set background=light
-colorscheme solarized
+colorscheme jellybeans
+" set background=light
+" colorscheme solarized
 
 " 
 " Set line numbers and show the position of the cursor at the bottom of the
@@ -340,8 +350,8 @@ set cursorline
 " Manually configure the CursorLine and ColorColumn highlighting to match...
 " this reflects the colors used in the JellyBeans colorscheme
 "
-" hi CursorLine term=underline ctermbg=234 guibg=#1c1c1c
-" hi ColorColumn term=underline ctermbg=234 guibg=#1c1c1c
+hi CursorLine term=underline ctermbg=234 guibg=#1c1c1c
+hi ColorColumn term=underline ctermbg=234 guibg=#1c1c1c
 
 "
 " Set the number of tenths of a second to blink the cursor, just because we can
