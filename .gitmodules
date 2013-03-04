@@ -37,9 +37,9 @@
 [submodule "bundle/solarized"]
 	path = bundle/solarized
 	url = git://github.com/altercation/vim-colors-solarized.git
-[submodule "bundle/AutoClose"]
-	path = bundle/AutoClose
-	url = git://github.com/Townk/vim-autoclose.git
 [submodule "bundle/VCSCommand"]
 	path = bundle/VCSCommand
 	url = git://github.com/vim-scripts/vcscommand.vim.git
+[submodule "bundle/delimitMate"]
+	path = bundle/delimitMate
+	url = git://github.com/Raimondi/delimitMate.git
