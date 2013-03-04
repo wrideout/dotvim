@@ -27,8 +27,8 @@ repository, and therefore updated as such.
 # Plugins and Dependencies
 The plugins used by this setup are as follows:
     
-* AutoClose.vim
 * cscope\_maps.vim
+* delimitMate.vim
 * genutils.vim (dependency for SelectBuf.vim)
 * matchit.vim
 * NERD\_commenter.vim
@@ -39,7 +39,7 @@ The plugins used by this setup are as follows:
 * supertab.vim
 * surround.vim
 * Tagbar.vim
-* TagmaTasks.vim
+* tasklist.vim
 * unimpaired.vim
 * VCSCommand.vim
 

@@ -26,7 +26,6 @@ execute pathogen#infect()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Shortcuts, Functions, and Commands
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 "
 " Switch quickly between header and code files.  Executing `,sh` queries cscope
 " for the header file with a name matching the current file, and displays it.
@@ -123,30 +122,20 @@ vnoremap <leader>c :call NERDComment(0, "invert")<CR>
 " The following commands are for opening side windows for tags lists, file
 " lists, tasks lists.
 "
-noremap <leader>f :NERDTreeToggle<CR>
-noremap <leader>t :TagbarToggle<CR>
-noremap <leader>l :TagmaTaskToggle<CR>
-
-" 
-" These commands are remapped versions of the TagmaTasks commands.  The
-" remapping if to match the command to toggle the tasks window, as defined
-" above.
-"
-nnoremap <leader>lt :TagmaTasks<CR>
-nnoremap <leader>lc :TagmaTaskClear<CR>
-nnoremap <leader>lm :TagmaTaskMarks<CR>
+nnoremap <leader>f :NERDTreeToggle<CR>
+nnoremap <leader>t :TagbarToggle<CR>
 
 "
 " Open the buffer explorer
 "
-noremap <silent> <unique> <leader>b <Plug>SelectBuf
+nnoremap <silent> <unique> <leader>b <Plug>SelectBuf
 
 "
 " Shortcuts to move an entire line up or down.  This is  basically a remapping
 " of the '[e' and ']e' shortcuts of the unimpaired.vim plugin.
 "
-noremap J ]e 
-noremap K [e
+nnoremap J ]e 
+nnoremap K [e
 
 " 
 " Assign the spacebar the task of toggling folds.
@@ -158,7 +147,7 @@ vnoremap <Space> za
 " Simple code snippet for inserting braces with the proper indentation.  Be
 " warned: this breaks the Undo/Redo behavior of vim
 "
-inoremap {{  {<CR>}<Esc>O
+inoremap {{ {<CR>}<Esc>O
 
 "
 " Mappings for making the VCSCommand plugin easier to use
@@ -167,7 +156,7 @@ nnoremap <leader>va :VCSAdd<CR>
 nnoremap <leader>vb :VCSBlame<CR>
 nnoremap <leader>vd :VCSVimDiff<CR>
 nnoremap <leader>vl :VCSLog<CR>
-" nnoremap <leader>vr :VCSRevert<CR>
+nnoremap <leader>vr :VCSReview<CR>
 nnoremap <leader>vs :VCSStatus<CR>
 nnoremap <leader>vu :VCSUpdate<CR>
 
@@ -392,7 +381,7 @@ set splitright
 "  :20  :  up to 20 lines of command-line history will be remembered
 "  %    :  saves and restores the buffer list
 "  n... :  where to save the viminfo files
-set viminfo='100,f1,<100,:50,/50,h,%,n~/.viminfo
+set viminfo='10,f1,<100,:50,/50,h,%,n~/.viminfo
 
 "
 " Backup the file being worked on... the format is '~filename'
@@ -420,4 +409,11 @@ let g:tagbar_iconchars=['+', '~']
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 let NERDTreeIgnore=['\~$']
 let NERDTreeDirArrows=0
+
+"
+" VCSCommand options
+"
+" Split the window vertically
+"
+let VCSCommandSplit='vertical'
 
