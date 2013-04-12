@@ -110,7 +110,7 @@ endfunction
 "
 " Shortcut that goes with the above function
 "
-nnoremap <leader>m :call MaximizeToggle()<CR>
+nmap <leader>m :call MaximizeToggle()<CR>
 
 "
 " Map NERD_comment toggle
@@ -128,14 +128,19 @@ nnoremap <leader>t :TagbarToggle<CR>
 "
 " Open the buffer explorer
 "
-nnoremap <silent> <unique> <leader>b <Plug>SelectBuf
+nmap <silent> <unique> <leader>b <Plug>SelectBuf
 
 "
 " Shortcuts to move an entire line up or down.  This is  basically a remapping
 " of the '[e' and ']e' shortcuts of the unimpaired.vim plugin.
 "
-nnoremap J ]e 
-nnoremap K [e
+nmap J ]e 
+nmap K [e
+
+" 
+" Remap the :join command, since we are using the old mapping to move lines
+"
+nnoremap <leader>j :join<CR>
 
 " 
 " Assign the spacebar the task of toggling folds.
@@ -316,7 +321,7 @@ set scrolloff=2
 " Set textwidth to 80, and autowrap and autoformat line automatically
 "
 set textwidth=80
-"set formatoptions+=rtacoqn
+" set formatoptions+=rtacoqn
 
 " 
 " Highlight characters that are over the 80 character limit in lines...
@@ -399,6 +404,7 @@ let g:NERDRemoveExtraSpaces=1
 " Tagbar options
 "
 let g:tagbar_autofocus=1
+let g:tagbar_autoclose=1
 let g:tagbar_iconchars=['+', '~']
 
 "
