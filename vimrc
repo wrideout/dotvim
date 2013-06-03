@@ -108,9 +108,30 @@ function! MaximizeToggle()
 endfunction
 
 "
-" Shortcut that goes with the above function
+" Displays a list of all changed or added files to a repository under version
+" control in a side pane.  Selections in this new window may be made by
+" selecting the file via cscope (i.e. executing `CTRL-| f`).  Note that this
+" function is dependent on the existence of a file named "changes.log".
+"
+function! ShowChangedFiles()
+    let changes = findfile("changes.log", ".;")
+    echom changes
+    if changes != ""
+        exe 'split' changes
+    else
+        echom "Error... please populate list of modified files in changes.log" 
+    endif
+endfunction
+
+"
+" Shortcut that goes with the MaximizeToggle function
 "
 nmap <leader>m :call MaximizeToggle()<CR>
+
+"
+" Shortcut for the ShowChangedFiles function
+"
+nmap <leader>g :call ShowChangedFiles()<CR>
 
 "
 " Map NERD_comment toggle
