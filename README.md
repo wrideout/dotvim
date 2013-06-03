@@ -1,5 +1,5 @@
 # Installation Guide
-### FIRST OF ALL, AND VERY IMPORTANT: 
+#### FIRST OF ALL, AND VERY IMPORTANT: 
 The installation process will only work **IFF** ~/.vim is empty **AND** ~/.vimrc
 does not exist.  If this is not the case, then be sure to back up your existing
 Vim configuration files.  This may be done by executing the following:
