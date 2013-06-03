@@ -1,4 +1,12 @@
 # Installation Guide
+## FIRST OF ALL, AND VERY IMPORTANT: 
+The installation process will only work **IFF** ~/.vim is empty **AND** ~/.vimrc
+does not exist.  If this is not the case, then be sure to back up your existing
+Vim configuration files.  This may be done by executing the following:
+    
+    $ mv ~/.vimrc ~/.vimrc_old
+    $ mv ~/.vim ~/.vim_old
+
 Execute the following commands in order to install to your ~/.vim file:
 
     # Install the git repository
@@ -13,16 +21,12 @@ Execute the following commands in order to install to your ~/.vim file:
     $ ln -s ~/.vim/vimrc ~/.vimrc
 
 The use of the '--recursive' flag during the cloning process tells git that it
-should fetch the submodules needed to run this vim setup.  It should be noted 
-that this process will only work if ~/.vim is empty, and ~/.vimrc does not 
-exist.  If this is not the case, then be sure to back up your existing Vim 
-configuration files:
+should fetch the submodules needed to run this vim setup.  Once installation is
+complete, ~/.vim may be treated as a regulat git repository, and therefore
+updated as such.  All submodules in the repository may be updated by executing
+the following command:
 
-    $ mv ~/.vimrc ~/.vimrc_old
-    $ mv ~/.vim ~/.vim_old
-
-Once installation is complete, ~/.vim may be treated as a regulat git
-repository, and therefore updated as such.
+    $ git submodule foreach git pull origin master
 
 # Plugins and Dependencies
 The plugins used by this setup are as follows:
