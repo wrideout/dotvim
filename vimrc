@@ -402,6 +402,8 @@ if executable ('gentags') && has ('cscope')
         let path=strpart(db, 0, match(db, "/cscope.out$"))
         exec "!(cd " path " && gentags)"
     endfunction
+
+    command! RefreshCscope :execute RefreshCscope()
 endif
 
 
