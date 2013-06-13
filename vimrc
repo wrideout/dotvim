@@ -24,214 +24,6 @@ let mapleader=","
 execute pathogen#infect() 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Shortcuts, Functions, and Commands
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
-" Switch quickly between header and code files.  Executing `,sh` queries cscope
-" for the header file with a name matching the current file, and displays it.
-" Executing `,sc` accomplishes the same thing, but finds the implementation (or
-" 'code' file ) matching the name of the current file.  This currently only
-" works with C++ files that use <name>.cc to indicated implementation files and
-" <name>.h to indicate header files.  Also, the names of the implementation and
-" header files must be the same, excepting the file extensions.  
-"
-" Since cscope automatically exands search parameters, the regex for matching
-" all permutations of C and C++ file extensions is simply [hH] and [cC].  This
-" covers all extensions beginning with either a captial or lowercase 'h' and
-" 'c'.  Brilliant.
-"
-" Use of these two commands has the advantage of leveraging cscope.  This means
-" that the implementation and header files need not be located in the same
-" directory, and if multiple matches exist for a query, they are listed for
-" selection.
-"
-" Use of these two commands however relies on cscope indices, which must be
-" generated prior to the use of the commands.
-"
-" Arguments to the GetAlternate function indicate orientation.  The mappings are
-" as follows:
-"   * 'n': NORMAL; open alternate file in existing buffer;
-"
-"   * 'h': HORIZONTAL; split the existing buffer in half holizontally, and
-"     display the alternate file in the new buffer;
-"   
-"   * 'n': VERTICAL: split the existing buffer in half vertically and display
-"     the alternate file in the new buffer.
-"
-if has ('cscope')
-    function GetAlternate(orientation)
-        if a:orientation == "h"
-            :split
-
-        elseif a:orientation == "v"
-            :vsplit
-        
-        else " a:orientation == "n"
-            " Nothing needs to be done here
-        endif
-
-        if tolower(strpart(expand("%:e"), 0, 1)) == "h"
-            :cs find f %<.[cC]
-
-        elseif tolower(strpart(expand("%:e"), 0, 1)) == "c"
-            :cs find f %<.[hH]
-
-        else
-            echom "Error... only C and C++ currently supported!"
-        endif
-    endfunction
-
-    nmap <leader>s :call GetAlternate("n")<CR>
-    nmap <leader>ss :call GetAlternate("h")<CR>
-    nmap <leader>sv :call GetAlternate("v")<CR>
-
-endif
-
-" 
-" Maximize the current window in the buffer, without losing the underlying
-" layout of all the open buffers.
-"
-function! MaximizeToggle()
-    if exists("s:maximize_session")
-        exec "source " . s:maximize_session
-        call delete(s:maximize_session)
-        unlet s:maximize_session
-        let &hidden=s:maximize_hidden_save
-        unlet s:maximize_hidden_save
-    else
-        let s:maximize_hidden_save = &hidden
-        let s:maximize_session = tempname()
-        set hidden
-        exec "mksession! " . s:maximize_session
-        only
-    endif
-endfunction
-
-"
-" Displays a list of all changed or added files to a repository under version
-" control in a side pane.  Selections in this new window may be made by
-" selecting the file via cscope (i.e. executing `CTRL-| f`).  Note that this
-" function is dependent on the existence of a file named "changes.log".
-"
-function! ShowChangedFiles()
-    let changes = findfile("changes.log", ".;")
-    echom changes
-    if changes != ""
-        exe 'split' changes
-    else
-        echom "Error... please populate list of modified files in changes.log" 
-    endif
-endfunction
-
-"
-" Shortcut that goes with the MaximizeToggle function
-"
-nmap <leader>m :call MaximizeToggle()<CR>
-
-"
-" Shortcut for the ShowChangedFiles function
-"
-nmap <leader>g :call ShowChangedFiles()<CR>
-
-"
-" Map NERD_comment toggle
-"
-nnoremap <leader>c :call NERDComment(0, "invert")<CR>
-vnoremap <leader>c :call NERDComment(0, "invert")<CR>
-
-"
-" The following commands are for opening side windows for tags lists, file
-" lists, tasks lists.
-"
-nnoremap <leader>f :NERDTreeToggle<CR>
-nnoremap <leader>t :TagbarToggle<CR>
-
-"
-" Open the buffer explorer
-"
-nmap <silent> <unique> <leader>b <Plug>SelectBuf
-
-"
-" Shortcuts to move an entire line up or down.  This is  basically a remapping
-" of the '[e' and ']e' shortcuts of the unimpaired.vim plugin.
-"
-nmap J ]e 
-nmap K [e
-
-" 
-" Remap the :join command, since we are using the old mapping to move lines
-"
-nnoremap <leader>j :join<CR>
-
-" 
-" Assign the spacebar the task of toggling folds.
-" 
-nnoremap <Space> za
-vnoremap <Space> za
-
-"
-" Simple code snippet for inserting braces with the proper indentation.  Be
-" warned: this breaks the Undo/Redo behavior of vim
-"
-inoremap {{ {<CR>}<Esc>O
-
-"
-" Mappings for making the VCSCommand plugin easier to use
-"
-nnoremap <leader>va :VCSAdd<CR>
-nnoremap <leader>vb :VCSBlame<CR>
-nnoremap <leader>vd :VCSVimDiff<CR>
-nnoremap <leader>vl :VCSLog<CR>
-nnoremap <leader>vr :VCSReview<CR>
-nnoremap <leader>vs :VCSStatus<CR>
-nnoremap <leader>vu :VCSUpdate<CR>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" CScope and CTags
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
-" Tell Vim where to look for tags files
-"
-":set tags=./tags,./../tags,./../../tags,./../../../tags,tags
-"set tags=./tagsco/
-
-" Set up vim to use cscope more efficiently
-if has ('cscope')
-    set cscopetag cscopeverbose
-
-    "if has ('quickfix')
-        "set cscopequickfix=s-,c-,d-,i-,t-,e-
-    "endif
-   
-    " Abbreviations to make using cscope in vim easier
-    cnoreabbrev <expr> csa
-        \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs add'  : 'csa')
-    cnoreabbrev <expr> csf
-        \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs find' : 'csf')
-    cnoreabbrev <expr> csk
-        \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs kill' : 'csk')
-    cnoreabbrev <expr> csr
-        \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs reset' : 'csr')
-    cnoreabbrev <expr> css
-        \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs show' : 'css')
-    cnoreabbrev <expr> csh
-        \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs help' : 'csh')
-
-    " Automatically load the cscope database
-    function! LoadCscope()
-        let db=findfile("cscope.out", ".;")
-        if (!empty(db))
-            let path=strpart(db, 0, match(db, "/cscope.out$"))
-            set nocscopeverbose " suppress 'duplicate connection' error
-            exe "cs add " . db . " " . path
-            set cscopeverbose
-        endif
-    endfunction
-    au BufEnter /* call LoadCscope()
-                          
-endif
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Environment Settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 
@@ -443,4 +235,195 @@ let NERDTreeDirArrows=0
 " Split the window vertically
 "
 let VCSCommandSplit='vertical'
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Shortcuts, Functions, and Commands
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" Map NERD_comment toggle
+"
+nnoremap <leader>c :call NERDComment(0, "invert")<CR>
+vnoremap <leader>c :call NERDComment(0, "invert")<CR>
+
+"
+" The following commands are for opening side windows for tags lists, file
+" lists, tasks lists.
+"
+nnoremap <leader>f :NERDTreeToggle<CR>
+nnoremap <leader>t :TagbarToggle<CR>
+
+"
+" Open the buffer explorer
+"
+nmap <silent> <unique> <leader>b <Plug>SelectBuf
+
+"
+" Shortcuts to move an entire line up or down.  This is  basically a remapping
+" of the '[e' and ']e' shortcuts of the unimpaired.vim plugin.
+"
+nmap J ]e 
+nmap K [e
+
+" 
+" Remap the :join command, since we are using the old mapping to move lines
+"
+nnoremap <leader>j :join<CR>
+
+" 
+" Assign the spacebar the task of toggling folds.
+" 
+nnoremap <Space> za
+vnoremap <Space> za
+
+"
+" Simple code snippet for inserting braces with the proper indentation.  Be
+" warned: this breaks the Undo/Redo behavior of vim
+"
+inoremap {{ {<CR>}<Esc>O
+
+"
+" Mappings for making the VCSCommand plugin easier to use
+"
+nnoremap <leader>va :VCSAdd<CR>
+nnoremap <leader>vb :VCSBlame<CR>
+nnoremap <leader>vd :VCSVimDiff<CR>
+nnoremap <leader>vl :VCSLog<CR>
+nnoremap <leader>vr :VCSReview<CR>
+nnoremap <leader>vs :VCSStatus<CR>
+nnoremap <leader>vu :VCSUpdate<CR>
+
+"
+" Switch quickly between header and code files.  Executing `,sh` queries cscope
+" for the header file with a name matching the current file, and displays it.
+" Executing `,sc` accomplishes the same thing, but finds the implementation (or
+" 'code' file ) matching the name of the current file.  This currently only
+" works with C++ files that use <name>.cc to indicated implementation files and
+" <name>.h to indicate header files.  Also, the names of the implementation and
+" header files must be the same, excepting the file extensions.  
+"
+" Since cscope automatically exands search parameters, the regex for matching
+" all permutations of C and C++ file extensions is simply [hH] and [cC].  This
+" covers all extensions beginning with either a captial or lowercase 'h' and
+" 'c'.  Brilliant.
+"
+" Use of these two commands has the advantage of leveraging cscope.  This means
+" that the implementation and header files need not be located in the same
+" directory, and if multiple matches exist for a query, they are listed for
+" selection.
+"
+" Use of these two commands however relies on cscope indices, which must be
+" generated prior to the use of the commands.
+"
+" Arguments to the GetAlternate function indicate orientation.  The mappings are
+" as follows:
+"   * 'n': NORMAL; open alternate file in existing buffer;
+"
+"   * 'h': HORIZONTAL; split the existing buffer in half holizontally, and
+"     display the alternate file in the new buffer;
+"   
+"   * 'n': VERTICAL: split the existing buffer in half vertically and display
+"     the alternate file in the new buffer.
+"
+if has ('cscope')
+    function GetAlternate(orientation)
+        if a:orientation == "h"
+            :split
+
+        elseif a:orientation == "v"
+            :vsplit
+        
+        else " a:orientation == "n"
+            " Nothing needs to be done here
+        endif
+
+        if tolower(strpart(expand("%:e"), 0, 1)) == "h"
+            :cs find f %<.[cC]
+
+        elseif tolower(strpart(expand("%:e"), 0, 1)) == "c"
+            :cs find f %<.[hH]
+
+        else
+            echom "Error... only C and C++ currently supported!"
+        endif
+    endfunction
+
+    nmap <leader>s :call GetAlternate("n")<CR>
+    nmap <leader>ss :call GetAlternate("h")<CR>
+    nmap <leader>sv :call GetAlternate("v")<CR>
+
+endif
+
+" Set up vim to use cscope more efficiently
+if has ('cscope')
+    set cscopetag cscopeverbose
+
+    "if has ('quickfix')
+        "set cscopequickfix=s-,c-,d-,i-,t-,e-
+    "endif
+   
+    " Abbreviations to make using cscope in vim easier
+    cnoreabbrev <expr> csa
+        \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs add'  : 'csa')
+    cnoreabbrev <expr> csf
+        \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs find' : 'csf')
+    cnoreabbrev <expr> csk
+        \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs kill' : 'csk')
+    cnoreabbrev <expr> csr
+        \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs reset' : 'csr')
+    cnoreabbrev <expr> css
+        \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs show' : 'css')
+    cnoreabbrev <expr> csh
+        \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs help' : 'csh')
+
+    " Automatically load the cscope database
+    function! LoadCscope()
+        let db=findfile("cscope.out", ".;")
+        if (!empty(db))
+            let path=strpart(db, 0, match(db, "/cscope.out$"))
+            set nocscopeverbose " suppress 'duplicate connection' error
+            exe "cs add " . db . " " . path
+            set cscopeverbose
+        endif
+    endfunction
+    au BufEnter /* call LoadCscope()
+                          
+endif
+
+"
+" Rebuild all cscope indices, using the root of this project.  This is dependent
+" on the gentags executable which may be found at"
+"
+"      https://github.com/wrideout/bin.git
+"
+if executable ('gentags') && has ('cscope')
+    function! RefreshCscope()
+        let db=findfile("cscope.out", ".;") 
+        let path=strpart(db, 0, match(db, "/cscope.out$"))
+        exec "!(cd " path " && gentags)"
+    endfunction
+endif
+
+
+" 
+" Maximize the current window in the buffer, without losing the underlying
+" layout of all the open buffers.
+"
+function! MaximizeToggle()
+    if exists("s:maximize_session")
+        exec "source " . s:maximize_session
+        call delete(s:maximize_session)
+        unlet s:maximize_session
+        let &hidden=s:maximize_hidden_save
+        unlet s:maximize_hidden_save
+    else
+        let s:maximize_hidden_save = &hidden
+        let s:maximize_session = tempname()
+        set hidden
+        exec "mksession! " . s:maximize_session
+        only
+    endif
+endfunction
+
+nmap <leader>m :call MaximizeToggle()<CR>
 
