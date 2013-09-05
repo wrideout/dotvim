@@ -42,7 +42,7 @@ set t_Co=256
 "
 syntax on
 colorscheme jellybeans
-" set background=light
+" set background=dark
 " colorscheme solarized
 
 " 
@@ -312,8 +312,8 @@ nnoremap <leader>vu :VCSUpdate<CR>
 " directory, and if multiple matches exist for a query, they are listed for
 " selection.
 "
-" Use of these two commands however relies on cscope indices, which must be
-" generated prior to the use of the commands.
+" Use of this function relies on cscope indices, which must be " generated prior
+" to the use of the commands.
 "
 " Arguments to the GetAlternate function indicate orientation.  The mappings are
 " as follows:
@@ -344,10 +344,11 @@ if has ('cscope')
             :cs find f %<.[hH]
 
         else
-            echom "Error... only C and C++ currently supported!"
+            echoerr "Error... only C and C++ currently supported!"
         endif
     endfunction
 
+    " Create some shortcuts for using the GetAlternate function
     nmap <leader>s :call GetAlternate("n")<CR>
     nmap <leader>ss :call GetAlternate("h")<CR>
     nmap <leader>sv :call GetAlternate("v")<CR>
@@ -358,9 +359,9 @@ endif
 if has ('cscope')
     set cscopetag cscopeverbose
 
-    "if has ('quickfix')
-        "set cscopequickfix=s-,c-,d-,i-,t-,e-
-    "endif
+    " if has ('quickfix')
+        " set cscopequickfix=s-,c-,d-,i-,t-,e-
+    " endif
    
     " Abbreviations to make using cscope in vim easier
     cnoreabbrev <expr> csa
@@ -399,13 +400,43 @@ endif
 if executable ('gentags') && has ('cscope')
     function! RefreshCscope()
         let db=findfile("cscope.out", ".;") 
-        let path=strpart(db, 0, match(db, "/cscope.out$"))
-        exec "!(cd " path " && gentags)"
+        if (!empty(db))
+            let path=strpart(db, 0, match(db, "/cscope.out$"))
+            exec "!(cd " path " && gentags)"
+            exe "cs reset"
+        else
+            echoerr "No cscope database available."
+            echoerr "Go to bottom of project and execute `gentags`."
+        endif
     endfunction
 
-    command! RefreshCscope :execute RefreshCscope()
+    command! Rcs :execute RefreshCscope()
+else
+    echoerr "gentags executable not in PATH, or cscope not enabled in Vim"
 endif
 
+"
+" Populate a list of changed files in the project.  This is dependent on the
+" getcos executable which may be found at:
+"
+"      https://github.com/wrideout/bin.git
+"
+if executable ('getcos')
+    function! GetChanges()
+        let changes=findfile("changes.log", ".;")
+        if (!empty(changes))
+            split
+            edit `=changes`
+        else
+            echoerr "No list of files has been generated yet."
+            echoerr "Go to bottom of project and execute `getcos`."
+        endif
+    endfunction
+
+    command! Gc :execute GetChanges()
+else
+    echoerr "getcos executable not installed or missing from PATH"
+endif
 
 " 
 " Maximize the current window in the buffer, without losing the underlying
