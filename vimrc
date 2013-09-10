@@ -41,9 +41,9 @@ set t_Co=256
 " Turn on syntax highlighting, and use the specified colorscheme
 "
 syntax on
-colorscheme jellybeans
-" set background=dark
-" colorscheme solarized
+" colorscheme jellybeans
+set background=light
+colorscheme solarized
 
 " 
 " Set line numbers and show the position of the cursor at the bottom of the
@@ -157,8 +157,8 @@ set cursorline
 " Manually configure the CursorLine and ColorColumn highlighting to match...
 " this reflects the colors used in the JellyBeans colorscheme
 "
-hi CursorLine term=underline ctermbg=234 guibg=#1c1c1c
-hi ColorColumn term=underline ctermbg=234 guibg=#1c1c1c
+" hi CursorLine term=underline ctermbg=234 guibg=#1c1c1c
+" hi ColorColumn term=underline ctermbg=234 guibg=#1c1c1c
 
 "
 " Set the number of tenths of a second to blink the cursor, just because we can
@@ -326,7 +326,7 @@ nnoremap <leader>vu :VCSUpdate<CR>
 "     the alternate file in the new buffer.
 "
 if has ('cscope')
-    function GetAlternate(orientation)
+    function! GetAlternate(orientation)
         if a:orientation == "h"
             :split
 
@@ -459,4 +459,14 @@ function! MaximizeToggle()
 endfunction
 
 nmap <leader>m :call MaximizeToggle()<CR>
+
+"
+" Function and shortcut to vimgrep for the word under the cursor.
+"
+function! FindWord(searchString)
+    execute "vimgrep/" . a:searchString . "/gj %"
+    execute "copen"
+endfunction
+
+nmap <leader>v :call FindWord(expand("<cword>"))<CR>
 
