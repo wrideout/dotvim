@@ -41,9 +41,9 @@ set t_Co=256
 " Turn on syntax highlighting, and use the specified colorscheme
 "
 syntax on
-" colorscheme jellybeans
-set background=light
-colorscheme solarized
+colorscheme jellybeans
+" set background=dark
+" colorscheme solarized
 
 " 
 " Set line numbers and show the position of the cursor at the bottom of the
@@ -157,8 +157,8 @@ set cursorline
 " Manually configure the CursorLine and ColorColumn highlighting to match...
 " this reflects the colors used in the JellyBeans colorscheme
 "
-" hi CursorLine term=underline ctermbg=234 guibg=#1c1c1c
-" hi ColorColumn term=underline ctermbg=234 guibg=#1c1c1c
+hi CursorLine term=underline ctermbg=234 guibg=#1c1c1c
+hi ColorColumn term=underline ctermbg=234 guibg=#1c1c1c
 
 "
 " Set the number of tenths of a second to blink the cursor, just because we can
