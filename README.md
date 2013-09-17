@@ -34,7 +34,6 @@ The plugins used by this setup are as follows:
 * cscope\_maps.vim
 * delimitMate.vim
 * genutils.vim (dependency for SelectBuf.vim)
-* indentLine.vim
 * matchit.vim
 * NERD\_commenter.vim
 * NERD\_tree.vim
