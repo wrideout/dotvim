@@ -43,7 +43,6 @@ The plugins used by this setup are as follows:
 * supertab.vim
 * surround.vim
 * Tagbar.vim
-* tasklist.vim
 * unimpaired.vim
 * VCSCommand.vim
 

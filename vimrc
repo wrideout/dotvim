@@ -113,6 +113,10 @@ autocmd FileType snippet setlocal noexpandtab
 "autocmd! BufNewFile,BufRead *.ino setlocal ft=arduino
 
 "
+" Specific syntax highlighting for text files
+autocmd BufNewFile,BufRead *.txt set filetype=text
+
+"
 " Write the contents of the file, if it has been modified, on each
 "
 " :next, :rewind, :last, :first, :previous, :stop, :suspend, :tag, :!,
