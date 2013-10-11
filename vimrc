@@ -19,9 +19,10 @@
 let mapleader=","
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Load plugins with pathogen
+" Load plugins with pathogen and all associated helptags
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 execute pathogen#infect() 
+Helptags
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Environment Settings
@@ -115,6 +116,12 @@ autocmd FileType snippet setlocal noexpandtab
 "
 " Specific syntax highlighting for text files
 autocmd BufNewFile,BufRead *.txt set filetype=text
+
+" 
+" Set an appropriate wrapping margin when editing git commit messages
+"
+autocmd FileType gitcommit set textwidth=72 | set colorcolumn=73
+
 
 "
 " Write the contents of the file, if it has been modified, on each
@@ -295,6 +302,13 @@ nnoremap <leader>vl :VCSLog<CR>
 nnoremap <leader>vr :VCSReview<CR>
 nnoremap <leader>vs :VCSStatus<CR>
 nnoremap <leader>vu :VCSUpdate<CR>
+
+"
+" Mapping for inserting the current date
+"
+if exists ("*strftime")
+    nnoremap <leader>d "=strftime("%c")<CR>p
+endif
 
 "
 " Switch quickly between header and code files.  Executing `,sh` queries cscope
