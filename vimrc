@@ -307,7 +307,7 @@ nnoremap <leader>vu :VCSUpdate<CR>
 " Mapping for inserting the current date
 "
 if exists ("*strftime")
-    nnoremap <leader>d "=strftime("%c")<CR>po
+    nnoremap <leader>d "=strftime("%c")<CR>pj
 endif
 
 "
