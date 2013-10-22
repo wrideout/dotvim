@@ -236,7 +236,8 @@ let g:tagbar_iconchars=['+', '~']
 "
 " Close vim if NERDTree is the only open buffer
 " 
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") 
+            \&& b:NERDTreeType == "primary") | q | endif
 let NERDTreeIgnore=['\~$']
 let NERDTreeDirArrows=0
 
@@ -396,9 +397,9 @@ if has ('cscope')
 
     " Automatically load the cscope database
     function! LoadCscope()
-        let db=findfile("cscope.out", ".;")
+        let db = findfile("cscope.out", ".;")
         if (!empty(db))
-            let path=strpart(db, 0, match(db, "/cscope.out$"))
+            let path = strpart(db, 0, match(db, "/cscope.out$"))
             set nocscopeverbose " suppress 'duplicate connection' error
             exe "cs add " . db . " " . path
             set cscopeverbose
@@ -416,9 +417,9 @@ endif
 "
 if executable ('gentags') && has ('cscope')
     function! RefreshCscope()
-        let db=findfile("cscope.out", ".;") 
+        let db = findfile("cscope.out", ".;") 
         if (!empty(db))
-            let path=strpart(db, 0, match(db, "/cscope.out$"))
+            let path = strpart(db, 0, match(db, "/cscope.out$"))
             exec "!(cd " path " && gentags)"
             exe "cs reset"
         else
@@ -440,7 +441,7 @@ endif
 "
 if executable ('getcos')
     function! GetChanges()
-        let changes=findfile("changes.log", ".;")
+        let changes = findfile("changes.log", ".;")
         if (!empty(changes))
             split
             edit `=changes`
@@ -464,7 +465,7 @@ function! MaximizeToggle()
         exec "source " . s:maximize_session
         call delete(s:maximize_session)
         unlet s:maximize_session
-        let &hidden=s:maximize_hidden_save
+        let &hidden = s:maximize_hidden_save
         unlet s:maximize_hidden_save
     else
         let s:maximize_hidden_save = &hidden
@@ -478,12 +479,31 @@ endfunction
 nmap <leader>m :call MaximizeToggle()<CR>
 
 "
-" Function and shortcut to vimgrep for the word under the cursor.
+" Function and shortcut to vimgrep for the word under the cursor in normal mode,
+" and for the selection in visual mode.  The portion that utilizes visual mode
+" is based on the code by Amir Salihefendic.  The full code may be found at:
+"     
+"     http://amix.dk/blog/post/19334
 "
-function! FindWord(searchString)
-    execute "vimgrep/" . a:searchString . "/gj %"
-    execute "copen"
+function! MultiModeGrep(mode)
+    if a:mode == "normal" 
+        execute "vimgrep/" . expand("<cword>") . "/gj %"
+        execute "copen"
+    elseif a:mode == "visual"
+        let l:saved_reg = @"
+        execute "normal! vgvy"
+
+        let l:pattern = escape(@", '\\/.*$^~[]')
+        let l:pattern = substitute(l:pattern, "\n$", "", "")
+
+        execute "vimgrep/" . l:pattern . "/gj %"
+        execute "copen"
+
+        let @/ = l:pattern
+        let @" = l:saved_reg
+    endif
 endfunction
 
-nmap <leader>v :call FindWord(expand("<cword>"))<CR>
+vnoremap <leader>g :call MultiModeGrep("visual")<CR>
+nmap <leader>g :call MultiModeGrep("normal")<CR>
 

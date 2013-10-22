@@ -50,6 +50,20 @@ In order for the taglist plugin to work, the exuberant-ctags application must be
 installed on the host system.  The cscope application must also be installed, as
 the cscope-maps plugin and several mappings rely on it.
 
+<!-- # Custom Commands and Keyboard Combinations
+
+TODO: this is where a list of all custom commands and keyboard combinations will
+be maintained.  The format will be thus:
+
+Command | Short Description
+------- | -----------------
+foo     | bar
+
+Keyboard Combination | Short Description
+-------------------- | -----------------
+foo                  | bar 
+-->
+
 # Colorschemes
 The following colorschemes are provided:
 
