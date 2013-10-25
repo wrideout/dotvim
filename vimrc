@@ -507,3 +507,4 @@ endfunction
 vnoremap <leader>g :call MultiModeGrep("visual")<CR>
 nmap <leader>g :call MultiModeGrep("normal")<CR>
 
+"THIS IS A TEST COMMENT""
