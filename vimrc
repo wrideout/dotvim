@@ -122,6 +122,18 @@ autocmd BufNewFile,BufRead *.txt set filetype=text
 "
 autocmd FileType gitcommit set textwidth=72 | set colorcolumn=73
 
+" 
+" Automatically open, but do not go to (if there are errors) the quickfix /
+" location list window, or close it when is has become empty.
+"
+" Note: Must allow nesting of autocmds to enable any customizations for quickfix
+" buffers.
+" Note: Normally, :cwindow jumps to the quickfix window if the command opens it
+" (but not if it's already open). However, as part of the autocmd, this doesn't
+" seem to happen.
+"
+autocmd QuickFixCmdPost [^l]* nested cwindow
+autocmd QuickFixCmdPost    l* nested lwindow
 
 "
 " Write the contents of the file, if it has been modified, on each
@@ -308,7 +320,7 @@ nnoremap <leader>vu :VCSUpdate<CR>
 " Mapping for inserting the current date
 "
 if exists ("*strftime")
-    nnoremap <leader>d "=strftime("%c")<CR>po
+    nnoremap <leader>d "=strftime("%m/%d/%y")<CR>po
 endif
 
 "
@@ -343,6 +355,8 @@ endif
 "   * 'n': VERTICAL: split the existing buffer in half vertically and display
 "     the alternate file in the new buffer.
 "
+" Note that this will only work if the cscopequickfix variable includes 'f0' or
+" omuits the 'f' option altogether
 if has ('cscope')
     function! GetAlternate(orientation)
         if a:orientation == "h"
@@ -377,10 +391,12 @@ endif
 if has ('cscope')
     set cscopetag cscopeverbose
 
-    " if has ('quickfix')
-        " set cscopequickfix=s-,c-,d-,i-,t-,e-
-    " endif
-   
+    if has ('quickfix')
+        " See the comments of the GetAlternate function for the reasoning for
+        " 'f0'.
+        set cscopequickfix=s-,c-,d-,i-,t-,e-,f0,g0
+    endif
+ 
     " Abbreviations to make using cscope in vim easier
     cnoreabbrev <expr> csa
         \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs add'  : 'csa')
@@ -406,8 +422,41 @@ if has ('cscope')
         endif
     endfunction
     au BufEnter /* call LoadCscope()
-                          
+
 endif
+
+"
+" Function and shortcuts for filtering the content of the quickfix buffer.  This
+" is meant to approximate the piping behavior of cscope.  The function is based
+" on the code posted to StackOverflow by user Benoit.  The post may be found at:
+"
+"   http://stackoverflow.com/questions/4644658/
+"       how-to-search-in-vim-cscope-result-window
+"
+function! FilterQuickFix(mode, pattern)
+    let s:curList = getqflist()
+    let s:newList = []
+    for item in s:curList
+        " Are we filtering on file names...
+        if a:mode == "file" 
+            let s:cmpPat = bufname(item.bufnr)
+
+        " or are we filtering on line content?
+        elseif a:mode == "content"
+            let s:cmpPat = item.text . item.pattern
+        endif
+    
+        if item.valid
+            if s:cmpPat =~ a:pattern
+                let s:newList += [item]
+            endif
+        endif
+    endfor
+    call setqflist(s:newList)
+endfunction
+
+nnoremap <leader>qf :call FilterQuickFix("file", input("Display file names matching: ", ""))<CR>
+nnoremap <leader>qc :call FilterQuickFix("content", input("Display lines containing: ", ""))<CR>
 
 "
 " Rebuild all cscope indices, using the root of this project.  This is dependent
