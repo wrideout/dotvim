@@ -113,10 +113,6 @@ autocmd FileType snippet setlocal noexpandtab
 "autocmd! BufNewFile,BufRead *.pde setlocal ft=arduino
 "autocmd! BufNewFile,BufRead *.ino setlocal ft=arduino
 
-"
-" Specific syntax highlighting for text files
-autocmd BufNewFile,BufRead *.txt set filetype=text
-
 " 
 " Set an appropriate wrapping margin when editing git commit messages
 "
@@ -132,7 +128,11 @@ autocmd FileType gitcommit set textwidth=72 | set colorcolumn=73
 " (but not if it's already open). However, as part of the autocmd, this doesn't
 " seem to happen.
 "
-autocmd QuickFixCmdPost [^l]* nested cwindow
+function! AfterQF()
+    bot cwindow
+endfunction
+
+autocmd QuickFixCmdPost [^l]* nested :call AfterQF()
 autocmd QuickFixCmdPost    l* nested lwindow
 
 "
