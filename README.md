@@ -31,20 +31,21 @@ the following command:
 # Plugins and Dependencies
 The plugins used by this setup are as follows:
     
-* cscope\_maps.vim
-* delimitMate.vim
-* genutils.vim (dependency for SelectBuf.vim)
-* matchit.vim
-* NERD\_commenter.vim
-* NERD\_tree.vim
-* pathogen.vim
-* repeat.vim
-* SelectBuf.vim
-* supertab.vim
-* surround.vim
-* Tagbar.vim
-* unimpaired.vim
-* VCSCommand.vim
+* cscope\_maps
+* delimitMate
+* fugitive
+* genutils (dependency for SelectBuf.vim)
+* matchit
+* NERD\_commenter
+* NERD\_tree
+* pathogen
+* repeat
+* SelectBuf
+* supertab
+* surround
+* Tagbar
+* unimpaired
+* VCSCommand
 
 In order for the taglist plugin to work, the exuberant-ctags application must be
 installed on the host system.  The cscope application must also be installed, as

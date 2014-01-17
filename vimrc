@@ -42,9 +42,9 @@ set t_Co=256
 " Turn on syntax highlighting, and use the specified colorscheme
 "
 syntax on
-colorscheme jellybeans
-" set background=dark
-" colorscheme solarized
+" colorscheme jellybeans
+set background=light
+colorscheme solarized
 
 " 
 " Set line numbers and show the position of the cursor at the bottom of the
@@ -180,8 +180,8 @@ set cursorline
 " Manually configure the CursorLine and ColorColumn highlighting to match...
 " this reflects the colors used in the JellyBeans colorscheme
 "
-hi CursorLine term=underline ctermbg=234 guibg=#1c1c1c
-hi ColorColumn term=underline ctermbg=234 guibg=#1c1c1c
+" hi CursorLine term=underline ctermbg=234 guibg=#1c1c1c
+" hi ColorColumn term=underline ctermbg=234 guibg=#1c1c1c
 
 "
 " Set the number of tenths of a second to blink the cursor, just because we can
@@ -421,7 +421,7 @@ if has ('cscope')
             set cscopeverbose
         endif
     endfunction
-    au BufEnter /* call LoadCscope()
+    au BufEnter * call LoadCscope()
 
 endif
 
@@ -507,9 +507,12 @@ endif
 
 " 
 " Maximize the current window in the buffer, without losing the underlying
-" layout of all the open buffers.
+" layout of all the open buffers.  The quickfix list is closed before any other
+" operation, to avoid having a new unpopulated quickfix window opened when the
+" original layout is restored.
 "
 function! MaximizeToggle()
+    cclose
     if exists("s:maximize_session")
         exec "source " . s:maximize_session
         call delete(s:maximize_session)
@@ -555,4 +558,21 @@ endfunction
 
 vnoremap <leader>g :call MultiModeGrep("visual")<CR>
 nmap <leader>g :call MultiModeGrep("normal")<CR>
+
+"
+" Generate a list of tasks based on my personal TODO tag.  This uses cscope to
+" search the entire project.  This can be adjusted to search only the local file
+" using vimgrep if cscope is not available.
+"
+if has ('cscope')
+    function! TaskList()
+        execute "cscope find e WHR TODO"
+    endfunction
+    else
+    function! TaskList()
+        execute "vimgrep/WHR TODO/gj %"
+        execute "copen"  
+    endfunction
+endif
+command! Tasks :execute TaskList()
 
