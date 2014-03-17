@@ -54,3 +54,15 @@
 	path = bundle/delimitMate
 	url = git://github.com/Raimondi/delimitMate.git
     ignore = dirty
+[submodule "bundle/scratch"]
+	path = bundle/scratch
+	url = git://github.com/mtth/scratch.vim
+[submodule "bundle/mustang"]
+	path = bundle/mustang
+	url = git://github.com/croaker/mustang-vim.git
+[submodule "bundle/candy"]
+	path = bundle/candy
+	url = git://github.com/vim-scripts/candy.vim.git
+[submodule "bundle/hybrid"]
+	path = bundle/hybrid
+	url = git://github.com/w0ng/vim-hybrid.git

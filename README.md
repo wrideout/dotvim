@@ -40,6 +40,7 @@ The plugins used by this setup are as follows:
 * NERD\_tree
 * pathogen
 * repeat
+* scratch
 * SelectBuf
 * supertab
 * surround
@@ -68,7 +69,9 @@ foo                  | bar
 # Colorschemes
 The following colorschemes are provided:
 
+* hybrid.vim
 * jellybeans.vim
+* mustang.vim
 * solarized.vim
 
 # Further Customization and Additions

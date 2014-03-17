@@ -42,9 +42,9 @@ set t_Co=256
 " Turn on syntax highlighting, and use the specified colorscheme
 "
 syntax on
-" colorscheme jellybeans
-set background=light
-colorscheme solarized
+colorscheme jellybeans
+" colorscheme solarized
+" set background=light
 
 " 
 " Set line numbers and show the position of the cursor at the bottom of the
@@ -180,8 +180,8 @@ set cursorline
 " Manually configure the CursorLine and ColorColumn highlighting to match...
 " this reflects the colors used in the JellyBeans colorscheme
 "
-" hi CursorLine term=underline ctermbg=234 guibg=#1c1c1c
-" hi ColorColumn term=underline ctermbg=234 guibg=#1c1c1c
+hi CursorLine term=underline ctermbg=234 guibg=#1c1c1c
+hi ColorColumn term=underline ctermbg=234 guibg=#1c1c1c
 
 "
 " Set the number of tenths of a second to blink the cursor, just because we can
@@ -285,8 +285,22 @@ nmap <silent> <unique> <leader>b <Plug>SelectBuf
 " Shortcuts to move an entire line up or down.  This is  basically a remapping
 " of the '[e' and ']e' shortcuts of the unimpaired.vim plugin.
 "
-nmap J ]e 
-nmap K [e
+nmap <Up> [e 
+nmap <Down> ]e
+
+vmap <Up> [egv
+vmap <Down> ]egv
+
+"
+" Shortcuts to indent or unindent the current line.  This is a remapping of the
+" left and right arrow keys.
+"
+nmap <Left> <<
+nmap <Right> >>
+
+vmap <Left> <gv
+vmap <Right> >gv
+
 
 " 
 " Remap the :join command, since we are using the old mapping to move lines
