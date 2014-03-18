@@ -57,12 +57,16 @@
 [submodule "bundle/mustang"]
 	path = bundle/mustang
 	url = git://github.com/croaker/mustang-vim.git
+    ignore = dirty
 [submodule "bundle/candy"]
 	path = bundle/candy
 	url = git://github.com/vim-scripts/candy.vim.git
+    ignore = dirty
 [submodule "bundle/hybrid"]
 	path = bundle/hybrid
 	url = git://github.com/w0ng/vim-hybrid.git
+    ignore = dirty
 [submodule "bundle/scratch"]
 	path = bundle/scratch
 	url = git://github.com/mtth/scratch.vim.git
+    ignore = dirty
