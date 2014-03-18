@@ -63,3 +63,6 @@
 [submodule "bundle/hybrid"]
 	path = bundle/hybrid
 	url = git://github.com/w0ng/vim-hybrid.git
+[submodule "bundle/scratch"]
+	path = bundle/scratch
+	url = git://github.com/mtth/scratch.vim.git

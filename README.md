@@ -89,6 +89,11 @@ refreshed to reflect any new plugins by running the following command:
 
 Note that this is a wrapper, supplied by the pathogen plugin.
 
+#WARNING
+This particular vimrc contains new mappings for the keyboard arrow keys.  If you
+absolutely can't live without arrow keys, just comment the new mappings out in
+vimrc.
+
 #Issues and Bugs
 Any issues or bugs that are found may be addressed via the Issues page of this
 repository, located [here](https://github.com/wrideout/dotvim/issues).

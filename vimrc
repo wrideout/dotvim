@@ -177,11 +177,12 @@ endif
 set cursorline
 
 "
-" Manually configure the CursorLine and ColorColumn highlighting to match...
-" this reflects the colors used in the JellyBeans colorscheme
+" Manually configure the CursorLine, ColorColumn, and StatusLine highlighting to
+" match...  this reflects the colors used in the JellyBeans colorscheme
 "
 hi CursorLine term=underline ctermbg=234 guibg=#1c1c1c
 hi ColorColumn term=underline ctermbg=234 guibg=#1c1c1c
+hi StatusLine term=underline ctermbg=234 ctermfg=255 guibg=#1c1c1c
 
 "
 " Set the number of tenths of a second to blink the cursor, just because we can
@@ -230,6 +231,16 @@ set viminfo='10,f1,<100,:50,/50,h,%,n~/.viminfo
 set backup
 
 "
+" Always show the status line (current mode, filename, file status, etc.).
+"
+set laststatus=2
+
+"
+" Set the contents of the status line
+"
+set statusline=\(%n\)\ %<%f\ %#ERROR#%m%r%*\%=%-14.(%l,%c%V%)\ %P
+
+"
 " Insert a space after the left comment delimiter and before the right comment
 " delimiter.  Remove these extra spaces when removing comments as well
 "
@@ -259,6 +270,11 @@ let NERDTreeDirArrows=0
 " Split the window vertically
 "
 let VCSCommandSplit='vertical'
+
+"
+" Turn off the autohide functionality of Scratch.
+"
+let g:scratch_autohide=0
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Shortcuts, Functions, and Commands
