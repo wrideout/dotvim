@@ -182,7 +182,7 @@ set cursorline
 "
 hi CursorLine term=underline ctermbg=234 guibg=#1c1c1c
 hi ColorColumn term=underline ctermbg=234 guibg=#1c1c1c
-hi StatusLine term=underline ctermbg=234 ctermfg=255 guibg=#1c1c1c
+" hi StatusLine term=underline ctermbg=234 ctermfg=255 guibg=#1c1c1c
 
 "
 " Set the number of tenths of a second to blink the cursor, just because we can
@@ -238,7 +238,12 @@ set laststatus=2
 "
 " Set the contents of the status line
 "
-set statusline=\(%n\)\ %<%f\ %#ERROR#%m%r%*\%=%-14.(%l,%c%V%)\ %P
+set statusline=\ Buf:\ %n\ \|\      " Buffer number
+set statusline+=%<%f\               " Name of current file
+set statusline+=%#ERROR#%m%r%*      " Modified/READ ONLY
+set statusline+=\%=\ Line:\ %l,%L\  " Current line number and total line count
+set statusline+=\|\ Col:\ %c\       " Current column number
+set statusline+=\|\ %P\             " Current position in file as a percentage
 
 "
 " Insert a space after the left comment delimiter and before the right comment
@@ -487,30 +492,6 @@ endfunction
 
 nnoremap <leader>qf :call FilterQuickFix("file", input("Display file names matching: ", ""))<CR>
 nnoremap <leader>qc :call FilterQuickFix("content", input("Display lines containing: ", ""))<CR>
-
-"
-" Rebuild all cscope indices, using the root of this project.  This is dependent
-" on the gentags executable which may be found at"
-"
-"      https://github.com/wrideout/bin.git
-"
-if executable ('gentags') && has ('cscope')
-    function! RefreshCscope()
-        let db = findfile("cscope.out", ".;") 
-        if (!empty(db))
-            let path = strpart(db, 0, match(db, "/cscope.out$"))
-            exec "!(cd " path " && gentags)"
-            exe "cs reset"
-        else
-            echoerr "No cscope database available."
-            echoerr "Go to bottom of project and execute `gentags`."
-        endif
-    endfunction
-
-    command! Rcs :execute RefreshCscope()
-else
-    echoerr "gentags executable not in PATH, or cscope not enabled in Vim"
-endif
 
 "
 " Populate a list of changed files in the project.  This is dependent on the
