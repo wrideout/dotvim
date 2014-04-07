@@ -182,7 +182,6 @@ set cursorline
 "
 hi CursorLine term=underline ctermbg=234 guibg=#1c1c1c
 hi ColorColumn term=underline ctermbg=234 guibg=#1c1c1c
-" hi StatusLine term=underline ctermbg=234 ctermfg=255 guibg=#1c1c1c
 
 "
 " Set the number of tenths of a second to blink the cursor, just because we can
@@ -236,13 +235,20 @@ set backup
 set laststatus=2
 
 "
+" Highlight search matches, but turn it off with CR.
+"
+set hlsearch
+nnoremap <CR> :nohlsearch<CR>
+
+"
 " Set the contents of the status line
 "
 set statusline=\ Buf:\ %n\ \|\      " Buffer number
 set statusline+=%<%f\               " Name of current file
-set statusline+=%#ERROR#%m%r%*      " Modified/READ ONLY
-set statusline+=\%=\ Line:\ %l,%L\  " Current line number and total line count
-set statusline+=\|\ Col:\ %c\       " Current column number
+set statusline+=%#error#%m%r%*      " Modified/READ ONLY
+set statusline+=%=%#directory#%{&paste?'[paste]\':''}%*  " Paste is set? 
+set statusline+=\ Line:\ %l,%L\     " Current line number and total line count
+set statusline+=\|\ Col:\ %2c\       " Current column number
 set statusline+=\|\ %P\             " Current position in file as a percentage
 
 "
@@ -280,6 +286,11 @@ let VCSCommandSplit='vertical'
 " Turn off the autohide functionality of Scratch.
 "
 let g:scratch_autohide=0
+
+"
+" Make the Scratch window bigger
+"
+let g:scratch_height=20
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Shortcuts, Functions, and Commands
@@ -357,6 +368,11 @@ nnoremap <leader>vu :VCSUpdate<CR>
 if exists ("*strftime")
     nnoremap <leader>d "=strftime("%m/%d/%y")<CR>po
 endif
+
+"
+" Shortcut for toggling the paste option.
+"
+set pastetoggle=<leader>p
 
 "
 " Switch quickly between header and code files.  Executing `,sh` queries cscope
@@ -492,29 +508,6 @@ endfunction
 
 nnoremap <leader>qf :call FilterQuickFix("file", input("Display file names matching: ", ""))<CR>
 nnoremap <leader>qc :call FilterQuickFix("content", input("Display lines containing: ", ""))<CR>
-
-"
-" Populate a list of changed files in the project.  This is dependent on the
-" getcos executable which may be found at:
-"
-"      https://github.com/wrideout/bin.git
-"
-if executable ('getcos')
-    function! GetChanges()
-        let changes = findfile("changes.log", ".;")
-        if (!empty(changes))
-            split
-            edit `=changes`
-        else
-            echoerr "No list of files has been generated yet."
-            echoerr "Go to bottom of project and execute `getcos`."
-        endif
-    endfunction
-
-    command! Gc :execute GetChanges()
-else
-    echoerr "getcos executable not installed or missing from PATH"
-endif
 
 " 
 " Maximize the current window in the buffer, without losing the underlying
