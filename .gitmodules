@@ -70,3 +70,7 @@
 	path = bundle/scratch
 	url = git://github.com/mtth/scratch.vim.git
     ignore = dirty
+[submodule "bundle/vim-multiple-cursors"]
+	path = bundle/vim-multiple-cursors
+	url = git://github.com/terryma/vim-multiple-cursors.git
+    ignore = dirty
