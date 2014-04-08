@@ -238,8 +238,6 @@ set laststatus=2
 " Highlight search matches, but turn it off with CR.
 "
 set hlsearch
-autocmd InsertEnter * :let @/=""
-autocmd InsertLeave * :let @/=""
 
 "
 " Set the contents of the status line

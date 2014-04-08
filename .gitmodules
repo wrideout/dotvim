@@ -76,3 +76,6 @@
 [submodule "bundle/abolish"]
 	path = bundle/abolish
 	url = git://github.com/tpope/vim-abolish.git
+[submodule "bundle/matchit"]
+	path = bundle/matchit
+	url = git://github.com/tmhedberg/matchit.git

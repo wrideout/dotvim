@@ -30,49 +30,39 @@ the following command:
 
 # Plugins and Dependencies
 The plugins used by this setup are as follows:
-    
-* cscope\_maps
-* delimitMate
-* fugitive
-* genutils (dependency for SelectBuf.vim)
-* matchit
+   
+* Abolish
+* Cscope\_maps
+* DelimitMate
+* Fugitive
+* Genutils (dependency for SelectBuf)
+* Matchit
 * NERD\_commenter
 * NERD\_tree
-* pathogen
-* repeat
-* scratch
+* Pathogen
+* Repeat
+* Scratch
 * SelectBuf
-* supertab
-* surround
+* Supertab
+* Surround
+* Tabular
 * Tagbar
-* unimpaired
+* Unimpaired
 * VCSCommand
+* Vim-Multiple-Cursors
 
 In order for the taglist plugin to work, the exuberant-ctags application must be
 installed on the host system.  The cscope application must also be installed, as
 the cscope-maps plugin and several mappings rely on it.
 
-<!-- # Custom Commands and Keyboard Combinations
-
-TODO: this is where a list of all custom commands and keyboard combinations will
-be maintained.  The format will be thus:
-
-Command | Short Description
-------- | -----------------
-foo     | bar
-
-Keyboard Combination | Short Description
--------------------- | -----------------
-foo                  | bar 
--->
-
 # Colorschemes
 The following colorschemes are provided:
 
-* hybrid.vim
-* jellybeans.vim
-* mustang.vim
-* solarized.vim
+* hybrid
+* hybrid-light
+* jellybeans
+* mustang
+* solarized
 
 # Further Customization and Additions
 The pathogen system is used to manage the above plugins.  To add a new plugin to
