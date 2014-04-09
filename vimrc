@@ -29,7 +29,7 @@ execute pathogen#infect()
 Helptags
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Environment Settings
+" Editor Settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 
 " Set the working directory, for when VIM is opned, and change the working
@@ -104,40 +104,6 @@ set bs=2
 " This option turns on filetyping
 "
 filetype plugin indent on
-
-"
-" Custom tabs for Makefiles and .snippet files
-"
-autocmd FileType Makefile setlocal noexpandtab
-autocmd FileType snippet setlocal noexpandtab
-
-"
-" Specific Arduino highlighting
-"
-"autocmd! BufNewFile,BufRead *.pde setlocal ft=arduino
-"autocmd! BufNewFile,BufRead *.ino setlocal ft=arduino
-
-" 
-" Set an appropriate wrapping margin when editing git commit messages
-"
-autocmd FileType gitcommit set textwidth=72 | set colorcolumn=73
-
-" 
-" Automatically open, but do not go to (if there are errors) the quickfix /
-" location list window, or close it when is has become empty.
-"
-" Note: Must allow nesting of autocmds to enable any customizations for quickfix
-" buffers.
-" Note: Normally, :cwindow jumps to the quickfix window if the command opens it
-" (but not if it's already open). However, as part of the autocmd, this doesn't
-" seem to happen.
-"
-function! AfterQF()
-    bot cwindow
-endfunction
-
-autocmd QuickFixCmdPost [^l]* nested :call AfterQF()
-autocmd QuickFixCmdPost    l* nested lwindow
 
 "
 " Write the contents of the file, if it has been modified, on each
@@ -254,6 +220,46 @@ set statusline+=\ Line:\ %l,%L\     " Current line number and total line count
 set statusline+=\|\ Col:\ %2c\       " Current column number
 set statusline+=\|\ %P\             " Current position in file as a percentage
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Autocmds
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" Custom tabs for Makefiles and .snippet files
+"
+autocmd FileType Makefile setlocal noexpandtab
+autocmd FileType snippet setlocal noexpandtab
+
+"
+" Specific Arduino highlighting
+"
+"autocmd! BufNewFile,BufRead *.pde setlocal ft=arduino
+"autocmd! BufNewFile,BufRead *.ino setlocal ft=arduino
+
+" 
+" Set an appropriate wrapping margin when editing git commit messages
+"
+autocmd FileType gitcommit set textwidth=72 | set colorcolumn=73
+
+" 
+" Automatically open, but do not go to (if there are errors) the quickfix /
+" location list window, or close it when is has become empty.
+"
+" Note: Must allow nesting of autocmds to enable any customizations for quickfix
+" buffers.
+" Note: Normally, :cwindow jumps to the quickfix window if the command opens it
+" (but not if it's already open). However, as part of the autocmd, this doesn't
+" seem to happen.
+"
+function! AfterQF()
+    bot cwindow
+endfunction
+
+autocmd QuickFixCmdPost [^l]* nested :call AfterQF()
+autocmd QuickFixCmdPost    l* nested lwindow
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugin Settings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Insert a space after the left comment delimiter and before the right comment
 " delimiter.  Remove these extra spaces when removing comments as well
@@ -442,7 +448,7 @@ endfunction
 command! Tasks :execute TaskList()
 
 "
-" Function and shortcut to vimgrep for the word under the cursor in normal mode,
+" Function to vimgrep for the word under the cursor in normal mode,
 " and for the selection in visual mode.  The portion that utilizes visual mode
 " is based on the code by Amir Salihefendic.  The full code may be found at:
 "     
@@ -491,60 +497,76 @@ function! MaximizeToggle()
 endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Shortcuts and Commands
+" Shortcuts (Alphabetically Sorted)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-" Map NERD_comment toggle
+" Toggle SelectBuf
+"
+nmap <silent> <unique> <leader>b <Plug>SelectBuf
+
+"
+" Toggle NERDComment on the current line, or current selection
 "
 nnoremap <leader>c :call NERDComment(0, "invert")<CR>
 vnoremap <leader>c :call NERDComment(0, "invert")<CR>
 
 "
-" The following commands are for opening side windows for tags lists, file
-" lists, tasks lists.
+" Insert the current date
+"
+if exists ("*strftime")
+    nnoremap <leader>d "=strftime("%m/%d/%y")<CR>po
+endif
+
+"
+" Toggle NERDTree
 "
 nnoremap <leader>f :NERDTreeToggle<CR>
+
+"
+" Invoke the MultiModeGrep function on either the current line or selection
+"
+vnoremap <leader>g :call MultiModeGrep("visual")<CR>
+nmap <leader>g :call MultiModeGrep("normal")<CR>
+
+"
+" Hide hlsearch temporarily
+"
+nnoremap <leader>h :nohls<CR>
+
+"
+" Toggle MaximizeToggle
+"
+nmap <leader>m :call MaximizeToggle()<CR>
+
+"
+" Toggle paste
+"
+set pastetoggle=<leader>p
+
+"
+" Invoke the FilterQuickFix function, filtering either the file or content
+" sections of the quickfix buffer
+"
+nnoremap <leader>qf :call FilterQuickFix("file", input("Display file names matching: ", ""))<CR>
+nnoremap <leader>qc :call FilterQuickFix("content", input("Display lines containing: ", ""))<CR>
+
+"
+" Invoke the GetAlternate function, with either a vertical split, a horizontal
+" split, or no split
+"
+if has ('cscope')
+    nmap <leader>s :call GetAlternate("n")<CR>
+    nmap <leader>ss :call GetAlternate("h")<CR>
+    nmap <leader>sv :call GetAlternate("v")<CR>
+endif
+
+"
+" Toggle the Tagbar
+"
 nnoremap <leader>t :TagbarToggle<CR>
 
 "
-" Open the buffer explorer
-"
-nmap <silent> <unique> <leader>b <Plug>SelectBuf
-
-"
-" Shortcuts to move an entire line up or down.  This is  basically a remapping
-" of the '[e' and ']e' shortcuts of the unimpaired.vim plugin.
-"
-nmap <Up> [e 
-nmap <Down> ]e
-
-vmap <Up> [egv
-vmap <Down> ]egv
-
-"
-" Shortcuts to indent or unindent the current line.  This is a remapping of the
-" left and right arrow keys.
-"
-nmap <Left> <<
-nmap <Right> >>
-
-vmap <Left> <gv
-vmap <Right> >gv
-
-" 
-" Assign the spacebar the task of toggling folds.
-" 
-nnoremap <Space> za
-vnoremap <Space> za
-
-"
-" Simple code snippet for inserting braces with the proper indentation.  Be
-" warned: this breaks the Undo/Redo behavior of vim
-"
-inoremap {{ {<CR>}<Esc>O
-
-"
-" Mappings for making the VCSCommand plugin easier to use
+" Invoke some common uses for the VCSCommand plugin
 "
 nnoremap <leader>va :VCSAdd<CR>
 nnoremap <leader>vb :VCSBlame<CR>
@@ -555,41 +577,28 @@ nnoremap <leader>vs :VCSStatus<CR>
 nnoremap <leader>vu :VCSUpdate<CR>
 
 "
-" Mapping for inserting the current date
+" Use the arrow keys to move the current line or selection up or down, and to
+" control indentation
 "
-if exists ("*strftime")
-    nnoremap <leader>d "=strftime("%m/%d/%y")<CR>po
-endif
+nmap <Up> [e 
+nmap <Down> ]e
+vmap <Up> [egv
+vmap <Down> ]egv
+
+nmap <Left> <<
+nmap <Right> >>
+vmap <Left> <gv
+vmap <Right> >gv
+
+" 
+" Toggle folds with the spacebar
+" 
+nnoremap <Space> za
+vnoremap <Space> za
 
 "
-" Shortcut for toggling the paste option.
+" Simple code snippet for inserting braces with the proper indentation.  Be
+" warned: this breaks the Undo/Redo behavior of vim
 "
-set pastetoggle=<leader>p
-
-"
-" Create some shortcuts for using the GetAlternate function
-"
-if has ('cscope')
-    nmap <leader>s :call GetAlternate("n")<CR>
-    nmap <leader>ss :call GetAlternate("h")<CR>
-    nmap <leader>sv :call GetAlternate("v")<CR>
-
-endif
-
-"
-" Shortcuts for using the FilterQuickFix function
-"
-nnoremap <leader>qf :call FilterQuickFix("file", input("Display file names matching: ", ""))<CR>
-nnoremap <leader>qc :call FilterQuickFix("content", input("Display lines containing: ", ""))<CR>
-
-"
-" Shortcut for using the MaximizeToggle function
-"
-nmap <leader>m :call MaximizeToggle()<CR>
-
-"
-" Shortcut for using the MultiModeGrep funtion
-"
-vnoremap <leader>g :call MultiModeGrep("visual")<CR>
-nmap <leader>g :call MultiModeGrep("normal")<CR>
+inoremap {{ {<CR>}<Esc>O
 
