@@ -235,12 +235,6 @@ set backup
 set laststatus=2
 
 "
-" Highlight search matches, but turn it off with CR.
-"
-set hlsearch
-nnoremap <CR> :nohlsearch<CR>
-
-"
 " Set the contents of the status line
 "
 set statusline=\ Buf:\ %n\ \|\      " Buffer number
