@@ -13,14 +13,18 @@
 " William Rideout
 "
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugins
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-" Change the leader key for user-defined commands to ','
+" Change the leader key for user-defined commands to ','.  This has to be done
+" here to work with all plugins
 "
 let mapleader=","
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Load plugins with pathogen and all associated helptags
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" Load all our plugins with Pathogen, and generate new helptags
+"
 execute pathogen#infect() 
 Helptags
 
@@ -36,15 +40,15 @@ set autochdir
 "
 " Terminal colors
 " 
-" set t_Co=256
+set t_Co=256
 
 "
 " Turn on syntax highlighting, and use the specified colorscheme
 "
 syntax on
-colorscheme jellybeans
-" colorscheme solarized
-" set background=light
+set background=light
+" colorscheme jellybeans
+colorscheme solarized
 
 " 
 " Set line numbers and show the position of the cursor at the bottom of the
@@ -180,8 +184,8 @@ set cursorline
 " Manually configure the CursorLine, and ColorColumn highlighting to match...
 " this reflects the colors used in the JellyBeans colorscheme
 "
-hi CursorLine term=underline ctermbg=234 guibg=#1c1c1c
-hi ColorColumn term=underline ctermbg=234 guibg=#1c1c1c
+" hi CursorLine term=underline ctermbg=234 guibg=#1c1c1c
+" hi ColorColumn term=underline ctermbg=234 guibg=#1c1c1c
 
 "
 " Set the number of tenths of a second to blink the cursor, just because we can
@@ -292,87 +296,8 @@ let g:scratch_autohide=0
 let g:scratch_height=20
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Shortcuts, Functions, and Commands
+" Functions
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
-" Map NERD_comment toggle
-"
-nnoremap <leader>c :call NERDComment(0, "invert")<CR>
-vnoremap <leader>c :call NERDComment(0, "invert")<CR>
-
-"
-" The following commands are for opening side windows for tags lists, file
-" lists, tasks lists.
-"
-nnoremap <leader>f :NERDTreeToggle<CR>
-nnoremap <leader>t :TagbarToggle<CR>
-
-"
-" Open the buffer explorer
-"
-nmap <silent> <unique> <leader>b <Plug>SelectBuf
-
-"
-" Shortcuts to move an entire line up or down.  This is  basically a remapping
-" of the '[e' and ']e' shortcuts of the unimpaired.vim plugin.
-"
-nmap <Up> [e 
-nmap <Down> ]e
-
-vmap <Up> [egv
-vmap <Down> ]egv
-
-"
-" Shortcuts to indent or unindent the current line.  This is a remapping of the
-" left and right arrow keys.
-"
-nmap <Left> <<
-nmap <Right> >>
-
-vmap <Left> <gv
-vmap <Right> >gv
-
-
-" 
-" Remap the :join command, since we are using the old mapping to move lines
-"
-nnoremap <leader>j :join<CR>
-
-" 
-" Assign the spacebar the task of toggling folds.
-" 
-nnoremap <Space> za
-vnoremap <Space> za
-
-"
-" Simple code snippet for inserting braces with the proper indentation.  Be
-" warned: this breaks the Undo/Redo behavior of vim
-"
-inoremap {{ {<CR>}<Esc>O
-
-"
-" Mappings for making the VCSCommand plugin easier to use
-"
-nnoremap <leader>va :VCSAdd<CR>
-nnoremap <leader>vb :VCSBlame<CR>
-nnoremap <leader>vd :VCSVimDiff<CR>
-nnoremap <leader>vl :VCSLog<CR>
-nnoremap <leader>vr :VCSReview<CR>
-nnoremap <leader>vs :VCSStatus<CR>
-nnoremap <leader>vu :VCSUpdate<CR>
-
-"
-" Mapping for inserting the current date
-"
-if exists ("*strftime")
-    nnoremap <leader>d "=strftime("%m/%d/%y")<CR>po
-endif
-
-"
-" Shortcut for toggling the paste option.
-"
-set pastetoggle=<leader>p
-
 "
 " Switch quickly between header and code files.  Executing `,sh` queries cscope
 " for the header file with a name matching the current file, and displays it.
@@ -429,15 +354,11 @@ if has ('cscope')
             echoerr "Error... only C and C++ currently supported!"
         endif
     endfunction
-
-    " Create some shortcuts for using the GetAlternate function
-    nmap <leader>s :call GetAlternate("n")<CR>
-    nmap <leader>ss :call GetAlternate("h")<CR>
-    nmap <leader>sv :call GetAlternate("v")<CR>
-
 endif
 
+"
 " Set up vim to use cscope more efficiently
+"
 if has ('cscope')
     set cscopetag cscopeverbose
 
@@ -476,7 +397,7 @@ if has ('cscope')
 endif
 
 "
-" Function and shortcuts for filtering the content of the quickfix buffer.  This
+" Function for filtering the content of the quickfix buffer.  This
 " is meant to approximate the piping behavior of cscope.  The function is based
 " on the code posted to StackOverflow by user Benoit.  The post may be found at:
 "
@@ -505,33 +426,20 @@ function! FilterQuickFix(mode, pattern)
     call setqflist(s:newList)
 endfunction
 
-nnoremap <leader>qf :call FilterQuickFix("file", input("Display file names matching: ", ""))<CR>
-nnoremap <leader>qc :call FilterQuickFix("content", input("Display lines containing: ", ""))<CR>
-
-" 
-" Maximize the current window in the buffer, without losing the underlying
-" layout of all the open buffers.  The quickfix list is closed before any other
-" operation, to avoid having a new unpopulated quickfix window opened when the
-" original layout is restored.
 "
-function! MaximizeToggle()
-    cclose
-    if exists("s:maximize_session")
-        exec "source " . s:maximize_session
-        call delete(s:maximize_session)
-        unlet s:maximize_session
-        let &hidden = s:maximize_hidden_save
-        unlet s:maximize_hidden_save
+" Generate a list of tasks based on my personal TODO tag.  This uses cscope to
+" search the entire project.  This can be adjusted to search only the local file
+" using vimgrep if cscope is not available.
+"
+function! TaskList()
+    if has ('cscope')
+        execute "cscope find e WHR TODO"
     else
-        let s:maximize_hidden_save = &hidden
-        let s:maximize_session = tempname()
-        set hidden
-        exec "mksession! " . s:maximize_session
-        only
+        execute "vimgrep/WHR TODO/gj %"
+        execute "copen"  
     endif
 endfunction
-
-nmap <leader>m :call MaximizeToggle()<CR>
+command! Tasks :execute TaskList()
 
 "
 " Function and shortcut to vimgrep for the word under the cursor in normal mode,
@@ -559,23 +467,129 @@ function! MultiModeGrep(mode)
     endif
 endfunction
 
-vnoremap <leader>g :call MultiModeGrep("visual")<CR>
-nmap <leader>g :call MultiModeGrep("normal")<CR>
+" 
+" Maximize the current window in the buffer, without losing the underlying
+" layout of all the open buffers.  The quickfix list is closed before any other
+" operation, to avoid having a new unpopulated quickfix window opened when the
+" original layout is restored.
+"
+function! MaximizeToggle()
+    cclose
+    if exists("s:maximize_session")
+        exec "source " . s:maximize_session
+        call delete(s:maximize_session)
+        unlet s:maximize_session
+        let &hidden = s:maximize_hidden_save
+        unlet s:maximize_hidden_save
+    else
+        let s:maximize_hidden_save = &hidden
+        let s:maximize_session = tempname()
+        set hidden
+        exec "mksession! " . s:maximize_session
+        only
+    endif
+endfunction
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Shortcuts and Commands
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" Map NERD_comment toggle
+"
+nnoremap <leader>c :call NERDComment(0, "invert")<CR>
+vnoremap <leader>c :call NERDComment(0, "invert")<CR>
 
 "
-" Generate a list of tasks based on my personal TODO tag.  This uses cscope to
-" search the entire project.  This can be adjusted to search only the local file
-" using vimgrep if cscope is not available.
+" The following commands are for opening side windows for tags lists, file
+" lists, tasks lists.
+"
+nnoremap <leader>f :NERDTreeToggle<CR>
+nnoremap <leader>t :TagbarToggle<CR>
+
+"
+" Open the buffer explorer
+"
+nmap <silent> <unique> <leader>b <Plug>SelectBuf
+
+"
+" Shortcuts to move an entire line up or down.  This is  basically a remapping
+" of the '[e' and ']e' shortcuts of the unimpaired.vim plugin.
+"
+nmap <Up> [e 
+nmap <Down> ]e
+
+vmap <Up> [egv
+vmap <Down> ]egv
+
+"
+" Shortcuts to indent or unindent the current line.  This is a remapping of the
+" left and right arrow keys.
+"
+nmap <Left> <<
+nmap <Right> >>
+
+vmap <Left> <gv
+vmap <Right> >gv
+
+" 
+" Assign the spacebar the task of toggling folds.
+" 
+nnoremap <Space> za
+vnoremap <Space> za
+
+"
+" Simple code snippet for inserting braces with the proper indentation.  Be
+" warned: this breaks the Undo/Redo behavior of vim
+"
+inoremap {{ {<CR>}<Esc>O
+
+"
+" Mappings for making the VCSCommand plugin easier to use
+"
+nnoremap <leader>va :VCSAdd<CR>
+nnoremap <leader>vb :VCSBlame<CR>
+nnoremap <leader>vd :VCSVimDiff<CR>
+nnoremap <leader>vl :VCSLog<CR>
+nnoremap <leader>vr :VCSReview<CR>
+nnoremap <leader>vs :VCSStatus<CR>
+nnoremap <leader>vu :VCSUpdate<CR>
+
+"
+" Mapping for inserting the current date
+"
+if exists ("*strftime")
+    nnoremap <leader>d "=strftime("%m/%d/%y")<CR>po
+endif
+
+"
+" Shortcut for toggling the paste option.
+"
+set pastetoggle=<leader>p
+
+"
+" Create some shortcuts for using the GetAlternate function
 "
 if has ('cscope')
-    function! TaskList()
-        execute "cscope find e WHR TODO"
-    endfunction
-    else
-    function! TaskList()
-        execute "vimgrep/WHR TODO/gj %"
-        execute "copen"  
-    endfunction
+    nmap <leader>s :call GetAlternate("n")<CR>
+    nmap <leader>ss :call GetAlternate("h")<CR>
+    nmap <leader>sv :call GetAlternate("v")<CR>
+
 endif
-command! Tasks :execute TaskList()
+
+"
+" Shortcuts for using the FilterQuickFix function
+"
+nnoremap <leader>qf :call FilterQuickFix("file", input("Display file names matching: ", ""))<CR>
+nnoremap <leader>qc :call FilterQuickFix("content", input("Display lines containing: ", ""))<CR>
+
+"
+" Shortcut for using the MaximizeToggle function
+"
+nmap <leader>m :call MaximizeToggle()<CR>
+
+"
+" Shortcut for using the MultiModeGrep funtion
+"
+vnoremap <leader>g :call MultiModeGrep("visual")<CR>
+nmap <leader>g :call MultiModeGrep("normal")<CR>
 
