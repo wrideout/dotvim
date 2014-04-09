@@ -73,9 +73,16 @@
 [submodule "bundle/tabular"]
 	path = bundle/tabular
 	url = git@github.com:godlygeek/tabular.git
+    ignore = dirty
 [submodule "bundle/abolish"]
 	path = bundle/abolish
 	url = git://github.com/tpope/vim-abolish.git
+    ignore = dirty
 [submodule "bundle/matchit"]
 	path = bundle/matchit
 	url = git://github.com/tmhedberg/matchit.git
+    ignore = dirty
+[submodule "bundle/fugitive"]
+	path = bundle/fugitive
+	url = git@github.com:tpope/vim-fugitive.git
+    ignore = dirty
