@@ -221,43 +221,6 @@ set statusline+=\|\ Col:\ %2c\       " Current column number
 set statusline+=\|\ %P\             " Current position in file as a percentage
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Autocmds
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
-" Custom tabs for Makefiles and .snippet files
-"
-autocmd FileType Makefile setlocal noexpandtab
-autocmd FileType snippet setlocal noexpandtab
-
-"
-" Specific Arduino highlighting
-"
-"autocmd! BufNewFile,BufRead *.pde setlocal ft=arduino
-"autocmd! BufNewFile,BufRead *.ino setlocal ft=arduino
-
-" 
-" Set an appropriate wrapping margin when editing git commit messages
-"
-autocmd FileType gitcommit set textwidth=72 | set colorcolumn=73
-
-" 
-" Automatically open, but do not go to (if there are errors) the quickfix /
-" location list window, or close it when is has become empty.
-"
-" Note: Must allow nesting of autocmds to enable any customizations for quickfix
-" buffers.
-" Note: Normally, :cwindow jumps to the quickfix window if the command opens it
-" (but not if it's already open). However, as part of the autocmd, this doesn't
-" seem to happen.
-"
-function! AfterQF()
-    bot cwindow
-endfunction
-
-autocmd QuickFixCmdPost [^l]* nested :call AfterQF()
-autocmd QuickFixCmdPost    l* nested lwindow
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin Settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
@@ -496,6 +459,20 @@ function! MaximizeToggle()
     endif
 endfunction
 
+" 
+" Automatically open, but do not go to (if there are errors) the quickfix /
+" location list window, or close it when is has become empty.
+"
+" Note: Must allow nesting of autocmds to enable any customizations for quickfix
+" buffers.
+" Note: Normally, :cwindow jumps to the quickfix window if the command opens it
+" (but not if it's already open). However, as part of the autocmd, this doesn't
+" seem to happen.
+"
+function! AfterQF()
+    bot cwindow
+endfunction
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Shortcuts (Alphabetically Sorted)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -601,4 +578,27 @@ vnoremap <Space> za
 " warned: this breaks the Undo/Redo behavior of vim
 "
 inoremap {{ {<CR>}<Esc>O
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Autocmds
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" Custom tabs for Makefiles and .snippet files
+"
+autocmd FileType Makefile setlocal noexpandtab
+autocmd FileType snippet setlocal noexpandtab
+
+"
+" Specific Arduino highlighting
+"
+"autocmd! BufNewFile,BufRead *.pde setlocal ft=arduino
+"autocmd! BufNewFile,BufRead *.ino setlocal ft=arduino
+
+" 
+" Set an appropriate wrapping margin when editing git commit messages
+"
+autocmd FileType gitcommit set textwidth=72 | set colorcolumn=73
+
+autocmd QuickFixCmdPost [^l]* nested :call AfterQF()
+autocmd QuickFixCmdPost    l* nested lwindow
 
