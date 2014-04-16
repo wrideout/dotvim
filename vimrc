@@ -182,7 +182,7 @@ set hidden
 "
 " Always open new windows on the right side of the main buffer
 "
-set splitright
+" set splitright
 
 "
 " Tell vim to remember certain things when we exit
@@ -548,6 +548,7 @@ nnoremap <leader>t :TagbarToggle<CR>
 nnoremap <leader>va :VCSAdd<CR>
 nnoremap <leader>vb :VCSBlame<CR>
 nnoremap <leader>vd :VCSVimDiff<CR>
+nnoremap <leader>vi :VCSInfo<CR>
 nnoremap <leader>vl :VCSLog<CR>
 nnoremap <leader>vr :VCSReview<CR>
 nnoremap <leader>vs :VCSStatus<CR>
