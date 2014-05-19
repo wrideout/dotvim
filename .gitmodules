@@ -86,3 +86,7 @@
 	path = bundle/fugitive
 	url = git@github.com:tpope/vim-fugitive.git
     ignore = dirty
+[submodule "bundle/zenburn"]
+	path = bundle/zenburn
+    url = git://github.com/jnurmine/Zenburn.git
+    ignore = dirty
