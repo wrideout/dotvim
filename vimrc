@@ -38,6 +38,11 @@ Helptags
 set autochdir
 
 "
+" Enable the mouse for all four modes.
+"
+set mouse=a
+
+"
 " Terminal colors
 " 
 set t_Co=256
@@ -46,10 +51,11 @@ set t_Co=256
 " Turn on syntax highlighting, and use the specified colorscheme
 "
 syntax on
-" set background=light
+set background=dark
 " colorscheme jellybeans
-colorscheme hybrid
-" colorscheme solarized
+" colorscheme hybrid
+colorscheme solarized
+
 
 " 
 " Set line numbers and show the position of the cursor at the bottom of the
@@ -461,7 +467,7 @@ function! MaximizeToggle()
 endfunction
 
 " 
-" Automatically open, but do not go to (if there are errors) the quickfix /
+" Automatically open, but do not go to (if there are errors) the quickfix
 " location list window, or close it when is has become empty.
 "
 " Note: Must allow nesting of autocmds to enable any customizations for quickfix
