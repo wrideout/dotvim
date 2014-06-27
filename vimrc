@@ -52,8 +52,6 @@ set t_Co=256
 "
 syntax on
 set background=dark
-" colorscheme jellybeans
-" colorscheme hybrid
 colorscheme solarized
 
 
@@ -241,7 +239,7 @@ let g:NERDRemoveExtraSpaces=1
 " Tagbar options
 "
 let g:tagbar_autofocus=1
-let g:tagbar_autoclose=1
+" let g:tagbar_autoclose=1
 let g:tagbar_iconchars=['+', '~']
 
 "
