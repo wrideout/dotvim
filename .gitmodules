@@ -90,7 +90,3 @@
 	path = bundle/zenburn
     url = git://github.com/jnurmine/Zenburn.git
     ignore = dirty
-[submodule "bundle/ultisnips"]
-	path = bundle/ultisnips
-    url = git@github.com:SirVer/ultisnips.git
-    ignore = dirty
