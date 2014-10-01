@@ -90,3 +90,15 @@
 	path = bundle/zenburn
     url = git://github.com/jnurmine/Zenburn.git
     ignore = dirty
+[submodule "bundle/syntastic"]
+	path = bundle/syntastic
+	url = git://github.com/scrooloose/syntastic.git
+[submodule "bundle/ctrlp"]
+	path = bundle/ctrlp
+	url = git://github.com/kien/ctrlp.vim.git
+[submodule "bundle/autumnleaf"]
+	path = bundle/autumnleaf
+	url = git://github.com/vim-scripts/AutumnLeaf.git
+[submodule "bundle/summerfruit"]
+	path = bundle/summerfruit
+	url = git://github.com/vim-scripts/summerfruit256.vim.git

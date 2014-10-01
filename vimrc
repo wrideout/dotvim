@@ -239,7 +239,7 @@ let g:NERDRemoveExtraSpaces=1
 " Tagbar options
 "
 let g:tagbar_autofocus=1
-" let g:tagbar_autoclose=1
+let g:tagbar_autoclose=1
 let g:tagbar_iconchars=['+', '~']
 
 "
@@ -268,6 +268,13 @@ let g:scratch_autohide=0
 " Make the Scratch window bigger
 "
 let g:scratch_height=20
+
+"
+"
+"
+let g:syntastic_mode_map={"mode": "passive",
+                         \ "active_filetypes": [],
+                         \ "passive_filetypes": []}
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Functions
@@ -378,22 +385,49 @@ endif
 "   http://stackoverflow.com/questions/4644658/
 "       how-to-search-in-vim-cscope-result-window
 "
-function! FilterQuickFix(mode, pattern)
+" function! FilterQuickFix(mode, pattern)
+    " let s:curList = getqflist()
+    " let s:newList = []
+    " for item in s:curList
+        " Are we filtering on file names...
+        " if a:mode == "file" 
+            " let s:cmpPat = bufname(item.bufnr)
+
+        " or are we filtering on line content?
+        " elseif a:mode == "content"
+            " let s:cmpPat = item.text . item.pattern
+        " endif
+    
+        " if item.valid
+            " if s:cmpPat =~ a:pattern
+                " let s:newList += [item]
+            " endif
+        " endif
+    " endfor
+    " call setqflist(s:newList)
+" endfunction
+" Filter the quickfix list
+function! FilterQFList(type, action, pattern)
+    " get current quickfix list
     let s:curList = getqflist()
     let s:newList = []
     for item in s:curList
-        " Are we filtering on file names...
-        if a:mode == "file" 
+        if a:type == 0     " filter on file names
             let s:cmpPat = bufname(item.bufnr)
-
-        " or are we filtering on line content?
-        elseif a:mode == "content"
+        elseif a:type == 1 " filter by line content
             let s:cmpPat = item.text . item.pattern
         endif
-    
         if item.valid
-            if s:cmpPat =~ a:pattern
-                let s:newList += [item]
+            if a:action < 0
+                " Keep only nonmatching lines
+                if s:cmpPat !~ a:pattern
+                    let s:newList += [item]
+                endif
+            else
+                " Keep only matching lines
+                if s:cmpPat =~ a:pattern
+                    let s:newList += [item]
+                endif
             endif
         endif
     endfor
@@ -529,8 +563,12 @@ set pastetoggle=<leader>p
 " Invoke the FilterQuickFix function, filtering either the file or content
 " sections of the quickfix buffer
 "
-nnoremap <leader>qf :call FilterQuickFix("file", input("Display file names matching: ", ""))<CR>
-nnoremap <leader>qc :call FilterQuickFix("content", input("Display lines containing: ", ""))<CR>
+" nnoremap <leader>qf :call FilterQuickFix("file", input("Display file names matching: ", ""))<CR>
+" nnoremap <leader>qc :call FilterQuickFix("content", input("Display lines containing: ", ""))<CR>
+nnoremap <leader>qfr :call FilterQFList(0, -1, inputdialog('Remove file names matching:', ''))<CR>
+nnoremap <leader>qf :call FilterQFList(0, 1, inputdialog('Keep only file names matching:', ''))<CR>
+nnoremap <leader>qcr :call FilterQFList(1, -1, inputdialog('Remove all lines matching:', ''))<CR>
+nnoremap <leader>qc :call FilterQFList(1, 1, inputdialog('Keep only lines matching:', ''))<CR>
 
 "
 " Invoke the GetAlternate function, with either a vertical split, a horizontal
