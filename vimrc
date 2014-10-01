@@ -13,25 +13,34 @@
 " William Rideout
 "
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugins
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-" Change the leader key for user-defined commands to ','
+" Change the leader key for user-defined commands to ','.  This has to be done
+" here to work with all plugins
 "
 let mapleader=","
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Load plugins with pathogen and all associated helptags
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" Load all our plugins with Pathogen, and generate new helptags
+"
 execute pathogen#infect() 
 Helptags
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Environment Settings
+" Editor Settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 
 " Set the working directory, for when VIM is opned, and change the working
 " directory when the file that is being edited changes
 "
 set autochdir
+
+"
+" Enable the mouse for all four modes.
+"
+set mouse=a
 
 "
 " Terminal colors
@@ -42,9 +51,8 @@ set t_Co=256
 " Turn on syntax highlighting, and use the specified colorscheme
 "
 syntax on
-" colorscheme jellybeans
+set background=dark
 colorscheme solarized
-set background=light
 
 " 
 " Set line numbers and show the position of the cursor at the bottom of the
@@ -102,40 +110,6 @@ set bs=2
 filetype plugin indent on
 
 "
-" Custom tabs for Makefiles and .snippet files
-"
-autocmd FileType Makefile setlocal noexpandtab
-autocmd FileType snippet setlocal noexpandtab
-
-"
-" Specific Arduino highlighting
-"
-"autocmd! BufNewFile,BufRead *.pde setlocal ft=arduino
-"autocmd! BufNewFile,BufRead *.ino setlocal ft=arduino
-
-" 
-" Set an appropriate wrapping margin when editing git commit messages
-"
-autocmd FileType gitcommit set textwidth=72 | set colorcolumn=73
-
-" 
-" Automatically open, but do not go to (if there are errors) the quickfix /
-" location list window, or close it when is has become empty.
-"
-" Note: Must allow nesting of autocmds to enable any customizations for quickfix
-" buffers.
-" Note: Normally, :cwindow jumps to the quickfix window if the command opens it
-" (but not if it's already open). However, as part of the autocmd, this doesn't
-" seem to happen.
-"
-function! AfterQF()
-    bot cwindow
-endfunction
-
-autocmd QuickFixCmdPost [^l]* nested :call AfterQF()
-autocmd QuickFixCmdPost    l* nested lwindow
-
-"
 " Write the contents of the file, if it has been modified, on each
 "
 " :next, :rewind, :last, :first, :previous, :stop, :suspend, :tag, :!,
@@ -177,8 +151,8 @@ endif
 set cursorline
 
 "
-" Manually configure the CursorLine, ColorColumn, and StatusLine highlighting to
-" match...  this reflects the colors used in the JellyBeans colorscheme
+" Manually configure the CursorLine, and ColorColumn highlighting to match...
+" this reflects the colors used in the JellyBeans colorscheme
 "
 " hi CursorLine term=underline ctermbg=234 guibg=#1c1c1c
 " hi ColorColumn term=underline ctermbg=234 guibg=#1c1c1c
@@ -212,7 +186,7 @@ set hidden
 "
 " Always open new windows on the right side of the main buffer
 "
-set splitright
+" set splitright
 
 "
 " Tell vim to remember certain things when we exit
@@ -235,6 +209,11 @@ set backup
 set laststatus=2
 
 "
+" Highlight search matches, but turn it off with CR.
+"
+set hlsearch
+
+"
 " Set the contents of the status line
 "
 set statusline=\ Buf:\ %n\ \|\      " Buffer number
@@ -245,6 +224,9 @@ set statusline+=\ Line:\ %l,%L\     " Current line number and total line count
 set statusline+=\|\ Col:\ %2c\       " Current column number
 set statusline+=\|\ %P\             " Current position in file as a percentage
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugin Settings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Insert a space after the left comment delimiter and before the right comment
 " delimiter.  Remove these extra spaces when removing comments as well
@@ -256,7 +238,7 @@ let g:NERDRemoveExtraSpaces=1
 " Tagbar options
 "
 let g:tagbar_autofocus=1
-let g:tagbar_autoclose=1
+" let g:tagbar_autoclose=1
 let g:tagbar_iconchars=['+', '~']
 
 "
@@ -287,87 +269,8 @@ let g:scratch_autohide=0
 let g:scratch_height=20
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Shortcuts, Functions, and Commands
+" Functions
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
-" Map NERD_comment toggle
-"
-nnoremap <leader>c :call NERDComment(0, "invert")<CR>
-vnoremap <leader>c :call NERDComment(0, "invert")<CR>
-
-"
-" The following commands are for opening side windows for tags lists, file
-" lists, tasks lists.
-"
-nnoremap <leader>f :NERDTreeToggle<CR>
-nnoremap <leader>t :TagbarToggle<CR>
-
-"
-" Open the buffer explorer
-"
-nmap <silent> <unique> <leader>b <Plug>SelectBuf
-
-"
-" Shortcuts to move an entire line up or down.  This is  basically a remapping
-" of the '[e' and ']e' shortcuts of the unimpaired.vim plugin.
-"
-nmap <Up> [e 
-nmap <Down> ]e
-
-vmap <Up> [egv
-vmap <Down> ]egv
-
-"
-" Shortcuts to indent or unindent the current line.  This is a remapping of the
-" left and right arrow keys.
-"
-nmap <Left> <<
-nmap <Right> >>
-
-vmap <Left> <gv
-vmap <Right> >gv
-
-
-" 
-" Remap the :join command, since we are using the old mapping to move lines
-"
-nnoremap <leader>j :join<CR>
-
-" 
-" Assign the spacebar the task of toggling folds.
-" 
-nnoremap <Space> za
-vnoremap <Space> za
-
-"
-" Simple code snippet for inserting braces with the proper indentation.  Be
-" warned: this breaks the Undo/Redo behavior of vim
-"
-inoremap {{ {<CR>}<Esc>O
-
-"
-" Mappings for making the VCSCommand plugin easier to use
-"
-nnoremap <leader>va :VCSAdd<CR>
-nnoremap <leader>vb :VCSBlame<CR>
-nnoremap <leader>vd :VCSVimDiff<CR>
-nnoremap <leader>vl :VCSLog<CR>
-nnoremap <leader>vr :VCSReview<CR>
-nnoremap <leader>vs :VCSStatus<CR>
-nnoremap <leader>vu :VCSUpdate<CR>
-
-"
-" Mapping for inserting the current date
-"
-if exists ("*strftime")
-    nnoremap <leader>d "=strftime("%m/%d/%y")<CR>po
-endif
-
-"
-" Shortcut for toggling the paste option.
-"
-set pastetoggle=<leader>p
-
 "
 " Switch quickly between header and code files.  Executing `,sh` queries cscope
 " for the header file with a name matching the current file, and displays it.
@@ -424,15 +327,11 @@ if has ('cscope')
             echoerr "Error... only C and C++ currently supported!"
         endif
     endfunction
-
-    " Create some shortcuts for using the GetAlternate function
-    nmap <leader>s :call GetAlternate("n")<CR>
-    nmap <leader>ss :call GetAlternate("h")<CR>
-    nmap <leader>sv :call GetAlternate("v")<CR>
-
 endif
 
+"
 " Set up vim to use cscope more efficiently
+"
 if has ('cscope')
     set cscopetag cscopeverbose
 
@@ -471,7 +370,7 @@ if has ('cscope')
 endif
 
 "
-" Function and shortcuts for filtering the content of the quickfix buffer.  This
+" Function for filtering the content of the quickfix buffer.  This
 " is meant to approximate the piping behavior of cscope.  The function is based
 " on the code posted to StackOverflow by user Benoit.  The post may be found at:
 "
@@ -500,36 +399,23 @@ function! FilterQuickFix(mode, pattern)
     call setqflist(s:newList)
 endfunction
 
-nnoremap <leader>qf :call FilterQuickFix("file", input("Display file names matching: ", ""))<CR>
-nnoremap <leader>qc :call FilterQuickFix("content", input("Display lines containing: ", ""))<CR>
-
-" 
-" Maximize the current window in the buffer, without losing the underlying
-" layout of all the open buffers.  The quickfix list is closed before any other
-" operation, to avoid having a new unpopulated quickfix window opened when the
-" original layout is restored.
 "
-function! MaximizeToggle()
-    cclose
-    if exists("s:maximize_session")
-        exec "source " . s:maximize_session
-        call delete(s:maximize_session)
-        unlet s:maximize_session
-        let &hidden = s:maximize_hidden_save
-        unlet s:maximize_hidden_save
+" Generate a list of tasks based on my personal TODO tag.  This uses cscope to
+" search the entire project.  This can be adjusted to search only the local file
+" using vimgrep if cscope is not available.
+"
+function! TaskList()
+    if has ('cscope')
+        execute "cscope find e WHR TODO"
     else
-        let s:maximize_hidden_save = &hidden
-        let s:maximize_session = tempname()
-        set hidden
-        exec "mksession! " . s:maximize_session
-        only
+        execute "vimgrep/WHR TODO/gj %"
+        execute "copen"  
     endif
 endfunction
-
-nmap <leader>m :call MaximizeToggle()<CR>
+command! Tasks :execute TaskList()
 
 "
-" Function and shortcut to vimgrep for the word under the cursor in normal mode,
+" Function to vimgrep for the word under the cursor in normal mode,
 " and for the selection in visual mode.  The portion that utilizes visual mode
 " is based on the code by Amir Salihefendic.  The full code may be found at:
 "     
@@ -554,23 +440,170 @@ function! MultiModeGrep(mode)
     endif
 endfunction
 
+" 
+" Maximize the current window in the buffer, without losing the underlying
+" layout of all the open buffers.  The quickfix list is closed before any other
+" operation, to avoid having a new unpopulated quickfix window opened when the
+" original layout is restored.
+"
+function! MaximizeToggle()
+    cclose
+    if exists("s:maximize_session")
+        exec "source " . s:maximize_session
+        call delete(s:maximize_session)
+        unlet s:maximize_session
+        let &hidden = s:maximize_hidden_save
+        unlet s:maximize_hidden_save
+    else
+        let s:maximize_hidden_save = &hidden
+        let s:maximize_session = tempname()
+        set hidden
+        exec "mksession! " . s:maximize_session
+        only
+    endif
+endfunction
+
+" 
+" Automatically open, but do not go to (if there are errors) the quickfix
+" location list window, or close it when is has become empty.
+"
+" Note: Must allow nesting of autocmds to enable any customizations for quickfix
+" buffers.
+" Note: Normally, :cwindow jumps to the quickfix window if the command opens it
+" (but not if it's already open). However, as part of the autocmd, this doesn't
+" seem to happen.
+"
+function! AfterQF()
+    bot cwindow
+endfunction
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Shortcuts (Alphabetically Sorted)
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" Toggle SelectBuf
+"
+nmap <silent> <unique> <leader>b <Plug>SelectBuf
+
+"
+" Toggle NERDComment on the current line, or current selection
+"
+nnoremap <leader>c :call NERDComment(0, "invert")<CR>
+vnoremap <leader>c :call NERDComment(0, "invert")<CR>
+
+"
+" Insert the current date
+"
+if exists ("*strftime")
+    nnoremap <leader>d "=strftime("%m/%d/%y")<CR>po
+endif
+
+"
+" Toggle NERDTree
+"
+nnoremap <leader>f :NERDTreeToggle<CR>
+
+"
+" Invoke the MultiModeGrep function on either the current line or selection
+"
 vnoremap <leader>g :call MultiModeGrep("visual")<CR>
 nmap <leader>g :call MultiModeGrep("normal")<CR>
 
 "
-" Generate a list of tasks based on my personal TODO tag.  This uses cscope to
-" search the entire project.  This can be adjusted to search only the local file
-" using vimgrep if cscope is not available.
+" Hide hlsearch temporarily
+"
+nnoremap <leader>h :nohls<CR>
+
+"
+" Toggle MaximizeToggle
+"
+nmap <leader>m :call MaximizeToggle()<CR>
+
+"
+" Toggle paste
+"
+set pastetoggle=<leader>p
+
+"
+" Invoke the FilterQuickFix function, filtering either the file or content
+" sections of the quickfix buffer
+"
+nnoremap <leader>qf :call FilterQuickFix("file", input("Display file names matching: ", ""))<CR>
+nnoremap <leader>qc :call FilterQuickFix("content", input("Display lines containing: ", ""))<CR>
+
+"
+" Invoke the GetAlternate function, with either a vertical split, a horizontal
+" split, or no split
 "
 if has ('cscope')
-    function! TaskList()
-        execute "cscope find e WHR TODO"
-    endfunction
-    else
-    function! TaskList()
-        execute "vimgrep/WHR TODO/gj %"
-        execute "copen"  
-    endfunction
+    nmap <leader>s :call GetAlternate("n")<CR>
+    nmap <leader>ss :call GetAlternate("h")<CR>
+    nmap <leader>sv :call GetAlternate("v")<CR>
 endif
-command! Tasks :execute TaskList()
+
+"
+" Toggle the Tagbar
+"
+nnoremap <leader>t :TagbarToggle<CR>
+
+"
+" Invoke some common uses for the VCSCommand plugin
+"
+nnoremap <leader>va :VCSAdd<CR>
+nnoremap <leader>vb :VCSBlame<CR>
+nnoremap <leader>vd :VCSVimDiff<CR>
+nnoremap <leader>vi :VCSInfo<CR>
+nnoremap <leader>vl :VCSLog<CR>
+nnoremap <leader>vr :VCSReview<CR>
+nnoremap <leader>vs :VCSStatus<CR>
+nnoremap <leader>vu :VCSUpdate<CR>
+
+"
+" Use the arrow keys to move the current line or selection up or down, and to
+" control indentation
+"
+nmap <Up> [e 
+nmap <Down> ]e
+vmap <Up> [egv
+vmap <Down> ]egv
+
+nmap <Left> <<
+nmap <Right> >>
+vmap <Left> <gv
+vmap <Right> >gv
+
+" 
+" Toggle folds with the spacebar
+" 
+nnoremap <Space> za
+vnoremap <Space> za
+
+"
+" Simple code snippet for inserting braces with the proper indentation.  Be
+" warned: this breaks the Undo/Redo behavior of vim
+"
+inoremap {{ {<CR>}<Esc>O
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Autocmds
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" Custom tabs for Makefiles and .snippet files
+"
+autocmd FileType Makefile setlocal noexpandtab
+autocmd FileType snippet setlocal noexpandtab
+
+"
+" Specific Arduino highlighting
+"
+"autocmd! BufNewFile,BufRead *.pde setlocal ft=arduino
+"autocmd! BufNewFile,BufRead *.ino setlocal ft=arduino
+
+" 
+" Set an appropriate wrapping margin when editing git commit messages
+"
+autocmd FileType gitcommit set textwidth=72 | set colorcolumn=73
+
+autocmd QuickFixCmdPost [^l]* nested :call AfterQF()
+autocmd QuickFixCmdPost    l* nested lwindow
 
