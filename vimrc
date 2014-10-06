@@ -6,9 +6,11 @@
 " easy changes and updates.  Alternatively, if you don't care to use git, you
 " could just make this file your ~/.vimrc.  
 "
-" Be sure to look up all the plugins that are listed, they are what make this
+" Be sure to look up all the plugins that are listed; they are what make this
 " powerful in some cases.  Besides, the tools they define are well worth looking
 " into.
+"
+" See git log for changes.
 "
 " William Rideout
 "
