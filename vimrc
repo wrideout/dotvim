@@ -1,4 +1,5 @@
-" 
+" THIS IS A TEST STRING
+"
 " vimrc
 "
 " In order to work, be sure to make a hard link from this file to ~/.vimrc.
