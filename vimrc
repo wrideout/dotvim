@@ -1,4 +1,3 @@
-" THIS IS A TEST STRING
 "
 " vimrc
 "
@@ -55,7 +54,9 @@ set t_Co=256
 "
 syntax on
 set background=dark
+" set background=light
 colorscheme solarized
+" colorscheme jellybeans
 
 
 " 
