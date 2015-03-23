@@ -110,3 +110,6 @@
 	path = bundle/tango
 	url = git@github.com:vim-scripts/Tango-colour-scheme.git
     ignore = dirty
+[submodule "bundle/indexedSearch"]
+	path = bundle/indexedSearch
+	url = git://github.com/vim-scripts/IndexedSearch.git
