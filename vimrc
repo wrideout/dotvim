@@ -1,4 +1,4 @@
-" 
+"
 " vimrc
 "
 " In order to work, be sure to make a hard link from this file to ~/.vimrc.
@@ -6,9 +6,11 @@
 " easy changes and updates.  Alternatively, if you don't care to use git, you
 " could just make this file your ~/.vimrc.  
 "
-" Be sure to look up all the plugins that are listed, they are what make this
+" Be sure to look up all the plugins that are listed; they are what make this
 " powerful in some cases.  Besides, the tools they define are well worth looking
 " into.
+"
+" See git log for changes.
 "
 " William Rideout
 "
@@ -51,8 +53,11 @@ set t_Co=256
 " Turn on syntax highlighting, and use the specified colorscheme
 "
 syntax on
-set background=dark
+" set background=dark
+set background=light
 colorscheme solarized
+" colorscheme zellner
+" colorscheme jellybeans
 
 " 
 " Set line numbers and show the position of the cursor at the bottom of the
@@ -216,9 +221,10 @@ set hlsearch
 "
 " Set the contents of the status line
 "
-set statusline=\ Buf:\ %n\ \|\      " Buffer number
-set statusline+=%<%f\               " Name of current file
-set statusline+=%#error#%m%r%*      " Modified/READ ONLY
+set statusline=%#error#%m%r%*      " Modified/READ ONLY
+set statusline+=\ Buf:\ %n\          " Buffer number
+set statusline+=%<\"%f\"\           " Name of current file
+set statusline+=%{tagbar#currenttag('\|\ %s','','fs')}
 set statusline+=%=%#directory#%{&paste?'[paste]\':''}%*  " Paste is set? 
 set statusline+=\ Line:\ %l,%L\     " Current line number and total line count
 set statusline+=\|\ Col:\ %2c\       " Current column number
@@ -238,7 +244,7 @@ let g:NERDRemoveExtraSpaces=1
 " Tagbar options
 "
 let g:tagbar_autofocus=1
-" let g:tagbar_autoclose=1
+let g:tagbar_autoclose=1
 let g:tagbar_iconchars=['+', '~']
 
 "
@@ -266,7 +272,14 @@ let g:scratch_autohide=0
 "
 " Make the Scratch window bigger
 "
-let g:scratch_height=20
+" let g:scratch_height=20
+
+"
+"
+"
+let g:syntastic_mode_map={"mode": "passive",
+                         \ "active_filetypes": [],
+                         \ "passive_filetypes": []}
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Functions
@@ -377,22 +390,49 @@ endif
 "   http://stackoverflow.com/questions/4644658/
 "       how-to-search-in-vim-cscope-result-window
 "
-function! FilterQuickFix(mode, pattern)
+" function! FilterQuickFix(mode, pattern)
+    " let s:curList = getqflist()
+    " let s:newList = []
+    " for item in s:curList
+        " Are we filtering on file names...
+        " if a:mode == "file" 
+            " let s:cmpPat = bufname(item.bufnr)
+
+        " or are we filtering on line content?
+        " elseif a:mode == "content"
+            " let s:cmpPat = item.text . item.pattern
+        " endif
+    
+        " if item.valid
+            " if s:cmpPat =~ a:pattern
+                " let s:newList += [item]
+            " endif
+        " endif
+    " endfor
+    " call setqflist(s:newList)
+" endfunction
+" Filter the quickfix list
+function! FilterQFList(type, action, pattern)
+    " get current quickfix list
     let s:curList = getqflist()
     let s:newList = []
     for item in s:curList
-        " Are we filtering on file names...
-        if a:mode == "file" 
+        if a:type == 0     " filter on file names
             let s:cmpPat = bufname(item.bufnr)
-
-        " or are we filtering on line content?
-        elseif a:mode == "content"
+        elseif a:type == 1 " filter by line content
             let s:cmpPat = item.text . item.pattern
         endif
-    
         if item.valid
-            if s:cmpPat =~ a:pattern
-                let s:newList += [item]
+            if a:action < 0
+                " Keep only nonmatching lines
+                if s:cmpPat !~ a:pattern
+                    let s:newList += [item]
+                endif
+            else
+                " Keep only matching lines
+                if s:cmpPat =~ a:pattern
+                    let s:newList += [item]
+                endif
             endif
         endif
     endfor
@@ -447,14 +487,17 @@ endfunction
 " original layout is restored.
 "
 function! MaximizeToggle()
-    cclose
+    " This is the part of the code that returns the layout to its previous
+    " config.
     if exists("s:maximize_session")
         exec "source " . s:maximize_session
         call delete(s:maximize_session)
         unlet s:maximize_session
         let &hidden = s:maximize_hidden_save
         unlet s:maximize_hidden_save
+    " Maximize the current buffer
     else
+        cclose
         let s:maximize_hidden_save = &hidden
         let s:maximize_session = tempname()
         set hidden
@@ -528,8 +571,12 @@ set pastetoggle=<leader>p
 " Invoke the FilterQuickFix function, filtering either the file or content
 " sections of the quickfix buffer
 "
-nnoremap <leader>qf :call FilterQuickFix("file", input("Display file names matching: ", ""))<CR>
-nnoremap <leader>qc :call FilterQuickFix("content", input("Display lines containing: ", ""))<CR>
+" nnoremap <leader>qf :call FilterQuickFix("file", input("Display file names matching: ", ""))<CR>
+" nnoremap <leader>qc :call FilterQuickFix("content", input("Display lines containing: ", ""))<CR>
+nnoremap <leader>qfr :call FilterQFList(0, -1, inputdialog('Remove file names matching:', ''))<CR>
+nnoremap <leader>qf :call FilterQFList(0, 1, inputdialog('Keep only file names matching:', ''))<CR>
+nnoremap <leader>qcr :call FilterQFList(1, -1, inputdialog('Remove all lines matching:', ''))<CR>
+nnoremap <leader>qc :call FilterQFList(1, 1, inputdialog('Keep only lines matching:', ''))<CR>
 
 "
 " Invoke the GetAlternate function, with either a vertical split, a horizontal
@@ -607,3 +654,6 @@ autocmd FileType gitcommit set textwidth=72 | set colorcolumn=73
 autocmd QuickFixCmdPost [^l]* nested :call AfterQF()
 autocmd QuickFixCmdPost    l* nested lwindow
 
+" autocmd VimEnter * NERDTree 
+" autocmd VimEnter * nested :call tagbar#autoopen(1)
+" autocmd VimEnter * wincmd h
