@@ -58,6 +58,7 @@ set background=light
 colorscheme solarized
 " colorscheme zellner
 " colorscheme jellybeans
+call togglebg#map("<F5>")
 
 
 " 
