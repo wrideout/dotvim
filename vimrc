@@ -53,9 +53,10 @@ set t_Co=256
 " Turn on syntax highlighting, and use the specified colorscheme
 "
 syntax on
-set background=dark
-" set background=light
+" set background=dark
+set background=light
 colorscheme solarized
+" colorscheme zellner
 " colorscheme jellybeans
 
 
@@ -221,9 +222,10 @@ set hlsearch
 "
 " Set the contents of the status line
 "
-set statusline=\ Buf:\ %n\ \|\      " Buffer number
-set statusline+=%<%f\               " Name of current file
-set statusline+=%#error#%m%r%*      " Modified/READ ONLY
+set statusline=%#error#%m%r%*      " Modified/READ ONLY
+set statusline+=\ Buf:\ %n\          " Buffer number
+set statusline+=%<\"%f\"\           " Name of current file
+set statusline+=%{tagbar#currenttag('\|\ %s','','fs')}
 set statusline+=%=%#directory#%{&paste?'[paste]\':''}%*  " Paste is set? 
 set statusline+=\ Line:\ %l,%L\     " Current line number and total line count
 set statusline+=\|\ Col:\ %2c\       " Current column number
@@ -271,7 +273,7 @@ let g:scratch_autohide=0
 "
 " Make the Scratch window bigger
 "
-let g:scratch_height=20
+" let g:scratch_height=20
 
 "
 "
@@ -486,14 +488,17 @@ endfunction
 " original layout is restored.
 "
 function! MaximizeToggle()
-    cclose
+    " This is the part of the code that returns the layout to its previous
+    " config.
     if exists("s:maximize_session")
         exec "source " . s:maximize_session
         call delete(s:maximize_session)
         unlet s:maximize_session
         let &hidden = s:maximize_hidden_save
         unlet s:maximize_hidden_save
+    " Maximize the current buffer
     else
+        cclose
         let s:maximize_hidden_save = &hidden
         let s:maximize_session = tempname()
         set hidden
@@ -650,3 +655,6 @@ autocmd FileType gitcommit set textwidth=72 | set colorcolumn=73
 autocmd QuickFixCmdPost [^l]* nested :call AfterQF()
 autocmd QuickFixCmdPost    l* nested lwindow
 
+" autocmd VimEnter * NERDTree 
+" autocmd VimEnter * nested :call tagbar#autoopen(1)
+" autocmd VimEnter * wincmd h
