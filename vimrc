@@ -53,11 +53,8 @@ set t_Co=256
 " Turn on syntax highlighting, and use the specified colorscheme
 "
 syntax on
-" set background=dark
 set background=light
 colorscheme solarized
-" colorscheme zellner
-" colorscheme jellybeans
 
 " 
 " Set line numbers and show the position of the cursor at the bottom of the
@@ -136,7 +133,6 @@ set scrolloff=2
 " Set textwidth to 80, and autowrap and autoformat line automatically
 "
 set textwidth=80
-" set formatoptions+=rtacoqn
 
 " 
 " Highlight characters that are over the 80 character limit in lines...
@@ -270,11 +266,6 @@ let VCSCommandSplit='vertical'
 let g:scratch_autohide=0
 
 "
-" Make the Scratch window bigger
-"
-" let g:scratch_height=20
-
-"
 "
 "
 let g:syntastic_mode_map={"mode": "passive",
@@ -390,28 +381,6 @@ endif
 "   http://stackoverflow.com/questions/4644658/
 "       how-to-search-in-vim-cscope-result-window
 "
-" function! FilterQuickFix(mode, pattern)
-    " let s:curList = getqflist()
-    " let s:newList = []
-    " for item in s:curList
-        " Are we filtering on file names...
-        " if a:mode == "file" 
-            " let s:cmpPat = bufname(item.bufnr)
-
-        " or are we filtering on line content?
-        " elseif a:mode == "content"
-            " let s:cmpPat = item.text . item.pattern
-        " endif
-    
-        " if item.valid
-            " if s:cmpPat =~ a:pattern
-                " let s:newList += [item]
-            " endif
-        " endif
-    " endfor
-    " call setqflist(s:newList)
-" endfunction
-" Filter the quickfix list
 function! FilterQFList(type, action, pattern)
     " get current quickfix list
     let s:curList = getqflist()
@@ -654,6 +623,3 @@ autocmd FileType gitcommit set textwidth=72 | set colorcolumn=73
 autocmd QuickFixCmdPost [^l]* nested :call AfterQF()
 autocmd QuickFixCmdPost    l* nested lwindow
 
-" autocmd VimEnter * NERDTree 
-" autocmd VimEnter * nested :call tagbar#autoopen(1)
-" autocmd VimEnter * wincmd h
