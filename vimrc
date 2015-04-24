@@ -55,6 +55,7 @@ set t_Co=256
 syntax on
 set background=light
 colorscheme solarized
+call togglebg#map("<F5>")
 
 " 
 " Set line numbers and show the position of the cursor at the bottom of the
