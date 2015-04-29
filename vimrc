@@ -55,7 +55,8 @@ set t_Co=256
 syntax on
 set background=light
 colorscheme solarized
-call togglebg#map("<F5>")
+" colorscheme zellner
+" colorscheme jellybeans
 
 " 
 " Set line numbers and show the position of the cursor at the bottom of the
@@ -600,6 +601,11 @@ vnoremap <Space> za
 " warned: this breaks the Undo/Redo behavior of vim
 "
 inoremap {{ {<CR>}<Esc>O
+
+"
+" Toggle the background hue, either to dark or light
+"
+nnoremap <leader>bb :ToggleBG<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Autocmds
