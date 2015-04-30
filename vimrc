@@ -143,11 +143,13 @@ set textwidth=80
 " alternatively, use the 'colorcolumn' field to delimit 80 characters. 
 "
 " If using the colorcolumn option, make sure that this is turned OFF for vimdiff
-":au BufWinEnter * let w:m1=matchadd('Search', '\%<81v.\%>77v', -1)
-":au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
 "
-if !&diff
+if !&diff && exists ("&colorcolumn")
     set colorcolumn=81
+else
+    " The following hightlights all characters beyong the 80th column in red so
+    " that I know to trim or otherwise re-format the line to fit.
+    :au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
 endif
 
 "
