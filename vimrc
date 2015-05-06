@@ -53,8 +53,8 @@ set t_Co=256
 " Turn on syntax highlighting, and use the specified colorscheme
 "
 syntax on
-" set background=dark
-set background=light
+set background=dark
+" set background=light
 colorscheme solarized
 " colorscheme zellner
 " colorscheme jellybeans
@@ -636,6 +636,7 @@ inoremap {{ {<CR>}<Esc>O
 "
 " Toggle the background hue, either to dark or light
 "
+call togglebg#map("")
 nnoremap <leader>bb :ToggleBG<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
