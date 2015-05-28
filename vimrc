@@ -274,7 +274,7 @@ let g:scratch_autohide=0
 "
 " Make the Scratch window bigger
 "
-" let g:scratch_height=20
+let g:scratch_height=0.5
 
 "
 "
