@@ -63,6 +63,7 @@ The following colorschemes are provided:
 * [jellybeans](https://github.com/nanotech/jellybeans.vim.git)
 * [mustang](https://github.com/croaker/mustang-vim.git)
 * [solarized](https://github.com/altercation/vim-colors-solarized.git)
+* [buttercream](https:github.com/vim-scripts/buttercream.vim.git)
 
 # Further Customization and Additions
 The pathogen system is used to manage the above plugins.  To add a new plugin to
