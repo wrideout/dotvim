@@ -22,7 +22,7 @@ Execute the following commands in order to install to your ~/.vim file:
 
 The use of the '--recursive' flag during the cloning process tells git that it
 should fetch the submodules needed to run this vim setup.  Once installation is
-complete, ~/.vim may be treated as a regulat git repository, and therefore
+complete, ~/.vim may be treated as a regular git repository, and therefore
 updated as such.  All submodules in the repository may be updated by executing
 the following command:
 
