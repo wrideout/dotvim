@@ -117,3 +117,4 @@
 [submodule "bundle/buttercream"]
 	path = bundle/buttercream
 	url = git://github.com/vim-scripts/buttercream.vim.git
+    ignore = dirty
