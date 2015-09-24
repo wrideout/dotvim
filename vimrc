@@ -238,13 +238,6 @@ set statusline+=\|\ %P\             " Current position in file as a percentage
 "
 set swb=useopen,usetab 
 
-"
-" Custom syntax highlighting for my own personal todo-tag.  This can be changed
-" to support virtually any tag string.
-"
-highlight MyGroup cterm=bold ctermfg=white ctermbg=red 
-match MyGroup /WHR\ TODO:/
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin Settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -535,17 +528,6 @@ function! AfterQF()
     bot cwindow
 endfunction
 
-"
-" Special function that uses the functionality of the ToggleBG feature of the
-" solarized colorscheme, but also maintains my custom highlighting.
-"
-function! ToggleBackground()
-    call togglebg#map("")
-    execute "ToggleBG"
-    highlight MyGroup cterm=bold ctermfg=white ctermbg=red 
-    match MyGroup /WHR\ TODO:/
-endfunction
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Shortcuts (Alphabetically Sorted)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -660,7 +642,8 @@ inoremap {{ {<CR>}<Esc>O
 "
 " Toggle the background hue, either to dark or light
 "
-nnoremap <leader>bb :call ToggleBackground()<CR>
+call togglebg#map("")
+nnoremap <leader>bb :ToggleBG<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Autocmds
