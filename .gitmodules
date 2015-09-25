@@ -113,3 +113,8 @@
 [submodule "bundle/indexedSearch"]
 	path = bundle/indexedSearch
 	url = git://github.com/vim-scripts/IndexedSearch.git
+    ignore = dirty
+[submodule "bundle/buttercream"]
+	path = bundle/buttercream
+	url = git://github.com/vim-scripts/buttercream.vim.git
+    ignore = dirty

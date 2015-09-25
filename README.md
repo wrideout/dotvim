@@ -22,7 +22,7 @@ Execute the following commands in order to install to your ~/.vim file:
 
 The use of the '--recursive' flag during the cloning process tells git that it
 should fetch the submodules needed to run this vim setup.  Once installation is
-complete, ~/.vim may be treated as a regulat git repository, and therefore
+complete, ~/.vim may be treated as a regular git repository, and therefore
 updated as such.  All submodules in the repository may be updated by executing
 the following command:
 
@@ -63,6 +63,7 @@ The following colorschemes are provided:
 * [jellybeans](https://github.com/nanotech/jellybeans.vim.git)
 * [mustang](https://github.com/croaker/mustang-vim.git)
 * [solarized](https://github.com/altercation/vim-colors-solarized.git)
+* [buttercream](https:github.com/vim-scripts/buttercream.vim.git)
 
 # Further Customization and Additions
 The pathogen system is used to manage the above plugins.  To add a new plugin to

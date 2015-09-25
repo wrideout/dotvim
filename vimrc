@@ -53,7 +53,8 @@ set t_Co=256
 " Turn on syntax highlighting, and use the specified colorscheme
 "
 syntax on
-set background=light
+set background=dark
+" set background=light
 colorscheme solarized
 " colorscheme zellner
 " colorscheme jellybeans
@@ -141,11 +142,13 @@ set textwidth=80
 " alternatively, use the 'colorcolumn' field to delimit 80 characters. 
 "
 " If using the colorcolumn option, make sure that this is turned OFF for vimdiff
-":au BufWinEnter * let w:m1=matchadd('Search', '\%<81v.\%>77v', -1)
-":au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
 "
-if !&diff
+if !&diff && exists ("&colorcolumn")
     set colorcolumn=81
+else
+    " The following hightlights all characters beyong the 80th column in red so
+    " that I know to trim or otherwise re-format the line to fit.
+    " :au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
 endif
 
 "
@@ -228,6 +231,12 @@ set statusline+=\ Line:\ %l,%L\     " Current line number and total line count
 set statusline+=\|\ Col:\ %2c\       " Current column number
 set statusline+=\|\ %P\             " Current position in file as a percentage
 
+"
+" When switching between buffers, go to the first open window that contains that
+" buffer.  Also include open tabs in this behavior.
+"
+set swb=useopen,usetab 
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin Settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -243,7 +252,7 @@ let g:NERDRemoveExtraSpaces=1
 "
 let g:tagbar_autofocus=1
 let g:tagbar_autoclose=1
-let g:tagbar_iconchars=['+', '~']
+" let g:tagbar_iconchars=['+', '~']
 
 "
 " NERD_tree options
@@ -253,7 +262,7 @@ let g:tagbar_iconchars=['+', '~']
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") 
             \&& b:NERDTreeType == "primary") | q | endif
 let NERDTreeIgnore=['\~$']
-let NERDTreeDirArrows=0
+" let NERDTreeDirArrows=0
 
 "
 " VCSCommand options
@@ -266,6 +275,11 @@ let VCSCommandSplit='vertical'
 " Turn off the autohide functionality of Scratch.
 "
 let g:scratch_autohide=0
+
+"
+" Make the Scratch window bigger
+"
+let g:scratch_height=0.5
 
 "
 "
@@ -605,6 +619,7 @@ inoremap {{ {<CR>}<Esc>O
 "
 " Toggle the background hue, either to dark or light
 "
+call togglebg#map("")
 nnoremap <leader>bb :ToggleBG<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
