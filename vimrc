@@ -53,11 +53,9 @@ set t_Co=256
 " Turn on syntax highlighting, and use the specified colorscheme
 "
 syntax on
-set background=dark
-" set background=light
+" set background=dark
+set background=light
 colorscheme solarized
-" colorscheme zellner
-" colorscheme jellybeans
 
 " 
 " Set line numbers and show the position of the cursor at the bottom of the
@@ -290,8 +288,13 @@ let g:syntastic_mode_map={"mode": "passive",
                          \ "passive_filetypes": []}
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Functions
+" Functions and Commands
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" SuperRetab... turn the specified number of spaces into a single tab.
+"
+:command! -nargs=1 -range SuperRetab <line1>,<line2>s/\v%(^ *)@<= {<args>}/\t/g
+
 "
 " Switch quickly between header and code files.  Executing `,sh` queries cscope
 " for the header file with a name matching the current file, and displays it.
@@ -671,3 +674,4 @@ autocmd QuickFixCmdPost    l* nested lwindow
 " autocmd VimEnter * NERDTree 
 " autocmd VimEnter * nested :call tagbar#autoopen(1)
 " autocmd VimEnter * wincmd h
+
