@@ -55,8 +55,6 @@ set t_Co=256
 syntax on
 set background=light
 colorscheme solarized
-" colorscheme zellner
-" colorscheme jellybeans
 
 " 
 " Set line numbers and show the position of the cursor at the bottom of the
@@ -141,11 +139,13 @@ set textwidth=80
 " alternatively, use the 'colorcolumn' field to delimit 80 characters. 
 "
 " If using the colorcolumn option, make sure that this is turned OFF for vimdiff
-":au BufWinEnter * let w:m1=matchadd('Search', '\%<81v.\%>77v', -1)
-":au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
 "
-if !&diff
+if !&diff && exists ("&colorcolumn")
     set colorcolumn=81
+else
+    " The following hightlights all characters beyong the 80th column in red so
+    " that I know to trim or otherwise re-format the line to fit.
+    " :au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
 endif
 
 "
@@ -228,6 +228,12 @@ set statusline+=\ Line:\ %l,%L\     " Current line number and total line count
 set statusline+=\|\ Col:\ %2c\       " Current column number
 set statusline+=\|\ %P\             " Current position in file as a percentage
 
+"
+" When switching between buffers, go to the first open window that contains that
+" buffer.  Also include open tabs in this behavior.
+"
+set swb=useopen,usetab 
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin Settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -243,7 +249,7 @@ let g:NERDRemoveExtraSpaces=1
 "
 let g:tagbar_autofocus=1
 let g:tagbar_autoclose=1
-let g:tagbar_iconchars=['+', '~']
+" let g:tagbar_iconchars=['+', '~']
 
 "
 " NERD_tree options
@@ -253,7 +259,7 @@ let g:tagbar_iconchars=['+', '~']
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") 
             \&& b:NERDTreeType == "primary") | q | endif
 let NERDTreeIgnore=['\~$']
-let NERDTreeDirArrows=0
+" let NERDTreeDirArrows=0
 
 "
 " VCSCommand options
@@ -268,15 +274,27 @@ let VCSCommandSplit='vertical'
 let g:scratch_autohide=0
 
 "
+" Make the Scratch window bigger
+"
+let g:scratch_height=0.5
+
+"
 "
 "
 let g:syntastic_mode_map={"mode": "passive",
                          \ "active_filetypes": [],
                          \ "passive_filetypes": []}
 
+let g:indentLine_char='︙'
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Functions
+" Functions and Commands
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" SuperRetab... turn the specified number of spaces into a single tab.
+"
+:command! -nargs=1 -range SuperRetab <line1>,<line2>s/\v%(^ *)@<= {<args>}/\t/g
+
 "
 " Switch quickly between header and code files.  Executing `,sh` queries cscope
 " for the header file with a name matching the current file, and displays it.
@@ -310,7 +328,7 @@ let g:syntastic_mode_map={"mode": "passive",
 "     the alternate file in the new buffer.
 "
 " Note that this will only work if the cscopequickfix variable includes 'f0' or
-" omuits the 'f' option altogether
+" ommits the 'f' option altogether
 if has ('cscope')
     function! GetAlternate(orientation)
         if a:orientation == "h"
@@ -605,6 +623,7 @@ inoremap {{ {<CR>}<Esc>O
 "
 " Toggle the background hue, either to dark or light
 "
+call togglebg#map("")
 nnoremap <leader>bb :ToggleBG<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -629,4 +648,8 @@ autocmd FileType gitcommit set textwidth=72 | set colorcolumn=73
 
 autocmd QuickFixCmdPost [^l]* nested :call AfterQF()
 autocmd QuickFixCmdPost    l* nested lwindow
+
+" autocmd VimEnter * NERDTree 
+" autocmd VimEnter * nested :call tagbar#autoopen(1)
+" autocmd VimEnter * wincmd h
 
