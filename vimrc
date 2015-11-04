@@ -53,11 +53,8 @@ set t_Co=256
 " Turn on syntax highlighting, and use the specified colorscheme
 "
 syntax on
-set background=dark
-" set background=light
+set background=light
 colorscheme solarized
-" colorscheme zellner
-" colorscheme jellybeans
 
 " 
 " Set line numbers and show the position of the cursor at the bottom of the
@@ -288,9 +285,16 @@ let g:syntastic_mode_map={"mode": "passive",
                          \ "active_filetypes": [],
                          \ "passive_filetypes": []}
 
+let g:indentLine_char='︙'
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Functions
+" Functions and Commands
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" SuperRetab... turn the specified number of spaces into a single tab.
+"
+:command! -nargs=1 -range SuperRetab <line1>,<line2>s/\v%(^ *)@<= {<args>}/\t/g
+
 "
 " Switch quickly between header and code files.  Executing `,sh` queries cscope
 " for the header file with a name matching the current file, and displays it.
@@ -324,7 +328,7 @@ let g:syntastic_mode_map={"mode": "passive",
 "     the alternate file in the new buffer.
 "
 " Note that this will only work if the cscopequickfix variable includes 'f0' or
-" omuits the 'f' option altogether
+" ommits the 'f' option altogether
 if has ('cscope')
     function! GetAlternate(orientation)
         if a:orientation == "h"
@@ -644,4 +648,8 @@ autocmd FileType gitcommit set textwidth=72 | set colorcolumn=73
 
 autocmd QuickFixCmdPost [^l]* nested :call AfterQF()
 autocmd QuickFixCmdPost    l* nested lwindow
+
+" autocmd VimEnter * NERDTree 
+" autocmd VimEnter * nested :call tagbar#autoopen(1)
+" autocmd VimEnter * wincmd h
 
