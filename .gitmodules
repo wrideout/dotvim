@@ -139,3 +139,6 @@
 [submodule "bundle/blackboard"]
 	path = bundle/blackboard
 	url = git@github.com:ratazzi/blackboard.vim.git
+[submodule "bundle/papercolor"]
+	path = bundle/papercolor
+	url = git@github.com:NLKNguyen/papercolor-theme.git

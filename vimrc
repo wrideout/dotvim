@@ -54,7 +54,9 @@ set t_Co=256
 "
 syntax on
 set background=light
-colorscheme solarized
+" colorscheme solarized
+" colorscheme jellybeans
+colorscheme PaperColor
 
 " 
 " Set line numbers and show the position of the cursor at the bottom of the
@@ -200,6 +202,13 @@ set hidden
 "  %    :  saves and restores the buffer list
 "  n... :  where to save the viminfo files
 set viminfo='10,f1,<100,:50,/50,h,%,n~/.viminfo
+
+"
+" Remember where last position in file
+"
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
 
 "
 " Backup the file being worked on... the format is '~filename'
