@@ -124,3 +124,18 @@
 [submodule "bundle/hybrid_material"]
 	path = bundle/hybrid_material
 	url = git@github.com:kristijanhusak/vim-hybrid-material.git
+[submodule "bundle/colorsbox"]
+	path = bundle/colorsbox
+	url = git@github.com:mkarmona/colorsbox.git
+[submodule "bundle/vim_obsidian"]
+	path = bundle/vim_obsidian
+	url = git@github.com:trevorrjohn/vim-obsidian.git
+[submodule "bundle/vim_buddy"]
+	path = bundle/vim_buddy
+	url = git@github.com:DrSpatula/vim-buddy.git
+[submodule "bundle/material"]
+	path = bundle/material
+	url = git@github.com:jscappini/material.vim.git
+[submodule "bundle/blackboard"]
+	path = bundle/blackboard
+	url = git@github.com:ratazzi/blackboard.vim.git
