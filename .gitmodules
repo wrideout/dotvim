@@ -118,3 +118,9 @@
 	path = bundle/buttercream
 	url = git://github.com/vim-scripts/buttercream.vim.git
     ignore = dirty
+[submodule "bundle/tac_syntax"]
+	path = bundle/tac_syntax
+	url = git@github.com:vim-scripts/tac-syntax.git
+[submodule "bundle/hybrid_material"]
+	path = bundle/hybrid_material
+	url = git@github.com:kristijanhusak/vim-hybrid-material.git

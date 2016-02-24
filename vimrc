@@ -53,8 +53,7 @@ set t_Co=256
 " Turn on syntax highlighting, and use the specified colorscheme
 "
 syntax on
-set background=light
-colorscheme solarized
+colorscheme hybrid_material
 
 " 
 " Set line numbers and show the position of the cursor at the bottom of the
@@ -596,8 +595,8 @@ nnoremap <leader>vu :VCSUpdate<CR>
 " Use the arrow keys to move the current line or selection up or down, and to
 " control indentation
 "
-nmap <Up> [e 
-nmap <Down> ]e
+" nmap <Up> [e 
+" nmap <Down> ]e
 vmap <Up> [egv
 vmap <Down> ]egv
 
