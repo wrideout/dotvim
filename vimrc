@@ -53,7 +53,7 @@ set t_Co=256
 " Turn on syntax highlighting, and use the specified colorscheme
 "
 syntax on
-set background=light
+" set background=light
 " colorscheme solarized
 " colorscheme jellybeans
 colorscheme PaperColor
