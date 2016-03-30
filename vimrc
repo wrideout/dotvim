@@ -55,8 +55,6 @@ set t_Co=256
 syntax on
 set background=dark
 colorscheme solarized
-" colorscheme jellybeans
-" colorscheme PaperColor
 
 " 
 " Set line numbers and show the position of the cursor at the bottom of the
