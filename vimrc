@@ -53,10 +53,10 @@ set t_Co=256
 " Turn on syntax highlighting, and use the specified colorscheme
 "
 syntax on
-set background=light
-" colorscheme solarized
+set background=dark
+colorscheme solarized
 " colorscheme jellybeans
-colorscheme PaperColor
+" colorscheme PaperColor
 
 " 
 " Set line numbers and show the position of the cursor at the bottom of the
