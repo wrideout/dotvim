@@ -47,14 +47,14 @@ set mouse=a
 "
 " Terminal colors
 " 
-set t_Co=256
+" set t_Co=256
 
 "
 " Turn on syntax highlighting, and use the specified colorscheme
 "
 syntax on
-set background=dark
-colorscheme solarized
+let g:onedark_termcolors=16
+colorscheme onedark
 
 " 
 " Set line numbers and show the position of the cursor at the bottom of the
@@ -538,7 +538,7 @@ endif
 "
 " Toggle NERDTree
 "
-nnoremap <leader>f :NERDTreeToggle<CR>
+nnoremap <leader>ft :NERDTreeToggle<CR>
 
 "
 " Invoke the MultiModeGrep function on either the current line or selection
@@ -603,8 +603,8 @@ nnoremap <leader>vu :VCSUpdate<CR>
 " Use the arrow keys to move the current line or selection up or down, and to
 " control indentation
 "
-" nmap <Up> [e 
-" nmap <Down> ]e
+nmap <Up> [e 
+nmap <Down> ]e
 vmap <Up> [egv
 vmap <Down> ]egv
 

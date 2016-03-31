@@ -154,3 +154,9 @@
 	path = bundle/dracula-theme
 	url = git@github.com:zenorocha/dracula-theme.git
     ignore = dirty
+[submodule "bundle/mod8"]
+	path = bundle/mod8
+	url = git@github.com:easysid/mod8.vim.git
+[submodule "bundle/onedark"]
+	path = bundle/onedark
+	url = git@github.com:joshdick/onedark.vim.git
