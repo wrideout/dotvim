@@ -50,18 +50,6 @@
 	path = bundle/delimitMate
 	url = git://github.com/Raimondi/delimitMate.git
     ignore = dirty
-[submodule "bundle/mustang"]
-	path = bundle/mustang
-	url = git://github.com/croaker/mustang-vim.git
-    ignore = dirty
-[submodule "bundle/candy"]
-	path = bundle/candy
-	url = git://github.com/vim-scripts/candy.vim.git
-    ignore = dirty
-[submodule "bundle/hybrid"]
-	path = bundle/hybrid
-	url = git://github.com/w0ng/vim-hybrid.git
-    ignore = dirty
 [submodule "bundle/scratch"]
 	path = bundle/scratch
 	url = git://github.com/mtth/scratch.vim.git
@@ -86,10 +74,6 @@
 	path = bundle/fugitive
 	url = git@github.com:tpope/vim-fugitive.git
     ignore = dirty
-[submodule "bundle/zenburn"]
-	path = bundle/zenburn
-    url = git://github.com/jnurmine/Zenburn.git
-    ignore = dirty
 [submodule "bundle/syntastic"]
 	path = bundle/syntastic
 	url = git://github.com/scrooloose/syntastic.git
@@ -98,53 +82,9 @@
 	path = bundle/ctrlp
 	url = git://github.com/kien/ctrlp.vim.git
     ignore = dirty
-[submodule "bundle/autumnleaf"]
-	path = bundle/autumnleaf
-	url = git://github.com/vim-scripts/AutumnLeaf.git
-    ignore = dirty
-[submodule "bundle/summerfruit"]
-	path = bundle/summerfruit
-	url = git://github.com/vim-scripts/summerfruit256.vim.git
-    ignore = dirty
-[submodule "bundle/tango"]
-	path = bundle/tango
-	url = git@github.com:vim-scripts/Tango-colour-scheme.git
-    ignore = dirty
 [submodule "bundle/indexedSearch"]
 	path = bundle/indexedSearch
 	url = git://github.com/vim-scripts/IndexedSearch.git
-    ignore = dirty
-[submodule "bundle/buttercream"]
-	path = bundle/buttercream
-	url = git://github.com/vim-scripts/buttercream.vim.git
-    ignore = dirty
-[submodule "bundle/tac_syntax"]
-	path = bundle/tac_syntax
-	url = git@github.com:vim-scripts/tac-syntax.git
-    ignore = dirty
-[submodule "bundle/hybrid_material"]
-	path = bundle/hybrid_material
-	url = git@github.com:kristijanhusak/vim-hybrid-material.git
-    ignore = dirty
-[submodule "bundle/colorsbox"]
-	path = bundle/colorsbox
-	url = git@github.com:mkarmona/colorsbox.git
-    ignore = dirty
-[submodule "bundle/vim_obsidian"]
-	path = bundle/vim_obsidian
-	url = git@github.com:trevorrjohn/vim-obsidian.git
-    ignore = dirty
-[submodule "bundle/vim_buddy"]
-	path = bundle/vim_buddy
-	url = git@github.com:DrSpatula/vim-buddy.git
-    ignore = dirty
-[submodule "bundle/material"]
-	path = bundle/material
-	url = git@github.com:jscappini/material.vim.git
-    ignore = dirty
-[submodule "bundle/blackboard"]
-	path = bundle/blackboard
-	url = git@github.com:ratazzi/blackboard.vim.git
     ignore = dirty
 [submodule "bundle/papercolor"]
 	path = bundle/papercolor
@@ -153,10 +93,6 @@
 [submodule "bundle/dracula-theme"]
 	path = bundle/dracula-theme
 	url = git@github.com:zenorocha/dracula-theme.git
-   ignore = dirty
-[submodule "bundle/mod8"]
-	path = bundle/mod8
-	url = git@github.com:easysid/mod8.vim.git
    ignore = dirty
 [submodule "bundle/onedark"]
 	path = bundle/onedark
