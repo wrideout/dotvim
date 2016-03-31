@@ -153,10 +153,16 @@
 [submodule "bundle/dracula-theme"]
 	path = bundle/dracula-theme
 	url = git@github.com:zenorocha/dracula-theme.git
-    ignore = dirty
+   ignore = dirty
 [submodule "bundle/mod8"]
 	path = bundle/mod8
 	url = git@github.com:easysid/mod8.vim.git
+   ignore = dirty
 [submodule "bundle/onedark"]
 	path = bundle/onedark
 	url = git@github.com:joshdick/onedark.vim.git
+   ignore = dirty
+[submodule "bundle/conque-shell"]
+	path = bundle/conque-shell
+	url = git@github.com:oplatek/Conque-Shell.git
+   ignore = dirty

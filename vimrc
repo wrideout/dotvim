@@ -66,7 +66,7 @@ set number
 "
 " Set the number of spaces that a tab represents
 "
-set tabstop=4
+set tabstop=3
 
 "
 " Make sure that tabs are inserted according to the rules of tabstop
@@ -81,7 +81,7 @@ set expandtab
 "
 " Set the number of spaces that autoindent indents
 "
-set shiftwidth=4
+set shiftwidth=3
 
 "
 " Automatically indent
@@ -140,13 +140,13 @@ set textwidth=80
 "
 " If using the colorcolumn option, make sure that this is turned OFF for vimdiff
 "
-if !&diff && exists ("&colorcolumn")
-    set colorcolumn=81
-else
+" if !&diff && exists ("&colorcolumn")
+    " set colorcolumn=81
+" else
     " The following hightlights all characters beyong the 80th column in red so
     " that I know to trim or otherwise re-format the line to fit.
     " :au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
-endif
+" endif
 
 "
 " Show the current line as highlighted
@@ -334,69 +334,69 @@ let g:syntastic_mode_map={"mode": "passive",
 "
 " Note that this will only work if the cscopequickfix variable includes 'f0' or
 " ommits the 'f' option altogether
-if has ('cscope')
-    function! GetAlternate(orientation)
-        if a:orientation == "h"
-            :split
+" if has ('cscope')
+    " function! GetAlternate(orientation)
+        " if a:orientation == "h"
+            " :split
 
-        elseif a:orientation == "v"
-            :vsplit
+        " elseif a:orientation == "v"
+            " :vsplit
         
-        else " a:orientation == "n"
+        " else " a:orientation == "n"
             " Nothing needs to be done here
-        endif
+        " endif
 
-        if tolower(strpart(expand("%:e"), 0, 1)) == "h"
-            :cs find f %<.[cC]
+        " if tolower(strpart(expand("%:e"), 0, 1)) == "h"
+            " :cs find f %<.[cC]
 
-        elseif tolower(strpart(expand("%:e"), 0, 1)) == "c"
-            :cs find f %<.[hH]
+        " elseif tolower(strpart(expand("%:e"), 0, 1)) == "c"
+            " :cs find f %<.[hH]
 
-        else
-            echoerr "Error... only C and C++ currently supported!"
-        endif
-    endfunction
-endif
+        " else
+            " echoerr "Error... only C and C++ currently supported!"
+        " endif
+    " endfunction
+" endif
 
 "
 " Set up vim to use cscope more efficiently
 "
-if has ('cscope')
-    set cscopetag cscopeverbose
+" if has ('cscope')
+    " set cscopetag cscopeverbose
 
-    if has ('quickfix')
+    " if has ('quickfix')
         " See the comments of the GetAlternate function for the reasoning for
         " 'f0'.
-        set cscopequickfix=s-,c-,d-,i-,t-,e-,f0,g0
-    endif
+        " set cscopequickfix=s-,c-,d-,i-,t-,e-,f0,g0
+    " endif
  
     " Abbreviations to make using cscope in vim easier
-    cnoreabbrev <expr> csa
-        \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs add'  : 'csa')
-    cnoreabbrev <expr> csf
-        \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs find' : 'csf')
-    cnoreabbrev <expr> csk
-        \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs kill' : 'csk')
-    cnoreabbrev <expr> csr
-        \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs reset' : 'csr')
-    cnoreabbrev <expr> css
-        \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs show' : 'css')
-    cnoreabbrev <expr> csh
-        \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs help' : 'csh')
+    " cnoreabbrev <expr> csa
+        " \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs add'  : 'csa')
+    " cnoreabbrev <expr> csf
+        " \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs find' : 'csf')
+    " cnoreabbrev <expr> csk
+        " \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs kill' : 'csk')
+    " cnoreabbrev <expr> csr
+        " \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs reset' : 'csr')
+    " cnoreabbrev <expr> css
+        " \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs show' : 'css')
+    " cnoreabbrev <expr> csh
+        " \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs help' : 'csh')
 
     " Automatically load the cscope database
-    function! LoadCscope()
-        let db = findfile("cscope.out", ".;")
-        if (!empty(db))
-            let path = strpart(db, 0, match(db, "/cscope.out$"))
-            set nocscopeverbose " suppress 'duplicate connection' error
-            exe "cs add " . db . " " . path
-            set cscopeverbose
-        endif
-    endfunction
-    au BufEnter * call LoadCscope()
+    " function! LoadCscope()
+        " let db = findfile("cscope.out", ".;")
+        " if (!empty(db))
+            " let path = strpart(db, 0, match(db, "/cscope.out$"))
+            " set nocscopeverbose " suppress 'duplicate connection' error
+            " exe "cs add " . db . " " . path
+            " set cscopeverbose
+        " endif
+    " endfunction
+    " au BufEnter * call LoadCscope()
 
-endif
+" endif
 
 "
 " Function for filtering the content of the quickfix buffer.  This
@@ -439,9 +439,9 @@ endfunction
 " using vimgrep if cscope is not available.
 "
 function! TaskList()
-    if has ('cscope')
-        execute "cscope find e WHR TODO"
-    else
+    " if has ('cscope')
+        " execute "cscope find e WHR TODO"
+    " else
         execute "vimgrep/WHR TODO/gj %"
         execute "copen"  
     endif
@@ -576,11 +576,11 @@ nnoremap <leader>qc :call FilterQFList(1, 1, inputdialog('Keep only lines matchi
 " Invoke the GetAlternate function, with either a vertical split, a horizontal
 " split, or no split
 "
-if has ('cscope')
-    nmap <leader>s :call GetAlternate("n")<CR>
-    nmap <leader>ss :call GetAlternate("h")<CR>
-    nmap <leader>sv :call GetAlternate("v")<CR>
-endif
+" if has ('cscope')
+    " nmap <leader>s :call GetAlternate("n")<CR>
+    " nmap <leader>ss :call GetAlternate("h")<CR>
+    " nmap <leader>sv :call GetAlternate("v")<CR>
+" endif
 
 "
 " Toggle the Tagbar
