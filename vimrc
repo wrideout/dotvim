@@ -56,6 +56,13 @@ syntax on
 let g:onedark_termcolors=16
 colorscheme onedark
 
+"
+" Tweak these colors a bit.
+"
+hi StatusLine cterm=NONE ctermfg=black ctermbg=green
+hi Search cterm=NONE ctermfg=black ctermbg=yellow
+
+
 " 
 " Set line numbers and show the position of the cursor at the bottom of the
 " window
