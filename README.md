@@ -10,7 +10,7 @@ Vim configuration files.  This may be done by executing the following:
 Execute the following commands in order to install to your ~/.vim file:
 
     # Install the git repository
-    $ git clone --recursive git://github.com/wrideout/dotvim.git ~/.vim
+    $ git clone --recursive git@github.com:wrideout/dotvim.git ~/.vim
     
     # Initialize and pull down the requisite submodules
     $ cd ~/.vim
@@ -32,10 +32,13 @@ the following command:
 The plugins used by this setup are as follows:
 
 * [Abolish](https://github.com/tpope/vim-abolish.git)
+* [ConqueShell](https://github.com/oplatek/Conque-Shell)
 * [Cscope\_maps](https://github.com/vim-scripts/cscope.vim)
+* [CtrlP](https://github.com/kien/ctrlp.vim)
 * [DelimitMate](https://github.com/Raimondi/delimitMate.git)
 * [Fugitive](https://github.com/tpope/vim-fugitive.git)
 * [Genutils (dependency for SelectBuf)](https://github.com/vim-scripts/genutils.git)
+* [IndexedSearch](https://github.com/vim-scripts/IndexedSearch)
 * [Matchit](https://github.com/tmhedberg/matchit.git)
 * [NERD\_commenter](https://github.com/scrooloose/nerdcommenter.git)
 * [NERD\_tree](https://github.com/scrooloose/nerdtree.git)
@@ -45,6 +48,7 @@ The plugins used by this setup are as follows:
 * [SelectBuf](https://github.com/vim-scripts/SelectBuf.git)
 * [Supertab](https://github.com/ervandew/supertab.git)
 * [Surround](https://github.com/tpope/vim-surround.git)
+* [Syntastic](https://github.com/scrooloose/syntastic.git)
 * [Tabular](https://github.com/godlygeek/tabular.git)
 * [Tagbar](https://github.com/vim-scripts/Tagbar.git)
 * [Unimpaired](https://github.com/tpope/vim-unimpaired.git)
@@ -58,12 +62,11 @@ the cscope-maps plugin and several mappings rely on it.
 # Colorschemes
 The following colorschemes are provided:
 
-* [hybrid](https://github.com/w0ng/vim-hybrid.git)
-* [hybrid-light](https://github.com/w0ng/vim-hybrid.git)
 * [jellybeans](https://github.com/nanotech/jellybeans.vim.git)
-* [mustang](https://github.com/croaker/mustang-vim.git)
+* [onedark](https://github.com/joshdick/onedark.vim)
+* [PaperColor](https://github.com/NLKNguyen/papercolor-theme)
 * [solarized](https://github.com/altercation/vim-colors-solarized.git)
-* [buttercream](https:github.com/vim-scripts/buttercream.vim.git)
+
 
 # Further Customization and Additions
 The pathogen system is used to manage the above plugins.  To add a new plugin to
