@@ -53,14 +53,16 @@ set mouse=a
 " Turn on syntax highlighting, and use the specified colorscheme
 "
 syntax on
-let g:onedark_termcolors=16
-colorscheme onedark
+" let g:onedark_termcolors=16
+" colorscheme onedark
+colorscheme solarized
+set background=dark
 
 "
 " Tweak these colors a bit.
 "
-hi StatusLine cterm=NONE ctermfg=black ctermbg=green
-hi Search cterm=NONE ctermfg=black ctermbg=yellow
+" hi StatusLine cterm=NONE ctermfg=black ctermbg=green
+" hi Search cterm=NONE ctermfg=black ctermbg=yellow
 
 
 " 

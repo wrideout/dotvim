@@ -102,3 +102,6 @@
 	path = bundle/conque-shell
 	url = git@github.com:oplatek/Conque-Shell.git
    ignore = dirty
+[submodule "bundle/signify"]
+	path = bundle/signify
+	url = git@github.com:mhinz/vim-signify.git
