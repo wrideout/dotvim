@@ -105,3 +105,4 @@
 [submodule "bundle/signify"]
 	path = bundle/signify
 	url = git@github.com:mhinz/vim-signify.git
+   ignore = dirty

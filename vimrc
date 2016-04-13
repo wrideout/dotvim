@@ -47,7 +47,7 @@ set mouse=a
 "
 " Terminal colors
 " 
-" set t_Co=256
+set t_Co=256
 
 "
 " Turn on syntax highlighting, and use the specified colorscheme
@@ -292,7 +292,7 @@ let g:scratch_autohide=0
 "
 " Make the Scratch window bigger
 "
-let g:scratch_height=0.5
+let g:scratch_height=0.125
 
 "
 "
