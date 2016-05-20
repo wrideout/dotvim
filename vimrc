@@ -98,9 +98,11 @@ set shiftwidth=3
 set autoindent
 
 "
-" Apply indentations that following the paradigms of the filetype being esited
+" Apply indentations that following the paradigms of the filetype being edited
 "
-set smartindent
+set cindent
+set cinkeys-=0#
+set indentkeys-=0#
 
 "
 " Used for tab-completion (TAB == wildchar).  This means that completion will
@@ -300,6 +302,12 @@ let g:scratch_height=0.125
 let g:syntastic_mode_map={"mode": "passive",
                          \ "active_filetypes": [],
                          \ "passive_filetypes": []}
+
+"
+" Expand CR and spaces using DelimitMate
+"
+let delimitMate_expand_space=1
+let delimitMate_expand_cr=2
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Functions and Commands
@@ -654,6 +662,13 @@ autocmd FileType snippet setlocal noexpandtab
 "
 "autocmd! BufNewFile,BufRead *.pde setlocal ft=arduino
 "autocmd! BufNewFile,BufRead *.ino setlocal ft=arduino
+
+"
+" TACC highlighting
+"
+autocmd! BufNewFile,BufRead *.tac setlocal ft=cpp
+autocmd! BufNewFile,BufRead *.tin setlocal ft=cpp
+autocmd! BufNewFile,BufRead *.itin setlocal ft=cpp
 
 " 
 " Set an appropriate wrapping margin when editing git commit messages
