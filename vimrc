@@ -252,6 +252,8 @@ set statusline+=\|\ %P\             " Current position in file as a percentage
 "
 set swb=useopen,usetab 
 
+set rtp+=/home/wrideout/.fzf
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin Settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -308,6 +310,19 @@ let g:syntastic_mode_map={"mode": "passive",
 "
 let delimitMate_expand_space=1
 let delimitMate_expand_cr=2
+
+"
+" CtrlP settings
+"
+let g:ctrlp_match_window='bottom,order:btt,min:10,max:50,results:200'
+" let g:ctrlp_cmd='CtrlPMixed'
+let g:ctrlp_root_markers=['ID']
+let g:ctrlp_by_filename=1
+let g:ctrlp_max_files=20000
+let g:ctrlp_open_multiple_files='2vjr'
+let g:ctrlp_lazy_update=500
+
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Functions and Commands
@@ -681,4 +696,6 @@ autocmd QuickFixCmdPost    l* nested lwindow
 " autocmd VimEnter * NERDTree 
 " autocmd VimEnter * nested :call tagbar#autoopen(1)
 " autocmd VimEnter * wincmd h
+
+
 
