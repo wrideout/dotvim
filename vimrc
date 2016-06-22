@@ -54,7 +54,6 @@ set t_Co=256
 "
 syntax on
 " let g:onedark_termcolors=16
-" colorscheme onedark
 colorscheme solarized
 set background=dark
 
