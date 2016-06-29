@@ -1,5 +1,4 @@
 # Installation Guide
-#### FIRST OF ALL, AND VERY IMPORTANT: 
 The installation process will only work **IFF** ~/.vim is empty **AND** ~/.vimrc
 does not exist.  If this is not the case, then be sure to back up your existing
 Vim configuration files.  This may be done by executing the following:
@@ -46,6 +45,7 @@ The plugins used by this setup are as follows:
 * [Repeat](https://github.com/tpope/vim-repeat.git)
 * [Scratch](https://github.com/mtth/scratch.vim.git)
 * [SelectBuf](https://github.com/vim-scripts/SelectBuf.git)
+* [Signify](https://github.com/mhinz/vim-signify)
 * [Supertab](https://github.com/ervandew/supertab.git)
 * [Surround](https://github.com/tpope/vim-surround.git)
 * [Syntastic](https://github.com/scrooloose/syntastic.git)
@@ -55,9 +55,7 @@ The plugins used by this setup are as follows:
 * [VCSCommand](https://github.com/vim-scripts/vcscommand.vim.git)
 * [Vim-Multiple-Cursors](https://github.com/terryma/vim-multiple-cursors.git)
 
-In order for the taglist plugin to work, the exuberant-ctags application must be
-installed on the host system.  The cscope application must also be installed, as
-the cscope-maps plugin and several mappings rely on it.
+Note that the [cscope](http://cscope.sourceforge.net/) application must be installed, as the cscope-maps plugin and several mappings rely on it.
 
 # Colorschemes
 The following colorschemes are provided:
@@ -91,4 +89,5 @@ vimrc.
 #Issues and Bugs
 Any issues or bugs that are found may be addressed via the
 [Issues](https://github.com/wrideout/dotvim/issues) page of this repository.
+
 
