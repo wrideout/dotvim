@@ -53,16 +53,8 @@ set t_Co=256
 " Turn on syntax highlighting, and use the specified colorscheme
 "
 syntax on
-" let g:onedark_termcolors=16
-colorscheme solarized
 set background=dark
-
-"
-" Tweak these colors a bit.
-"
-" hi StatusLine cterm=NONE ctermfg=black ctermbg=green
-" hi Search cterm=NONE ctermfg=black ctermbg=yellow
-
+colorscheme solarized
 
 " 
 " Set line numbers and show the position of the cursor at the bottom of the
