@@ -53,8 +53,8 @@ set mouse=a
 " Turn on syntax highlighting, and use the specified colorscheme
 "
 syntax on
-let g:onedark_termcolors=16
-colorscheme onedark
+set background=dark
+colorscheme solarized
 
 " 
 " Set line numbers and show the position of the cursor at the bottom of the
