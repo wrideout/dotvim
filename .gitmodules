@@ -105,7 +105,4 @@
 [submodule "bundle/signify"]
 	path = bundle/signify
 	url = git@github.com:mhinz/vim-signify.git
-[submodule "bundle/fzf"]
-	path = bundle/fzf
-	url = git@github.com:junegunn/fzf.vim.git
    ignore = dirty

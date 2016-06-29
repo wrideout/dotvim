@@ -243,8 +243,6 @@ set statusline+=\|\ %P\             " Current position in file as a percentage
 "
 set swb=useopen,usetab 
 
-set rtp+=/home/wrideout/.fzf
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin Settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
