@@ -62,6 +62,7 @@ colorscheme solarized
 "
 set ruler
 set number
+set relativenumber
 
 "
 " Set the number of spaces that a tab represents
@@ -243,6 +244,12 @@ set statusline+=\|\ %P\             " Current position in file as a percentage
 "
 set swb=useopen,usetab 
 
+"
+" Create a custom tag
+"
+highlight MyTag cterm=bold term=bold ctermfg=white ctermbg=red
+autocmd Syntax * call matchadd('MyTag',  '\W\zs\(wrideout\)')
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin Settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -311,6 +318,13 @@ let g:ctrlp_max_files=20000
 let g:ctrlp_open_multiple_files='2vjr'
 let g:ctrlp_lazy_update=500
 
+"
+" Syntastic settings
+"
+let g:syntastic_always_populate_loc_list=1
+let g:syntastic_auto_loc_list=1
+let g:syntastic_check_on_open=1
+let g:syntastic_check_on_wq=0
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -686,5 +700,8 @@ autocmd QuickFixCmdPost    l* nested lwindow
 " autocmd VimEnter * nested :call tagbar#autoopen(1)
 " autocmd VimEnter * wincmd h
 
-
+" 
+" Call SyntasticCheck pylint when saving Python files.
+"
+" autocmd! BufWritePost *.py :call SyntasticCheck pylint
 
