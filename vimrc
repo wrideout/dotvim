@@ -53,7 +53,7 @@ set t_Co=256
 " Turn on syntax highlighting, and use the specified colorscheme
 "
 syntax on
-set background=dark
+set background=light
 colorscheme solarized
 
 " 
@@ -62,7 +62,6 @@ colorscheme solarized
 "
 set ruler
 set number
-set relativenumber
 
 "
 " Set the number of spaces that a tab represents
@@ -192,7 +191,7 @@ set hidden
 "
 " Always open new windows on the right side of the main buffer
 "
-" set splitright
+set splitright
 
 "
 " Tell vim to remember certain things when we exit
