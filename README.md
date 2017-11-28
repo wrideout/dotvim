@@ -2,7 +2,7 @@
 The installation process will only work **IFF** ~/.vim is empty **AND** ~/.vimrc
 does not exist.  If this is not the case, then be sure to back up your existing
 Vim configuration files.  This may be done by executing the following:
-    
+
     $ mv ~/.vimrc ~/.vimrc_old
     $ mv ~/.vim ~/.vim_old
 
@@ -10,7 +10,7 @@ Execute the following commands in order to install to your ~/.vim file:
 
     # Install the git repository
     $ git clone --recursive git@github.com:wrideout/dotvim.git ~/.vim
-    
+
     # Initialize and pull down the requisite submodules
     $ cd ~/.vim
     $ git submodule init
@@ -26,7 +26,7 @@ updated as such.  All submodules in the repository may be updated by executing
 the following command:
 
     $ git submodule foreach git pull origin master
- 
+
 # Plugins and Dependencies
 The plugins used by this setup are as follows:
 

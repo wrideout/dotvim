@@ -106,3 +106,18 @@
 	path = bundle/signify
 	url = git@github.com:mhinz/vim-signify.git
    ignore = dirty
+[submodule "bundle/devdocs"]
+	path = bundle/devdocs
+	url = git://github.com/rhysd/devdocs.vim.git
+[submodule "bundle/asyncrun"]
+	path = bundle/asyncrun
+	url = git@github.com:skywind3000/asyncrun.vim.git
+[submodule "bundle/gotham"]
+	path = bundle/gotham
+	url = https://github.com/whatyouhide/vim-gotham.git
+[submodule "bundle/monokai"]
+	path = bundle/monokai
+	url = https://github.com/sickill/vim-monokai.git
+[submodule "bundle/vim-one"]
+	path = bundle/vim-one
+	url = https://github.com/rakr/vim-one.git

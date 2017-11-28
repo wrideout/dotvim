@@ -4,7 +4,7 @@
 " In order to work, be sure to make a hard link from this file to ~/.vimrc.
 " This link allows for the .vim directory to be used as a git repository, for
 " easy changes and updates.  Alternatively, if you don't care to use git, you
-" could just make this file your ~/.vimrc.  
+" could just make this file your ~/.vimrc.
 "
 " Be sure to look up all the plugins that are listed; they are what make this
 " powerful in some cases.  Besides, the tools they define are well worth looking
@@ -27,13 +27,13 @@ let mapleader=","
 "
 " Load all our plugins with Pathogen, and generate new helptags
 "
-execute pathogen#infect() 
+execute pathogen#infect()
 Helptags
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Editor Settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 
+"
 " Set the working directory, for when VIM is opned, and change the working
 " directory when the file that is being edited changes
 "
@@ -46,17 +46,21 @@ set mouse=a
 
 "
 " Terminal colors
-" 
+"
 set t_Co=256
 
 "
 " Turn on syntax highlighting, and use the specified colorscheme
 "
+let &t_ZH="\e[3m"
+let &t_ZR="\e[23m"
 syntax on
-set background=light
-colorscheme solarized
+colorscheme solarized 
+set background=dark
+highlight Comment cterm=italic
 
-" 
+
+"
 " Set line numbers and show the position of the cursor at the bottom of the
 " window
 "
@@ -75,7 +79,7 @@ set smarttab
 
 "
 " Expand tabs to spaces
-" 
+"
 set expandtab
 
 "
@@ -136,9 +140,9 @@ set scrolloff=2
 "
 set textwidth=80
 
-" 
+"
 " Highlight characters that are over the 80 character limit in lines...
-" alternatively, use the 'colorcolumn' field to delimit 80 characters. 
+" alternatively, use the 'colorcolumn' field to delimit 80 characters.
 "
 " If using the colorcolumn option, make sure that this is turned OFF for vimdiff
 "
@@ -232,7 +236,7 @@ set statusline=%#error#%m%r%*      " Modified/READ ONLY
 set statusline+=\ Buf:\ %n\          " Buffer number
 set statusline+=%<\"%f\"\           " Name of current file
 set statusline+=%{tagbar#currenttag('\|\ %s','','fs')}
-set statusline+=%=%#directory#%{&paste?'[paste]\':''}%*  " Paste is set? 
+set statusline+=%=%#directory#%{&paste?'[paste]\':''}%*  " Paste is set?
 set statusline+=\ Line:\ %l,%L\     " Current line number and total line count
 set statusline+=\|\ Col:\ %2c\       " Current column number
 set statusline+=\|\ %P\             " Current position in file as a percentage
@@ -241,13 +245,20 @@ set statusline+=\|\ %P\             " Current position in file as a percentage
 " When switching between buffers, go to the first open window that contains that
 " buffer.  Also include open tabs in this behavior.
 "
-set swb=useopen,usetab 
+set swb=useopen,usetab
 
 "
 " Create a custom tag
 "
-highlight MyTag cterm=bold term=bold ctermfg=white ctermbg=red
-autocmd Syntax * call matchadd('MyTag',  '\W\zs\(wrideout\)')
+" highlight MyTag cterm=bold term=bold ctermfg=white ctermbg=red
+" autocmd Syntax * call matchadd('MyTag',  '\W\zs\(wrideout\)')
+
+"
+" Show trailing whitespace
+"
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin Settings
@@ -265,13 +276,14 @@ let g:NERDRemoveExtraSpaces=1
 let g:tagbar_autofocus=1
 let g:tagbar_autoclose=1
 " let g:tagbar_iconchars=['+', '~']
+let g:tagbar_sort=0
 
 "
 " NERD_tree options
 "
 " Close vim if NERDTree is the only open buffer
-" 
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") 
+"
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType")
             \&& b:NERDTreeType == "primary") | q | endif
 let NERDTreeIgnore=['\~$']
 " let NERDTreeDirArrows=0
@@ -313,9 +325,10 @@ let g:ctrlp_match_window='bottom,order:btt,min:10,max:50,results:200'
 " let g:ctrlp_cmd='CtrlPMixed'
 let g:ctrlp_root_markers=['ID']
 let g:ctrlp_by_filename=1
-let g:ctrlp_max_files=20000
+let g:ctrlp_max_files=0
 let g:ctrlp_open_multiple_files='2vjr'
 let g:ctrlp_lazy_update=500
+let g:ctrlp_max_depth=50
 
 "
 " Syntastic settings
@@ -341,7 +354,7 @@ let g:syntastic_check_on_wq=0
 " 'code' file ) matching the name of the current file.  This currently only
 " works with C++ files that use <name>.cc to indicated implementation files and
 " <name>.h to indicate header files.  Also, the names of the implementation and
-" header files must be the same, excepting the file extensions.  
+" header files must be the same, excepting the file extensions.
 "
 " Since cscope automatically exands search parameters, the regex for matching
 " all permutations of C and C++ file extensions is simply [hH] and [cC].  This
@@ -362,7 +375,7 @@ let g:syntastic_check_on_wq=0
 "
 "   * 'h': HORIZONTAL; split the existing buffer in half holizontally, and
 "     display the alternate file in the new buffer;
-"   
+"
 "   * 'n': VERTICAL: split the existing buffer in half vertically and display
 "     the alternate file in the new buffer.
 "
@@ -375,7 +388,7 @@ let g:syntastic_check_on_wq=0
 
         " elseif a:orientation == "v"
             " :vsplit
-        
+
         " else " a:orientation == "n"
             " Nothing needs to be done here
         " endif
@@ -403,7 +416,7 @@ let g:syntastic_check_on_wq=0
         " 'f0'.
         " set cscopequickfix=s-,c-,d-,i-,t-,e-,f0,g0
     " endif
- 
+
     " Abbreviations to make using cscope in vim easier
     " cnoreabbrev <expr> csa
         " \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs add'  : 'csa')
@@ -477,7 +490,7 @@ function! TaskList()
         " execute "cscope find e WHR TODO"
     " else
         execute "vimgrep/WHR TODO/gj %"
-        execute "copen"  
+        execute "copen"
     endif
 endfunction
 command! Tasks :execute TaskList()
@@ -486,11 +499,11 @@ command! Tasks :execute TaskList()
 " Function to vimgrep for the word under the cursor in normal mode,
 " and for the selection in visual mode.  The portion that utilizes visual mode
 " is based on the code by Amir Salihefendic.  The full code may be found at:
-"     
+"
 "     http://amix.dk/blog/post/19334
 "
 function! MultiModeGrep(mode)
-    if a:mode == "normal" 
+    if a:mode == "normal"
         execute "vimgrep/" . expand("<cword>") . "/gj %"
         execute "copen"
     elseif a:mode == "visual"
@@ -508,7 +521,7 @@ function! MultiModeGrep(mode)
     endif
 endfunction
 
-" 
+"
 " Maximize the current window in the buffer, without losing the underlying
 " layout of all the open buffers.  The quickfix list is closed before any other
 " operation, to avoid having a new unpopulated quickfix window opened when the
@@ -534,7 +547,24 @@ function! MaximizeToggle()
     endif
 endfunction
 
-" 
+"
+" Run a shell command external to Vim, and stick the output in a temporary
+" buffer for viewing.
+"
+function! PerformExternalCommand(command)
+   if a:command == "CANCELOP"
+      return
+   else
+      " vsplit
+      " enew
+      " setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
+      " execute "$read !". a:command
+      " setlocal nomodifiable
+      execute "AsyncRun " . a:command
+   endif
+endfunction
+
+"
 " Automatically open, but do not go to (if there are errors) the quickfix
 " location list window, or close it when is has become empty.
 "
@@ -572,7 +602,7 @@ endif
 "
 " Toggle NERDTree
 "
-nnoremap <leader>ft :NERDTreeToggle<CR>
+nnoremap <leader>f :NERDTreeToggle<CR>
 
 "
 " Invoke the MultiModeGrep function on either the current line or selection
@@ -637,7 +667,7 @@ nnoremap <leader>vu :VCSUpdate<CR>
 " Use the arrow keys to move the current line or selection up or down, and to
 " control indentation
 "
-nmap <Up> [e 
+nmap <Up> [e
 nmap <Down> ]e
 vmap <Up> [egv
 vmap <Down> ]egv
@@ -647,9 +677,9 @@ nmap <Right> >>
 vmap <Left> <gv
 vmap <Right> >gv
 
-" 
+"
 " Toggle folds with the spacebar
-" 
+"
 nnoremap <Space> za
 vnoremap <Space> za
 
@@ -664,6 +694,11 @@ inoremap {{ {<CR>}<Esc>O
 "
 call togglebg#map("")
 nnoremap <leader>bb :ToggleBG<CR>
+
+"
+" Custom execution function
+"
+nnoremap <leader>x :call PerformExternalCommand(inputdialog("shell>> ", "", "CANCELOP"))<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Autocmds
@@ -687,7 +722,12 @@ autocmd! BufNewFile,BufRead *.tac setlocal ft=cpp
 autocmd! BufNewFile,BufRead *.tin setlocal ft=cpp
 autocmd! BufNewFile,BufRead *.itin setlocal ft=cpp
 
-" 
+"
+" Bandaid for Arista Python indentation
+"
+autocmd! BufNewFile,BufRead *.py setlocal shiftwidth=3
+
+"
 " Set an appropriate wrapping margin when editing git commit messages
 "
 autocmd FileType gitcommit set textwidth=72 | set colorcolumn=73
@@ -695,11 +735,11 @@ autocmd FileType gitcommit set textwidth=72 | set colorcolumn=73
 autocmd QuickFixCmdPost [^l]* nested :call AfterQF()
 autocmd QuickFixCmdPost    l* nested lwindow
 
-" autocmd VimEnter * NERDTree 
+" autocmd VimEnter * NERDTree
 " autocmd VimEnter * nested :call tagbar#autoopen(1)
 " autocmd VimEnter * wincmd h
 
-" 
+"
 " Call SyntasticCheck pylint when saving Python files.
 "
 " autocmd! BufWritePost *.py :call SyntasticCheck pylint
