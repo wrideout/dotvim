@@ -121,3 +121,6 @@
 [submodule "bundle/vim-one"]
 	path = bundle/vim-one
 	url = https://github.com/rakr/vim-one.git
+[submodule "bundle/buftabline"]
+	path = bundle/buftabline
+	url = git@github.com:ap/vim-buftabline.git

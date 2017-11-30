@@ -205,7 +205,7 @@ set splitright
 "  :20  :  up to 20 lines of command-line history will be remembered
 "  %    :  saves and restores the buffer list
 "  n... :  where to save the viminfo files
-set viminfo='10,f1,<100,:50,/50,h,%,n~/.viminfo
+set viminfo='10,f1,<100,:50,/50,h,n~/.viminfo
 
 "
 " Remember where last position in file
