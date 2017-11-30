@@ -31,6 +31,7 @@ the following command:
 The plugins used by this setup are as follows:
 
 * [Abolish](https://github.com/tpope/vim-abolish.git)
+* [BufTabline](https://github.com:ap/vim-buftabline.git)
 * [ConqueShell](https://github.com/oplatek/Conque-Shell)
 * [Cscope\_maps](https://github.com/vim-scripts/cscope.vim)
 * [CtrlP](https://github.com/kien/ctrlp.vim)
