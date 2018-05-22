@@ -55,7 +55,7 @@ set t_Co=256
 let &t_ZH="\e[3m"
 let &t_ZR="\e[23m"
 syntax on
-colorscheme solarized 
+colorscheme PaperColor
 set background=dark
 highlight Comment cterm=italic
 
@@ -136,9 +136,9 @@ set smartcase
 set scrolloff=2
 
 "
-" Set textwidth to 80, and autowrap and autoformat line automatically
+" Set textwidth to 85, and autowrap and autoformat line automatically
 "
-set textwidth=80
+set textwidth=85
 
 "
 " Highlight characters that are over the 80 character limit in lines...
@@ -158,6 +158,7 @@ set textwidth=80
 " Show the current line as highlighted
 "
 set cursorline
+" set cursorcolumn
 
 "
 " Manually configure the CursorLine, and ColorColumn highlighting to match...
@@ -258,6 +259,11 @@ set swb=useopen,usetab
 "
 highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
+
+"
+" Set the default shell
+"
+set shell=zsh
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
