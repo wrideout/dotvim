@@ -722,18 +722,6 @@ autocmd FileType snippet setlocal noexpandtab
 "autocmd! BufNewFile,BufRead *.ino setlocal ft=arduino
 
 "
-" TACC highlighting
-"
-autocmd! BufNewFile,BufRead *.tac setlocal ft=cpp
-autocmd! BufNewFile,BufRead *.tin setlocal ft=cpp
-autocmd! BufNewFile,BufRead *.itin setlocal ft=cpp
-
-"
-" Bandaid for Arista Python indentation
-"
-autocmd! BufNewFile,BufRead *.py setlocal shiftwidth=3
-
-"
 " Set an appropriate wrapping margin when editing git commit messages
 "
 autocmd FileType gitcommit set textwidth=72 | set colorcolumn=73
@@ -749,4 +737,6 @@ autocmd QuickFixCmdPost    l* nested lwindow
 " Call SyntasticCheck pylint when saving Python files.
 "
 " autocmd! BufWritePost *.py :call SyntasticCheck pylint
+
+source /home/wrideout/.vim_local.vim
 
