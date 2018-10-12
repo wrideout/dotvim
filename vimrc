@@ -56,7 +56,9 @@ let &t_ZH="\e[3m"
 let &t_ZR="\e[23m"
 syntax on
 colorscheme PaperColor
+" colorscheme solarized
 set background=dark
+" set background=light
 highlight Comment cterm=italic
 
 
