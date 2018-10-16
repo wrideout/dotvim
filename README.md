@@ -34,9 +34,9 @@ The plugins used by this setup are as follows:
 * [BufTabline](https://github.com:ap/vim-buftabline.git)
 * [ConqueShell](https://github.com/oplatek/Conque-Shell)
 * [Cscope\_maps](https://github.com/vim-scripts/cscope.vim)
-* [CtrlP](https://github.com/kien/ctrlp.vim)
 * [DelimitMate](https://github.com/Raimondi/delimitMate.git)
 * [Fugitive](https://github.com/tpope/vim-fugitive.git)
+* [FZF](https://github.com/junegunn/fzf)
 * [Genutils (dependency for SelectBuf)](https://github.com/vim-scripts/genutils.git)
 * [IndexedSearch](https://github.com/vim-scripts/IndexedSearch)
 * [Matchit](https://github.com/tmhedberg/matchit.git)
@@ -57,6 +57,10 @@ The plugins used by this setup are as follows:
 * [Vim-Multiple-Cursors](https://github.com/terryma/vim-multiple-cursors.git)
 
 Note that the [cscope](http://cscope.sourceforge.net/) application must be installed, as the cscope-maps plugin and several mappings rely on it.
+
+FZF as utilized within this configuration is not a Vim plugin per-se, but rather an
+outside script that is called by a keybinding.  FZF must be installed in the system
+environment to be able to be called from this configuration.
 
 # Colorschemes
 The following colorschemes are provided:

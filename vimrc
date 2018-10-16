@@ -641,7 +641,7 @@ set pastetoggle=<leader>p
 "
 " Trigger fzf
 "
-nnoremap <C-P> :FZF -i -x /src/
+nnoremap <silent> <C-P> :FZF -i -x /src/<CR>
 
 "
 " Invoke the FilterQuickFix function, filtering either the file or content
