@@ -267,6 +267,10 @@ match ExtraWhitespace /\s\+$/
 "
 set shell=zsh
 
+"
+" fzf fuzzy-search
+"
+set rtp+=~/.zsh/fzf
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin Settings
@@ -329,14 +333,16 @@ let delimitMate_expand_cr=2
 "
 " CtrlP settings
 "
-let g:ctrlp_match_window='bottom,order:btt,min:10,max:50,results:200'
+" let g:ctrlp_match_window='bottom,order:btt,min:10,max:50,results:200'
 " let g:ctrlp_cmd='CtrlPMixed'
-let g:ctrlp_root_markers=['ID']
-let g:ctrlp_by_filename=1
-let g:ctrlp_max_files=0
-let g:ctrlp_open_multiple_files='2vjr'
-let g:ctrlp_lazy_update=500
-let g:ctrlp_max_depth=50
+" let g:ctrlp_root_markers=['ID']
+" let g:ctrlp_by_filename=1
+" let g:ctrlp_max_files=0
+" let g:ctrlp_open_multiple_files='2vjr'
+" let g:ctrlp_lazy_update=500
+" let g:ctrlp_max_depth=50
+" let g:ctrlp_clear_cache_on_exit=0
+" let g:ctrlp_cache_dir='/src/ctrlp-cache'
 
 "
 " Syntastic settings
@@ -345,7 +351,6 @@ let g:syntastic_always_populate_loc_list=1
 let g:syntastic_auto_loc_list=1
 let g:syntastic_check_on_open=1
 let g:syntastic_check_on_wq=0
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Functions and Commands
@@ -632,6 +637,11 @@ nmap <leader>m :call MaximizeToggle()<CR>
 " Toggle paste
 "
 set pastetoggle=<leader>p
+
+"
+" Trigger fzf
+"
+nnoremap <C-P> :FZF -i -x /src/
 
 "
 " Invoke the FilterQuickFix function, filtering either the file or content
