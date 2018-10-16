@@ -78,10 +78,6 @@
 	path = bundle/syntastic
 	url = git://github.com/scrooloose/syntastic.git
     ignore = dirty
-[submodule "bundle/ctrlp"]
-	path = bundle/ctrlp
-	url = git://github.com/kien/ctrlp.vim.git
-    ignore = dirty
 [submodule "bundle/indexedSearch"]
 	path = bundle/indexedSearch
 	url = git://github.com/vim-scripts/IndexedSearch.git
