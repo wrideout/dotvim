@@ -42,7 +42,7 @@ set autochdir
 "
 " Enable the mouse for all four modes.
 "
-set mouse=a
+" set mouse=a
 
 "
 " Terminal colors
@@ -315,7 +315,7 @@ let g:scratch_autohide=0
 "
 " Make the Scratch window bigger
 "
-let g:scratch_height=0.125
+let g:scratch_height=0.5
 
 "
 "
@@ -369,7 +369,7 @@ let g:syntastic_check_on_wq=0
 " <name>.h to indicate header files.  Also, the names of the implementation and
 " header files must be the same, excepting the file extensions.
 "
-" Since cscope automatically exands search parameters, the regex for matching
+" Since cscope automatically expands search parameters, the regex for matching
 " all permutations of C and C++ file extensions is simply [hH] and [cC].  This
 " covers all extensions beginning with either a captial or lowercase 'h' and
 " 'c'.  Brilliant.
@@ -379,7 +379,7 @@ let g:syntastic_check_on_wq=0
 " directory, and if multiple matches exist for a query, they are listed for
 " selection.
 "
-" Use of this function relies on cscope indices, which must be " generated prior
+" Use of this function relies on cscope indices, which must be generated prior
 " to the use of the commands.
 "
 " Arguments to the GetAlternate function indicate orientation.  The mappings are
@@ -389,7 +389,7 @@ let g:syntastic_check_on_wq=0
 "   * 'h': HORIZONTAL; split the existing buffer in half holizontally, and
 "     display the alternate file in the new buffer;
 "
-"   * 'n': VERTICAL: split the existing buffer in half vertically and display
+"   * 'v': VERTICAL: split the existing buffer in half vertically and display
 "     the alternate file in the new buffer.
 "
 " Note that this will only work if the cscopequickfix variable includes 'f0' or
@@ -500,11 +500,11 @@ endfunction
 "
 function! TaskList()
     " if has ('cscope')
-        " execute "cscope find e WHR TODO"
+        " execute "cscope find e WRIDEOUT TODO"
     " else
-        execute "vimgrep/WHR TODO/gj %"
-        execute "copen"
-    endif
+    execute "vimgrep/WRIDEOUT TODO/gj %"
+    execute "copen"
+    " endif
 endfunction
 command! Tasks :execute TaskList()
 

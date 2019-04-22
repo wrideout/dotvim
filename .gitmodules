@@ -123,3 +123,6 @@
 [submodule "bundle/falcon"]
 	path = bundle/falcon
 	url = git://github.com/fenetikm/falcon.git
+[submodule "bundle/vim_sleuth"]
+	path = bundle/vim_sleuth
+	url = git://github.com/tpope/vim-sleuth.git
