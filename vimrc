@@ -59,7 +59,7 @@ colorscheme PaperColor
 " colorscheme solarized
 set background=dark
 " set background=light
-highlight Comment cterm=italic
+" highlight Comment cterm=italic
 
 
 "
@@ -107,6 +107,11 @@ set indentkeys-=0#
 " they will all be listed.
 "
 set wildmode=longest,list
+
+"
+" Case-insensitive file search for open.
+"
+set wildignorecase
 
 "
 " This effectively sets backspace to 'indent,eol,start'.  This in turn means
@@ -196,9 +201,10 @@ set history=10000
 set hidden
 
 "
-" Always open new windows on the right side of the main buffer
+" Always open new windows on the right side and bottom of the main buffer
 "
 set splitright
+set splitbelow
 
 "
 " Tell vim to remember certain things when we exit
@@ -310,12 +316,12 @@ let VCSCommandSplit='vertical'
 "
 " Turn off the autohide functionality of Scratch.
 "
-let g:scratch_autohide=0
+" let g:scratch_autohide=0
 
 "
 " Make the Scratch window bigger
 "
-let g:scratch_height=0.5
+" let g:scratch_height=0.5
 
 "
 "
@@ -535,29 +541,17 @@ function! MultiModeGrep(mode)
 endfunction
 
 "
-" Maximize the current window in the buffer, without losing the underlying
-" layout of all the open buffers.  The quickfix list is closed before any other
-" operation, to avoid having a new unpopulated quickfix window opened when the
-" original layout is restored.
+" Maximize the current buffer by opening it in a new tab.
 "
+let  g:buf_is_max = 0
 function! MaximizeToggle()
-    " This is the part of the code that returns the layout to its previous
-    " config.
-    if exists("s:maximize_session")
-        exec "source " . s:maximize_session
-        call delete(s:maximize_session)
-        unlet s:maximize_session
-        let &hidden = s:maximize_hidden_save
-        unlet s:maximize_hidden_save
-    " Maximize the current buffer
-    else
-        cclose
-        let s:maximize_hidden_save = &hidden
-        let s:maximize_session = tempname()
-        set hidden
-        exec "mksession! " . s:maximize_session
-        only
-    endif
+   if g:buf_is_max
+      execute "tabclose"
+      let g:buf_is_max = 0
+   else
+      execute "tabedit %"
+      let g:buf_is_max = 1
+   endif
 endfunction
 
 "
@@ -568,11 +562,6 @@ function! PerformExternalCommand(command)
    if a:command == "CANCELOP"
       return
    else
-      " vsplit
-      " enew
-      " setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
-      " execute "$read !". a:command
-      " setlocal nomodifiable
       execute "AsyncRun " . a:command
    endif
 endfunction
@@ -591,13 +580,27 @@ function! AfterQF()
     bot cwindow
 endfunction
 
+"
+" Scratch buffer
+"
+function! OpenScratchBuffer()
+   execute "split __SCRATCH__"
+   set buftype=nofile
+endfunction
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Shortcuts (Alphabetically Sorted)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Toggle SelectBuf
 "
-nmap <silent> <unique> <leader>b <Plug>SelectBuf
+nmap <silent> <unique> <leader>B <Plug>SelectBuf
+
+"
+" Toggle the background hue, either to dark or light
+"
+call togglebg#map("")
+nnoremap <leader>bb :ToggleBG<CR>
 
 "
 " Toggle NERDComment on the current line, or current selection
@@ -665,9 +668,20 @@ nnoremap <leader>qc :call FilterQFList(1, 1, inputdialog('Keep only lines matchi
 " endif
 
 "
+" Open the scratch buffer
+"
+nnoremap <leader>s :call OpenScratchBuffer()<CR>
+
+"
 " Toggle the Tagbar
 "
 nnoremap <leader>t :TagbarToggle<CR>
+
+"
+" Terminal emulator, horizontal and vertical splits
+"
+nnoremap <leader>th :term<CR>
+nnoremap <leader>tv :vert term<CR>
 
 "
 " Invoke some common uses for the VCSCommand plugin
@@ -680,6 +694,11 @@ nnoremap <leader>vl :VCSLog<CR>
 nnoremap <leader>vr :VCSReview<CR>
 nnoremap <leader>vs :VCSStatus<CR>
 nnoremap <leader>vu :VCSUpdate<CR>
+
+"
+" Custom execution function
+"
+nnoremap <leader>x :call PerformExternalCommand(inputdialog("shell>> ", "", "CANCELOP"))<CR>
 
 "
 " Use the arrow keys to move the current line or selection up or down, and to
@@ -706,17 +725,6 @@ vnoremap <Space> za
 " warned: this breaks the Undo/Redo behavior of vim
 "
 inoremap {{ {<CR>}<Esc>O
-
-"
-" Toggle the background hue, either to dark or light
-"
-call togglebg#map("")
-nnoremap <leader>bb :ToggleBG<CR>
-
-"
-" Custom execution function
-"
-nnoremap <leader>x :call PerformExternalCommand(inputdialog("shell>> ", "", "CANCELOP"))<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Autocmds
@@ -749,6 +757,11 @@ autocmd QuickFixCmdPost    l* nested lwindow
 " Call SyntasticCheck pylint when saving Python files.
 "
 " autocmd! BufWritePost *.py :call SyntasticCheck pylint
+
+"
+" Settings specific to the built-in terminal
+"
+autocmd BufWinEnter * if &buftype == 'terminal' | echom "it worked!" | endif
 
 source /home/wrideout/.vim_local.vim
 
