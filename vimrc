@@ -765,3 +765,4 @@ autocmd BufWinEnter * if &buftype == 'terminal' | echom "it worked!" | endif
 
 source /home/wrideout/.vim_local.vim
 
+
